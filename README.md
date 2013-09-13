@@ -17,7 +17,7 @@ The Find part (representing PB):
 The Replace part (representing C++):
 `if ({cond}) { {statement} }{nl}`
 
-Note: These should be entered from within uCalc Transform instead of raw text as shown above.  uCalc Transform also includes configurable properties for each Find/Replace pair. 
+![uCalc Transform](http://www.ucalc.com/images/pbtocpp.png "uCalc Transform Example")
 
 ### How to help
 
@@ -33,7 +33,7 @@ Here are various ways you can contribute:
    - Use the current version of uCalc Language builder to construct your Find/Replace patterns.
    - Test it.
    - Click where it says: "[Add a description]" in uCalc Transform (on the bottom right of the save button), and identfy yourself as the author of that section, along with a summary of what you're contributing.  Note: Each individual Find/Replace creteria also includes a Comment property.  You may also enter text in a Find box, and remove the checkmark (so it is ignored) to have it serve as a comment for items below.
-   - Save it (and all of your future changes) in a file named after your GitHub profile name, and upload to the /convert directory.  Note: these will periodically be merged with pb-to-cpp.uc.
-   - Upload the test code you tested it with, in the /test directory.
+   - Save it and upload it along with the test code you used.
 
+- Make suggestions, ask questions, cheer the project on, invite others to join, etc.
    
