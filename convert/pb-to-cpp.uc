@@ -1,10 +1,10 @@
-# convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 1.8 on 9/12/2013 7:34:47 PM
+# C:\Misc\convert.uc - uCalc Transformation file
+# This file was saved with uCalc Transform 2.0 on 12/9/2013 8:54:12 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
 
 FindMode: Replace
 
@@ -30,6 +30,7 @@ CodeBlockSensitive: True
 FilterEndText: 
 FilterSeparator: {#10}
 FilterSort: False
+FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
 Min: 0
@@ -58,7 +59,6 @@ Find: {nl}%{equate} = {value%}
 Replace: {nl}const int {equate} = {value};
 
 Criteria: 3
-Selected: True
 BackColor: Green
 Find: %{equate}
 Replace: {equate}
@@ -91,6 +91,15 @@ Replace: {type} {name}({args}) {
          }
 
 Criteria: 8
+Selected: True
+Find: Sub {name} ([{args%}]){nl}
+         {code%+}
+      End Sub
+Replace: void {name}({args}) {
+            {code}
+         }
+
+Criteria: 9
 Find: For {x} = {start} To {stop} [Step {inc=1}]{nl}
          {code%+}
       Next
@@ -98,39 +107,39 @@ Replace: for ({x}={start}; {x}{@Eval: IIF(sgn({inc})>0, '<', '>')}={stop}; x += 
             {code}
          }
 
-Criteria: 9
+Criteria: 10
 BackColor: Orange
 Find: Dim {var} As {type%}
 Replace: {type} {var};
 
-Criteria: 10
+Criteria: 11
 BackColor: SandyBrown
 PassOnce: False
 Find: Dim {var1}, {more}
 Replace: Dim {var1}
          Dim {more}
 
-Criteria: 11
+Criteria: 12
 BackColor: DeepSkyBlue
 Find: Function = {value}
 Replace: return {value};
 
-Criteria: 12
+Criteria: 13
 BackColor: Lime
 Find: Long
 Replace: long
 
-Criteria: 13
+Criteria: 14
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 14
+Criteria: 15
 BackColor: SlateBlue
 Find: ByRef {arg} As {type%:1}
 Replace: {type}& {arg}
 
-Criteria: 15
+Criteria: 16
 BackColor: Pink
 Find: ByVal {arg} As {type%:1}
 Replace: {type} {arg}
