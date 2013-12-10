@@ -1,5 +1,5 @@
-# C:\Misc\convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/9/2013 8:54:12 AM
+# convert.uc - uCalc Transformation file
+# This file was saved with uCalc Transform 2.0 on 12/10/2013 10:22:31 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -91,7 +91,6 @@ Replace: {type} {name}({args}) {
          }
 
 Criteria: 8
-Selected: True
 Find: Sub {name} ([{args%}]){nl}
          {code%+}
       End Sub
@@ -108,38 +107,47 @@ Replace: for ({x}={start}; {x}{@Eval: IIF(sgn({inc})>0, '<', '>')}={stop}; x += 
          }
 
 Criteria: 10
+Selected: True
+Find: While {cond%} {nl}
+         {code%+}
+      Wend
+Replace: while ({cond}) {
+            {code}
+         }
+
+Criteria: 11
 BackColor: Orange
 Find: Dim {var} As {type%}
 Replace: {type} {var};
 
-Criteria: 11
+Criteria: 12
 BackColor: SandyBrown
 PassOnce: False
 Find: Dim {var1}, {more}
 Replace: Dim {var1}
          Dim {more}
 
-Criteria: 12
+Criteria: 13
 BackColor: DeepSkyBlue
 Find: Function = {value}
 Replace: return {value};
 
-Criteria: 13
+Criteria: 14
 BackColor: Lime
 Find: Long
 Replace: long
 
-Criteria: 14
+Criteria: 15
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 15
+Criteria: 16
 BackColor: SlateBlue
 Find: ByRef {arg} As {type%:1}
 Replace: {type}& {arg}
 
-Criteria: 16
+Criteria: 17
 BackColor: Pink
 Find: ByVal {arg} As {type%:1}
 Replace: {type} {arg}
