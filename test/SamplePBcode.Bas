@@ -19,3 +19,10 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
       Next
    End If
 End Function
+
+Sub MySub(ByVal x As Long)
+   While x < 10
+      Ret = MyFunction(x, 10.5)
+      x = x+1
+   Wend   
+End Sub
