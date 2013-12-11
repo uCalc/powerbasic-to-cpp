@@ -4,6 +4,8 @@
 %MyEquate = &h100
 %Other = &h200
 
+Global ProgStatus As Long
+
 Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
    Dim x As Long, y As Long
    Dim yVar As Long, MyValue&
@@ -21,8 +23,14 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
 End Function
 
 Sub MySub(ByVal x As Long)
+   Local y As Long
+   Register z As Long
+
+   ProgStatus = 10
+
    While x < 10
-      Ret = MyFunction(x, 10.5)
+      y = MyFunction(x, 10.5)
+      z = x*2
       x = x+1
    Wend   
 End Sub
