@@ -1,5 +1,5 @@
 # convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/11/2013 12:34:34 PM
+# This file was saved with uCalc Transform 2.0 on 12/12/2013 10:07:36 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -116,8 +116,8 @@ Replace: while ({cond}) {
 
 Criteria: 11
 BackColor: Orange
-Find: Dim {var} As {type%}
-Replace: {type} {var};
+Find: Dim {var} As {type%} [{ptr: Ptr}]
+Replace: {type} {ptr:*}{var};
 
 Criteria: 12
 BackColor: SandyBrown
@@ -134,26 +134,35 @@ Find: { Local | Global | Register }
 Replace: Dim
 
 Criteria: 14
+Find: @
+Replace: *
+
+Criteria: 15
+BackColor: Silver
+Find: VarPtr({var})
+Replace: &{var}
+
+Criteria: 16
 BackColor: DeepSkyBlue
 Find: Function = {value}
 Replace: return {value};
 
-Criteria: 15
+Criteria: 17
 BackColor: Lime
 Find: Long
 Replace: long
 
-Criteria: 16
+Criteria: 18
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 17
+Criteria: 19
 BackColor: SlateBlue
 Find: ByRef {arg} As {type%:1}
 Replace: {type}& {arg}
 
-Criteria: 18
+Criteria: 20
 BackColor: Pink
 Find: ByVal {arg} As {type%:1}
 Replace: {type} {arg}
