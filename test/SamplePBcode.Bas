@@ -23,14 +23,15 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
 End Function
 
 Sub MySub(ByVal x As Long)
-   Local y As Long
+   Local y As Long, Test As Long Ptr
    Register z As Long
 
    ProgStatus = 10
 
    While x < 10
       y = MyFunction(x, 10.5)
-      z = x*2
+      Test = VarPtr(x)
+      z = @Test + 5
       x = x+1
    Wend   
 End Sub
