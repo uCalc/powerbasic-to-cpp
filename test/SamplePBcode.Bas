@@ -7,7 +7,7 @@
 Global ProgStatus As Long
 
 Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
-   Dim x As Long, y As Long
+   Dim x As Long, y As Long, Test(a+25) As Long
    Dim yVar As Long, MyValue&
    ' Dim q As Long
    ' I don't want the commented line above to be translated
@@ -16,14 +16,14 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
       For x = 1 To 10
          For yVar = 10 To 1 Step -1
             If x > y then Function = a+y
-            If y < %MyEquate Then Function = 123
+            If y < %MyEquate Then Function = Test(x-y)*10
          Next
       Next
    End If
 End Function
 
 Sub MySub(ByVal x As Long)
-   Local y As Long, Test As Long Ptr
+   Local y As Long, Test As Long Ptr, Number(10) As Single, Other(x) As Long
    Register z As Long
 
    ProgStatus = 10
@@ -31,7 +31,7 @@ Sub MySub(ByVal x As Long)
    While x < 10
       y = MyFunction(x, 10.5)
       Test = VarPtr(x)
-      z = @Test + 5
+      Number(z) = @Test + Other(5+x)
       x = x+1
    Wend   
 End Sub
