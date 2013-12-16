@@ -6,6 +6,11 @@
 
 Global ProgStatus As Long
 
+Type point
+   x As Long
+   y As Long
+End Type
+
 Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
    Dim x As Long, y As Long, Test(a+25) As Long
    Dim yVar As Long, MyValue&
