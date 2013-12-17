@@ -6,6 +6,14 @@
 
 Global ProgStatus As Long
 
+#If %Def(%Other)
+' Something
+#ElseIf Not %Def(%abcd)
+' Something else
+#Else
+' Etc
+#EndIf
+
 Type point
    x As Long
    y As Long
