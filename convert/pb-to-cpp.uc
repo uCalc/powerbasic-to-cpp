@@ -1,5 +1,5 @@
 # convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/16/2013 9:05:30 AM
+# This file was saved with uCalc Transform 2.0 on 12/17/2013 2:30:45 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -147,7 +147,6 @@ Find: { Dim | {member: {nl}}} {var:1} As {type%} [{ptr: Ptr}]
 Replace: {member: {nl}}{type} {ptr:*}{var};
 
 Criteria: 15
-Selected: True
 Find: Dim {array}({subscript}) As {type%}
 Replace: {type} *{array} = new {type} [{subscript}+1];{@Eval:
             Insert(ArrayNames, "{array}")
@@ -191,21 +190,46 @@ Find: Single
 Replace: float
 
 Criteria: 23
+Find: Double
+Replace: double
+
+Criteria: 24
 BackColor: SlateBlue
 Find: ByRef {arg} As {type%:1}
 Replace: {type}& {arg}
 
-Criteria: 24
+Criteria: 25
 BackColor: Pink
 Find: ByVal {arg} As {type%:1}
 Replace: {type} {arg}
 
-Criteria: 25
+Criteria: 26
 Find: Type {name:1}
          {members%+}
       End Type
 Replace: struct {name} {
             {members}
          }
+
+Criteria: 27
+Find: #If
+Replace: #if
+
+Criteria: 28
+Find: #Else
+Replace: #else
+
+Criteria: 29
+Find: #ElseIf
+Replace: #elif
+
+Criteria: 30
+Find: #EndIf
+Replace: #endif
+
+Criteria: 31
+Selected: True
+Find: [{NOT: Not }] %Def({const%})
+Replace: {NOT:!}defined {const}
 
 # End Search
