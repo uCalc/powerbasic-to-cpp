@@ -25,6 +25,9 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
    ' Dim q As Long
    ' I don't want the commented line above to be translated
 
+   MySub(a)
+   x = MySub(b)+1
+
    If b > 5 Then
       For x = 1 To 10
          For yVar = 10 To 1 Step -1
@@ -40,6 +43,7 @@ Sub MySub(ByVal x As Long)
    Register z As Long
 
    ProgStatus = 10
+   y = x + 1 : z = y+x : Other(x) = x+1
 
    While x < 10
       y = MyFunction(x, 10.5)
