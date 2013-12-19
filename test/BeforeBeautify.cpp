@@ -1,5 +1,6 @@
 // This is improperly intended code
 // Beautify.uc will fix this
+// To be fixed: quotes in parenth; example with else
 
 const int MyEquate = 0x100;
 const int Other = 0x200;
