@@ -31,6 +31,7 @@ long MyFunction(long a, float& b)
    
    MySub(a);
    x = MySub(b)+1;
+   printf("Hello world");
    
    if (b > 5) {
       for (x=1; x<=10; x += 1) {
@@ -66,7 +67,15 @@ void MySub(long x)
       Test = &x;
       Number[z] = *Test + Other[5+x];
       x = x+1;
-   }   
+   }
+   
+   if (x > 5) {
+      y = 10;
+      z = 5+x;
+   } else {
+      y=y+1;
+      z=x-1;
+   }
    
    delete[] Other;
    delete[] Other;
