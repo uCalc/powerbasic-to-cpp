@@ -1,6 +1,5 @@
 // This is improperly intended code
 // Beautify.uc will fix this
-// To be fixed: quotes in parenth; example with else
 
 const int MyEquate = 0x100;
 const int Other = 0x200;
@@ -32,7 +31,7 @@ long *Test = new long [a+25+1];
   // I don't want the commented line above to be translated
 
 MySub(a);
-x = MySub(b)+1;
+x = MySub(b)+1; printf("Hello world");
 
    if (b > 5) {
    for (x=1; x<=10; x += 1) {
@@ -65,7 +64,9 @@ long *Other = new long [x+1];
       Number[z] = *Test + Other[5+x];
       x = x+1;
 
-}   
+}
+
+if (x > 5) { y = 10; z = 5+x; } else {y=y+1; z=x-1;}
 
 delete[] Other;
 delete[] Other;
