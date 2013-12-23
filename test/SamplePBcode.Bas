@@ -52,3 +52,27 @@ Sub MySub(ByVal x As Long)
       x = x+1
    Wend   
 End Sub
+
+Sub TestCertainOperators()
+   Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr
+
+   For x = 1 To 10
+      n = y = z ' This works differently in PB than in C++     
+      MyArray(x) = x*2
+      If x = 5 Then y = x+5 Else y = 23*2
+      y = x = z : MyArray(5) = MyArray(n) = MyArray(n+1)
+      If x = y = z Then y = n = 2 Else y = n = 3
+      If x = y And x <> 10 Or y = x And x < 25 Then y = x Or y = z
+      If (x = y And x <> 10 Or y = x And x < 25) Then y = x Or y = z
+      If (x = y And x <> 10) Or y = x And x < 25 Then y = x Or y = z
+      If Not(x = y Or x = z) Then x = y + 10
+      If Not(x = y Or x = z) Then x = y + 10
+
+      If x <> y Then MyPoint.x = y Else MyPoint.x = x
+
+      pp = VarPtr(p)
+      MyPoint.x = MyPoint.y+1
+      n = MyPoint.x = MyPoint.y
+      @pp.x = @pp.y = @pp.x+1
+   Next
+End Sub
