@@ -53,7 +53,13 @@ Sub MySub(ByVal x As Long)
    Wend   
 End Sub
 
-Sub TestCertainOperators()
+Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (underscore)
+                         ByVal y As Long, _ This is a commment (even without ')
+                         ByVal z As Long, _
+                         ByRef OtherVar As Double,    _ Everything after _ is a comment
+                         ByVal FinalArg As Single Ptr _
+                        )
+
    Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr
 
    For x = 1 To 10
