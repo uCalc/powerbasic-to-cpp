@@ -19,6 +19,17 @@ Type point
    y As Long
 End Type
 
+Type MyBits
+   Year       As Bit * 7 In Long
+   Month      As Bit * 5
+   DayOfMonth As Bit * 4
+   DayOfWeek  As Bit * 3
+   Red        As Bit * 1 In Byte
+   Blue       As Bit * 1
+   Green      As Bit * 1
+   Other      As Double
+End Type
+
 Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
    Dim x As Long, y As Long, Test(a+25) As Long
    Dim yVar As Long, MyValue&
