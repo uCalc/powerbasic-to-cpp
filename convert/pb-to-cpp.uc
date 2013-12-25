@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/24/2013 3:36:28 PM
+# This file was saved with uCalc Transform 2.0 on 12/25/2013 12:13:02 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -55,6 +55,7 @@ Replace: {@Define:
             Var: Array As String
             Var: ArrayNames As Table
             Var: CleanUp As String
+            Var: BitType As String
          }
 
 Criteria: 2
@@ -227,67 +228,79 @@ Replace: {member: {nl}}{type} {ptr:*}{var};
 
 Criteria: 31
 PassOnce: False
+Find: {nl} {bitfield:1} As Bit * {size} [{in: In {type}}]
+Replace: {nl}unsigned {@Eval:
+            IIf("{type}" <> "", SetVar(BitType, "{type}"))
+            BitType
+         } {bitfield} : {size};
+
+Criteria: 32
+PassOnce: False
 Find: Dim {array}({subscript}) As {type}
 Replace: {type} *{array} = new {type} [{subscript}+1];{@Eval:
             Insert(ArrayNames, "{array}")
          }{@Define:: Syntax: {array}({index}) ::= {array}[{index}]} 
 
-Criteria: 32
+Criteria: 33
 BackColor: SandyBrown
 PassOnce: False
 Find: Dim {var1}, {more}
 Replace: Dim {var1}
          Dim {more}
 
-Criteria: 33
+Criteria: 34
 BackColor: Gold
 PassOnce: False
 Find: { Local | Global | Register }
 Replace: Dim
 
-Criteria: 34
+Criteria: 35
 Find: @
 Replace: *
 
-Criteria: 35
+Criteria: 36
 BackColor: Silver
 Find: VarPtr({var})
 Replace: &{var}
 
-Criteria: 36
+Criteria: 37
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: Function = {value}
 Replace: return {value};
 
-Criteria: 37
+Criteria: 38
 BackColor: Lime
 Find: Long
 Replace: long
 
-Criteria: 38
+Criteria: 39
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 39
+Criteria: 40
 Find: Double
 Replace: double
 
-Criteria: 40
+Criteria: 41
+Selected: True
+Find: Byte
+Replace: char
+
+Criteria: 42
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 41
-Selected: True
+Criteria: 43
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 42
+Criteria: 44
 PassOnce: False
 Find: Type {name:1}
          {members+}
@@ -296,41 +309,47 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 43
+Criteria: 45
 Find: #If
 Replace: #if
 
-Criteria: 44
+Criteria: 46
 Find: #Else
 Replace: #else
 
-Criteria: 45
+Criteria: 47
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 46
+Criteria: 48
 Find: #EndIf
 Replace: #endif
 
-Criteria: 47
+Criteria: 49
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 48
+Criteria: 50
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 49
+Criteria: 51
 SkipOver: True
 Find: { "{" | "}" | ; | //{".*"} | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 50
+Criteria: 52
+Comment: Skips over so that colons in bit fields are not affected
+SkipOver: True
+Find: struct {name:1} "{" {members+} "}"
+Replace: [Skip over]
+
+Criteria: 53
 Find: :
 Replace: ;
 
-Criteria: 51
+Criteria: 54
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
