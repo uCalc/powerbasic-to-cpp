@@ -20,7 +20,7 @@ Type point
 End Type
 
 Type MyBits
-   Year       As Bit * 7 In Long
+   Year       As Bit * 7 In Dword
    Month      As Bit * 5
    DayOfMonth As Bit * 4
    DayOfWeek  As Bit * 3
@@ -30,19 +30,27 @@ Type MyBits
    Other      As Double
 End Type
 
+Function PBMain() As Long
+   ' Do things
+End Function
+
+Function MyFunc(ByVal x As Long) As Long
+   Function = x + 1
+End Function
+
 Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
    Dim x As Long, y As Long, Test(a+25) As Long
    Dim yVar As Long, MyValue&
    ' Dim q As Long
-   ' I don't want the commented line above to be translated
+   ' Commented line above does not get translated
 
    MySub(a)
-   x = MySub(b)+1
+   x = MyFunc(b)+1
 
    If b > 5 Then
       For x = 1 To 10
          For yVar = 10 To 1 Step -1
-            If x > y then Function = a+y
+            If x > y Then Function = a+y
             If y < %MyEquate Then Function = Test(x-y)*10
          Next
       Next
@@ -50,7 +58,8 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
 End Function
 
 Sub MySub(ByVal x As Long)
-   Local y As Long, Test As Long Ptr, Number(10) As Single, Other(x) As Long
+   Local y As Long, Test As Long Ptr
+   Dim Number(10) As Single, Other(x) As Long
    Register z As Long
 
    ProgStatus = 10
@@ -61,7 +70,7 @@ Sub MySub(ByVal x As Long)
       Test = VarPtr(x)
       Number(z) = @Test + Other(5+x)
       x = x+1
-   Wend   
+   Wend
 End Sub
 
 Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (underscore)
@@ -71,10 +80,10 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
                          ByVal FinalArg As Single Ptr _
                         )
 
-   Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr
+   Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr, n As Long
 
    For x = 1 To 10
-      n = y = z ' This works differently in PB than in C++     
+      n = y = z ' This works differently in PB than in C++
       MyArray(x) = x*2
       If x = 5 Then y = x+5 Else y = 23*2
       y = x = z : MyArray(5) = MyArray(n) = MyArray(n+1)
@@ -87,7 +96,7 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
 
       If x <> y Then MyPoint.x = y Else MyPoint.x = x
 
-      pp = VarPtr(p)
+      pp = VarPtr(MyPoint)
       MyPoint.x = MyPoint.y+1
       n = MyPoint.x = MyPoint.y
       @pp.x = @pp.y = @pp.x+1
