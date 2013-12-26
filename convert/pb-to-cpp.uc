@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/25/2013 12:13:02 PM
+# This file was saved with uCalc Transform 2.0 on 12/26/2013 4:49:10 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -123,8 +123,9 @@ Find: { {nl}[%]|Then|Else|For|: } {var:" *[a-z\@\.]+"}[({index})] =
 Replace: [Skip over]
 
 Criteria: 16
+Selected: True
 SkipOver: True
-Find: { #If | #ElseIf } Not
+Find: { { #If | #ElseIf } Not | ' {comment:".*"} }
 Replace: [Skip over]
 
 Criteria: 17
@@ -211,9 +212,9 @@ Replace: while ({cond}) {
 Criteria: 29
 Find: !!ReleaseDynamicArrays!!
 Replace: {@Eval:
-            CleanUp = ""
-            Array = ReadKey(ArrayNames, x)
+            CleanUp = ""   
             uc_For(x, 1, Count(ArrayNames), 1,
+               Array = ReadKey(ArrayNames, x)
                CleanUp=CleanUp+"delete[] "+Array+";{nl}"
                Delete(ArrayNames, Array)      
             )
@@ -229,7 +230,7 @@ Replace: {member: {nl}}{type} {ptr:*}{var};
 Criteria: 31
 PassOnce: False
 Find: {nl} {bitfield:1} As Bit * {size} [{in: In {type}}]
-Replace: {nl}unsigned {@Eval:
+Replace: {nl}{@Eval:
             IIf("{type}" <> "", SetVar(BitType, "{type}"))
             BitType
          } {bitfield} : {size};
@@ -284,23 +285,34 @@ Find: Double
 Replace: double
 
 Criteria: 41
-Selected: True
 Find: Byte
-Replace: char
+Replace: unsigned char
 
 Criteria: 42
+Find: Integer
+Replace: short
+
+Criteria: 43
+Find: Word
+Replace: unsigned short
+
+Criteria: 44
+Find: Dword
+Replace: unsigned long
+
+Criteria: 45
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 43
+Criteria: 46
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 44
+Criteria: 47
 PassOnce: False
 Find: Type {name:1}
          {members+}
@@ -309,47 +321,47 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 45
+Criteria: 48
 Find: #If
 Replace: #if
 
-Criteria: 46
+Criteria: 49
 Find: #Else
 Replace: #else
 
-Criteria: 47
+Criteria: 50
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 48
+Criteria: 51
 Find: #EndIf
 Replace: #endif
 
-Criteria: 49
+Criteria: 52
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 50
+Criteria: 53
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 51
+Criteria: 54
 SkipOver: True
 Find: { "{" | "}" | ; | //{".*"} | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 52
+Criteria: 55
 Comment: Skips over so that colons in bit fields are not affected
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 53
+Criteria: 56
 Find: :
 Replace: ;
 
-Criteria: 54
+Criteria: 57
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
