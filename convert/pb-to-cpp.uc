@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/26/2013 4:49:10 PM
+# This file was saved with uCalc Transform 2.0 on 12/27/2013 3:49:26 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -84,8 +84,9 @@ Pass: 2
 
 Criteria: 7
 Comment: Bitwise AND and OR
+Selected: True
 Find: ({expr%})
-Replace: ({@Eval: Replace(Replace(Replace("{expr}", "And", "&"), "Or", "|"), "=", "==")})
+Replace: ({@Eval: Replace(Replace(Replace('{expr}', "And", "&"), "Or", "|"), "=", "==")})
 
 Criteria: 8
 Comment: Logical (short-circuit) AND
@@ -123,7 +124,6 @@ Find: { {nl}[%]|Then|Else|For|: } {var:" *[a-z\@\.]+"}[({index})] =
 Replace: [Skip over]
 
 Criteria: 16
-Selected: True
 SkipOver: True
 Find: { { #If | #ElseIf } Not | ' {comment:".*"} }
 Replace: [Skip over]
