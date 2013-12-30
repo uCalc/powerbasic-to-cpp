@@ -1,5 +1,5 @@
 # beautify.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/20/2013 11:00:34 AM
+# This file was saved with uCalc Transform 2.0 on 12/30/2013 1:43:30 PM
 # Comment: Fixes indentation and spacing in C++ source code
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -85,40 +85,44 @@ Find: {" *; *"}
 Replace: ;
 
 Criteria: 7
+Selected: True
+Find: {" *, *"}
+Replace: ,{sp}
+
+Criteria: 8
 Comment: Handles semicolons
 Pass: 2
 
-Criteria: 8
-Selected: True
+Criteria: 9
 BackColor: Green
 Find: ({params~})
 Replace: ({@Eval: Replace({#3}{params}{#3}, ";", "; ")})
 
-Criteria: 9
+Criteria: 10
 BackColor: SandyBrown
 Find: ;{char:"[^\n]"}
 Replace: ;{nl}{char}
 
-Criteria: 10
+Criteria: 11
 Comment: Performs indentation
 Pass: 3
 
-Criteria: 11
+Criteria: 12
 BackColor: DeepSkyBlue
 Find: {nl}
 Replace: {nl}{indent}
 
-Criteria: 12
+Criteria: 13
 BackColor: DarkKhaki
 Find: "{" [{comment: //{".*"}}]
 Replace: {sp}{{comment: {comment}}{nl}{indent+}{indent}
 
-Criteria: 13
+Criteria: 14
 BackColor: Yellow
 Find: "}" [{comment: //{".*"}}]
 Replace: {nl}{indent-}{indent}}{comment: {comment}}
 
-Criteria: 14
+Criteria: 15
 BackColor: Brown
 Find: {nl}{type:1}{func:1}([{args}])"{"
 Replace: {nl}{type} {func}({args}){nl}{{indent+}{nl}{indent}
