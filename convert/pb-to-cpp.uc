@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 12/27/2013 3:49:26 PM
+# This file was saved with uCalc Transform 2.0 on 1/1/2014 6:11:22 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -84,7 +84,6 @@ Pass: 2
 
 Criteria: 7
 Comment: Bitwise AND and OR
-Selected: True
 Find: ({expr%})
 Replace: ({@Eval: Replace(Replace(Replace('{expr}', "And", "&"), "Or", "|"), "=", "==")})
 
@@ -271,48 +270,53 @@ Find: Function = {value}
 Replace: return {value};
 
 Criteria: 38
+Selected: True
+Find: Exit Sub
+Replace: return;
+
+Criteria: 39
 BackColor: Lime
 Find: Long
 Replace: long
 
-Criteria: 39
+Criteria: 40
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 40
+Criteria: 41
 Find: Double
 Replace: double
 
-Criteria: 41
+Criteria: 42
 Find: Byte
 Replace: unsigned char
 
-Criteria: 42
+Criteria: 43
 Find: Integer
 Replace: short
 
-Criteria: 43
+Criteria: 44
 Find: Word
 Replace: unsigned short
 
-Criteria: 44
+Criteria: 45
 Find: Dword
 Replace: unsigned long
 
-Criteria: 45
+Criteria: 46
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 46
+Criteria: 47
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 47
+Criteria: 48
 PassOnce: False
 Find: Type {name:1}
          {members+}
@@ -321,47 +325,47 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 48
+Criteria: 49
 Find: #If
 Replace: #if
 
-Criteria: 49
+Criteria: 50
 Find: #Else
 Replace: #else
 
-Criteria: 50
+Criteria: 51
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 51
+Criteria: 52
 Find: #EndIf
 Replace: #endif
 
-Criteria: 52
+Criteria: 53
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 53
+Criteria: 54
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 54
+Criteria: 55
 SkipOver: True
 Find: { "{" | "}" | ; | //{".*"} | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 55
+Criteria: 56
 Comment: Skips over so that colons in bit fields are not affected
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 56
+Criteria: 57
 Find: :
 Replace: ;
 
-Criteria: 57
+Criteria: 58
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
