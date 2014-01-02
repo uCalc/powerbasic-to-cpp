@@ -51,7 +51,15 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
       For x = 1 To 10
          For yVar = 10 To 1 Step -1
             If x > y Then Function = a+y
-            If y < %MyEquate Then Function = Test(x-y)*10
+            Do While Test(a+5) = yVar
+               Do Until a+1 = 1234
+                  If y < %MyEquate Then Function = Test(x-y)*10
+                  a = a + 1
+                  Do
+                     b = a * 5 + b
+                  Loop Until b = 300
+               Loop
+            Loop
          Next
       Next
    End If
