@@ -1,5 +1,5 @@
-# Parenth.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 11/6/2013 2:41:02 PM
+# parenth.uc - uCalc Transformation file
+# This file was saved with uCalc Transform 2.0 on 1/3/2014 11:42:25 AM
 # Comment: Adds parenthesis around args in function/sub calls that don't have it
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -50,7 +50,6 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Selected: True
 Find: 
 Replace: {@Define::
             Token: [\x27\_].* ~~ Properties: ucWhiteSpace
@@ -62,15 +61,24 @@ Comment:
 Pass: 1
 
 Criteria: 3
+Selected: True
 BackColor: Lime
-Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ([{args}])
+Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
 Replace: {@Eval:
             Args = Remove("{args}", "{ Optional|ByVal|ByRef|As {type:1} [Ptr] | {'[#!@$%&]+'} | () }")
             Args = SetSyntaxParams(Args, Args)
          }{@Define::
-            PassOnce ~~ Syntax: {name} {@Eval: Args} ::= {name}({@Eval: Args})
-            SkipOver ~~ Syntax: {name}({args})
-         {@Eval: "PassOnce ~~ Syntax: {name} "+Args+" ::= {name}("+Args+")"}
+            {@Eval: "PassOnce ~~ Syntax: {name} "+Args+" ::= {name}("+Args+")"}
+            {@Eval: "SkipOver ~~ Syntax: {name} ({etc})"}
          }{Self}
+
+Criteria: 4
+Comment: Temporary solution until a transform for Declare is created
+Pass: 2
+
+Criteria: 5
+BackColor: Yellow
+Find: Declare
+Replace: ' Declare
 
 # End Search
