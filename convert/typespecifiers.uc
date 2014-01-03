@@ -1,5 +1,5 @@
-# TypeSpecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 10/28/2013 5:34:10 PM
+# typespecifiers.uc - uCalc Transformation file
+# This file was saved with uCalc Transform 2.0 on 1/2/2014 4:45:59 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -50,6 +50,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
 Highlight: False
 Find: {@Note:
          This transform does the following:
@@ -63,6 +64,10 @@ Find: {@Note:
       
          The section to the immediate right defines the
          required tables and an array to accomplish this.
+      
+         Bug: LCase() and UCase() are re-defined on the right
+              due to a problem affecting pre-existing LCase/UCase.
+              That is a temp solution.
       }
 Replace: {@Define:
             LineContinue: " _"
@@ -78,6 +83,8 @@ Replace: {@Define:
                  "SNG", "Single", "DBL", "Double", "EXT", "Extended", _
                  "CUR", "Currency", "CUX", "CurrencyX", "STR", "String"}
             Var: dType="(INT|LNG|QUD|BYT|WRD|DWD|SNG|DBL|EXT|CUR|CUX|STR)\b"
+            Func: LCase(c As String) As String = IIF(Asc(c) > 64 and Asc(c) < 91, Chr(Asc(c)+32), c)
+            Func: UCase(c As String) As String = IIF(Asc(c) > 96 and Asc(c) < 123, Chr(Asc(c)-32), c)
          }{@Define:: Token: \x27.* ~~ Properties: ucWhitespace}
 
 Criteria: 2
@@ -159,7 +166,6 @@ Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}{spec:"[!?@#$%&]+"}
 Replace: <Arg>{by} {name} As {@Eval: ReadStr(Specifier, "{spec}")}
 
 Criteria: 14
-Selected: True
 Highlight: False
 SkipOver: True
 Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1} As
