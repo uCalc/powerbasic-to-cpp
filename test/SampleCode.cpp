@@ -1,6 +1,9 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// using uCalc Transform 2.0 on 1/3/2014 12:25:15 PM using the Open Source 
+// with uCalc Transform 2.0 on 1/6/2014 10:36:06 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
+
+#include <string>
+using namespace std;
 
 //  File name: SampleCode.Bas
 //  To convert this file to C++ make sure you have uCalc Transform on your PC
@@ -168,7 +171,7 @@ void TestCertainOperators(int x, int y, int z, double& OtherVar, float *FinalArg
 
 
 float MyValue;
-String Label;
+string Label;
 Currency Price;
 double ExtVal;
 long long qNum;
@@ -178,9 +181,9 @@ int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
    Print MyValue, Label, PriceB;
 }
 
-String Report(String& LastName, int x, double& NewPrice, float& n, short i, float& nValue, long long& qValue)
+string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, long long& qValue)
 {
-   String FirstName;
+   string FirstName;
    unsigned char Age;
    double Total;
    static int Index;
@@ -189,7 +192,7 @@ String Report(String& LastName, int x, double& NewPrice, float& n, short i, floa
    Report = FirstName + LastName;
 }
 
-String Hello(String& txt)
+string Hello(string& txt)
 {
    Print txt;
    return txt + " friend!";
@@ -208,7 +211,7 @@ unsigned char Bye() {
 //  Declare Function SetCursorPos Lib "USER32.DLL" Alias "SetCursorPos" (ByVal x As Long, ByVal y As Long) As Long
 //  Declare Sub      SetLastError(Lib "KERNEL32.DLL" Alias "SetLastError" (ByVal dwErrCode As Dword))
 
-void DoSomething(int Arg1, String& txt, double& Number, Optional unsigned int *xyz)
+void DoSomething(int Arg1, string& txt, double& Number, Optional unsigned int *xyz)
 {
    SetCursorPos(10, Arg1 + 5);
    if (Arg1 == 15) {
@@ -234,3 +237,24 @@ float main()
    ShellExecute(0, "Open", "ReadMe.Txt", $Nul, $Nul, SW_ShowNormal);
 } int;
 
+//  This section tests transforms found in strings.uc
+string StringTest(string& MyString, string OtherString)
+{
+   string MyText;
+   int i;
+   string Txt;
+   string x;
+   string y;
+   
+   i = (MyString.find("abc", (1)-1)+1);
+   i = (MyString.find("xyz", (i+10)-1)+1)*2;
+   i = (MyString.find_first_of("aeiou", (1)-1)+1);
+   //    i = InStr(i+10, "This is a test")
+   //    i = InStr("This is a test", ANY "aeiou")
+   MyText = MyString.substr(0, 3) + OtherString.substr((5)-1, 10) + x.substr(x.length()-(i+1), i+1);
+   if (MyText.substr((3)-1, 5) == y) {
+      MyText.replace((20)-1, MyText.length(), "Test" + to_string(i*15));
+   }
+   x.replace((25)-1, stold(y) +1, y);
+   MyString.replace((25)-1, 5, y.substr((stold(x) )-1, 7));
+}
