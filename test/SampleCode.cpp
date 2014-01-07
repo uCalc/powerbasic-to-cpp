@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.0 on 1/6/2014 10:36:06 AM using the Open Source 
+// with uCalc Transform 2.0 on 1/7/2014 8:26:45 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <string>
@@ -242,9 +242,11 @@ string StringTest(string& MyString, string OtherString)
 {
    string MyText;
    int i;
+   wstring MyWideStr;
    string Txt;
    string x;
    string y;
+   wstring z;
    
    i = (MyString.find("abc", (1)-1)+1);
    i = (MyString.find("xyz", (i+10)-1)+1)*2;
