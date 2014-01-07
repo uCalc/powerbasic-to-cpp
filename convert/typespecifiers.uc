@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 1/6/2014 10:33:05 AM
+# This file was saved with uCalc Transform 2.0 on 1/7/2014 8:22:32 AM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -76,7 +76,8 @@ Replace: {@Define:
                  {"%", "Integer", "&", "Long", "&&", "Quad", _
                   "?", "Byte", "??", "Word", "???", "DWORD", _
                   "!", "Single", "#", "double", "##", "Extended", _
-                  "@", "Currency", "@@", "CurrencyX", "$", "string"}
+                  "@", "Currency", "@@", "CurrencyX", _
+                  "$", "string", "$$", "wstring"}
             Var: DefType As Table = _
                  {"INT", "Integer", "LNG", "Long", "QUD", "Quad", _
                  "BYT", "Byte", "WRD", "Word", "DWD", "Dword", _
