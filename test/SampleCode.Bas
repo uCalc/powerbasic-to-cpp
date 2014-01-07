@@ -175,8 +175,8 @@ End Function
 
 ' This section tests transforms found in strings.uc
 Function StringTest(MyString$, ByVal OtherString As String) As String
-   Dim MyText$, i As Long
-   Dim Txt As String, x$, y$
+   Dim MyText$, i As Long, MyWideStr As WString
+   Dim Txt As String, x$, y$, z$$
 
    i = InStr(MyString$, "abc")
    i = InStr(i+10, MyString$, "xyz")*2
