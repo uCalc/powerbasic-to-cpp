@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 1/6/2014 10:22:38 AM
+# This file was saved with uCalc Transform 2.0 on 1/7/2014 8:21:28 AM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -55,66 +55,70 @@ Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 2
-Selected: True
 Find: String
 Replace: string
 
 Criteria: 3
+Selected: True
+Find: WString
+Replace: wstring
+
+Criteria: 4
 Find: {@Start}
 Replace: #include <string>
          using namespace std;{nl}{nl}
 
-Criteria: 4
+Criteria: 5
 BackColor: DodgerBlue
 PassOnce: False
 Find: InStr([{n=1},] {MainStr}, {MatchStr})
       
 Replace: ({MainStr}.find({MatchStr}, ({n})-1)+1)
 
-Criteria: 5
+Criteria: 6
 BackColor: Tomato
 PassOnce: False
 Find: InStr([{n=1},] {MainStr}, Any {MatchStr})
 Replace: ({MainStr}.find_first_of({MatchStr}, ({n})-1)+1)
 
-Criteria: 6
+Criteria: 7
 BackColor: DarkKhaki
 PassOnce: False
 Find: [{Sep: {nl} | : | Then | Else}] Mid$({Str}, {Start})
 Replace: {Sep} Mid$({Str}, {Start}, {Str}.length())
 
-Criteria: 7
+Criteria: 8
 BackColor: Red
 PassOnce: False
 Find: Left$({Str}, {n})
 Replace: {Str}.substr(0, {n})
 
-Criteria: 8
+Criteria: 9
 BackColor: Brown
 PassOnce: False
 Find: Right$({Str}, {n})
 Replace: {Str}.substr({Str}.length()-({n}), {n})
 
-Criteria: 9
+Criteria: 10
 BackColor: Orange
 PassOnce: False
 Find: Mid$({Str}, {Start}, {Length})
 Replace: {Str}.substr(({Start})-1, {Length})
 
-Criteria: 10
+Criteria: 11
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: {Sep: {nl} | : | Then | Else }
       Mid$({Str}, {Start}, {Length}) = {Txt%}
 Replace: {Sep} {Str}.replace(({Start})-1, {Length}, {Txt})
 
-Criteria: 11
+Criteria: 12
 BackColor: RoyalBlue
 PassOnce: False
 Find: Val({Str})
 Replace: stold({Str}) 
 
-Criteria: 12
+Criteria: 13
 BackColor: Pink
 PassOnce: False
 Find: Str$({Number})
