@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.0 on 1/7/2014 8:26:45 AM using the Open Source 
+// with uCalc Transform 2.0 on 1/8/2014 10:20:45 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <string>
@@ -25,6 +25,9 @@ int ProgStatus;
 #else
 //  Etc
 #endif
+
+#define MyMacroNum 12345
+#define MyMacro(a, b, c) (a + b * (c))
 
 struct point {
    int x;
