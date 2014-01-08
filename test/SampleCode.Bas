@@ -20,6 +20,9 @@ Global ProgStatus As Long
 ' Etc
 #EndIf
 
+Macro MyMacroNum = 12345
+Macro MyMacro(a, b, c) = (a + b * (c))
+
 Type point
    x As Long
    y As Long
