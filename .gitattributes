@@ -1,3 +1,4 @@
 *.uc text eol=crlf
 *.Bas text eol=crlf
+*.Bat text eol=crlf
 *.cpp text eol=crlf
