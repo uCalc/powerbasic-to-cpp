@@ -1,5 +1,5 @@
 # parenth.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 1/3/2014 11:42:25 AM
+# This file was saved with uCalc Transform 2.0 on 1/10/2014 2:42:03 PM
 # Comment: Adds parenthesis around args in function/sub calls that don't have it
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -57,10 +57,6 @@ Replace: {@Define::
          }{@Define: Var: Args As String}
 
 Criteria: 2
-Comment: 
-Pass: 1
-
-Criteria: 3
 Selected: True
 BackColor: Lime
 Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
@@ -71,14 +67,5 @@ Replace: {@Eval:
             {@Eval: "PassOnce ~~ Syntax: {name} "+Args+" ::= {name}("+Args+")"}
             {@Eval: "SkipOver ~~ Syntax: {name} ({etc})"}
          }{Self}
-
-Criteria: 4
-Comment: Temporary solution until a transform for Declare is created
-Pass: 2
-
-Criteria: 5
-BackColor: Yellow
-Find: Declare
-Replace: ' Declare
 
 # End Search
