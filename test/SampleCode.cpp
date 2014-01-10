@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.0 on 1/8/2014 10:20:45 AM using the Open Source 
+// with uCalc Transform 2.0 on 1/10/2014 2:53:13 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <string>
@@ -210,9 +210,9 @@ unsigned char Bye() {
 //  without parentheses.  The converter adds them.
 
 // #Include "Win32API.inc"
-//  Declare Function ShellExecute Lib "SHELL32.DLL" Alias "ShellExecuteA" (ByVal hwnd As Dword, lpOperation As Asciiz, lpFile As Asciiz, lpParameters As Asciiz, lpDirectory As Asciiz, ByVal nShowCmd As Long) As Dword
-//  Declare Function SetCursorPos Lib "USER32.DLL" Alias "SetCursorPos" (ByVal x As Long, ByVal y As Long) As Long
-//  Declare Sub      SetLastError(Lib "KERNEL32.DLL" Alias "SetLastError" (ByVal dwErrCode As Dword))
+extern __declspec(dllimport) unsigned int ShellExecute(unsigned int hwnd, lpOperation As LPCSTR, lpFile As LPCSTR, lpParameters As LPCSTR, lpDirectory As LPCSTR, int nShowCmd);
+extern __declspec(dllimport) int SetCursorPos(int x, int y);
+extern __declspec(dllimport) void SetLastError(unsigned int dwErrCode);
 
 void DoSomething(int Arg1, string& txt, double& Number, Optional unsigned int *xyz)
 {
