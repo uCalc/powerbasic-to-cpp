@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 1/10/2014 2:52:37 PM
+# This file was saved with uCalc Transform 2.0 on 1/13/2014 12:12:16 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -155,21 +155,22 @@ Replace: [Skip over]
 Criteria: 18
 Highlight: True
 PassOnce: False
-Find: Sub {name}([{args}]) [{comment:" *'.*"}] {nl}
+Find: Sub {name:1} [Alias {alias}]([{args}])[{exp: Export}] [{comment:" *'.*"}] {nl}
          {code+}
       End Sub
-Replace: void {name}({args}) { {comment}
+Replace: {exp:extern "C" __declspec(dllexport)} void {exp:__stdcall} {name}({args}) { {comment}
             {code}
          !!ReleaseDynamicArrays!!}
 
 Criteria: 19
+Selected: True
 Highlight: True
 BackColor: DarkKhaki
 PassOnce: False
-Find: Function {name}([{args}]) As {type}[{comment:" *'.*"}]{nl}
+Find: Function {name:1} [Alias {alias}]([{args}])[{exp: Export}] As {type}[{comment:" *'.*"}]{nl}
          {code+}
       End Function
-Replace: {type} {name}({args}) { {comment}
+Replace: {exp:extern "C" __declspec(dllexport)} {type} {exp:__stdcall} {name}({args}) { {comment}
             {code}
          !!ReleaseDynamicArrays!!}
 
@@ -406,7 +407,6 @@ Find: Quad
 Replace: long long
 
 Criteria: 54
-Selected: True
 Find: AsciiZ
 Replace: LPCSTR
 
