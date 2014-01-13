@@ -190,3 +190,12 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15)
    Mid$(x$, 25, Val(y$)+1) = y$ : Mid$(MyString$, 25, 5) = Mid$(y$, Val(x$), 7)
 End Function
+
+' This tests exported subs/functions
+Function MyExport Alias "MyExport" (ByVal n As Long) Export As Long
+   StringTest "abc", "xyz"
+End Function
+
+Sub MyExportSub Alias "MyExportSub" (ByVal a, ByVal b) Export
+   DoSomething(1, "xyz", 2, 3)
+End Sub
