@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.0 on 1/10/2014 2:53:13 PM using the Open Source 
+// with uCalc Transform 2.0 on 1/13/2014 5:53:20 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <string>
@@ -201,7 +201,7 @@ string Hello(string& txt)
    return txt + " friend!";
 }
 
-unsigned char Bye() {
+unsigned char  Bye() {
    Print "Bye";
 }
 
@@ -262,4 +262,13 @@ string StringTest(string& MyString, string OtherString)
    }
    x.replace((25)-1, stold(y) +1, y);
    MyString.replace((25)-1, 5, y.substr((stold(x) )-1, 7));
+}
+
+//  This tests exported subs/functions
+extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
+   StringTest("abc", "xyz");
+}
+
+extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char b) {
+   DoSomething(1, "xyz", 2, 3);
 }
