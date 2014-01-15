@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/14/2014 7:28:19 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/15/2014 4:37:12 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <string>
@@ -107,7 +107,8 @@ void MySub(int x)
       x = x+1;
    }
    
-   Array or list bound exceeded
+   delete[] Other;
+   delete[] Number;
 }
 //   ' This line is broken up using a _ (underscore)
 //   This is a commment (even without ')
@@ -165,7 +166,7 @@ void TestCertainOperators(int x, int y, int z, double& OtherVar, float *FinalArg
       *pp.x = *pp.y == *pp.x+1;
    }
    
-   Array or list bound exceeded
+   delete[] MyArray;
 }
 
 //  The section below is a test for variables declared implicitely with data type
@@ -182,7 +183,7 @@ int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
 {
    Print MyValue, Label, PriceB;
    
-   delete[] Other;
+   Label = "Missing quote at the end of this line is added by Refactor.uc";
 }
 
 string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, __int64& qValue)
