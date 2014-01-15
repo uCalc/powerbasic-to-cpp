@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/14/2014 7:19:30 PM
+# This file was saved with uCalc Transform 2.5 on 1/15/2014 3:27:43 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -289,11 +289,12 @@ Replace: do {
          } while ({while: {cond}}{until:!({cond})}) 
 
 Criteria: 36
+Selected: True
 Highlight: True
 Find: !!ReleaseDynamicArrays!!
 Replace: {@Eval:
             CleanUp = ""   
-            uc_For(x, 1, Count(ArrayNames), 1,
+            uc_For(x, Count(ArrayNames), 1, -1,
                Array = ReadKey(ArrayNames, x)
                CleanUp=CleanUp+"delete[] "+Array+";{nl}"
                Delete(ArrayNames, Array)      
@@ -488,7 +489,6 @@ Find: {nl}
 Replace: ;{nl}
 
 Criteria: 68
-Selected: True
 Highlight: True
 Find: Quad
 Replace: __int64
