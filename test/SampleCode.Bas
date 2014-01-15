@@ -130,6 +130,8 @@ Global MyValue!, Label$, Price@, ExtVal##, qNum&&
 
 Function TestFunc(a, b, c, i, s, n)
    Print MyValue!, Label$, PriceB#
+
+   Label$ = "Missing quote at the end of this line is added by Refactor.uc
 End Function
 
 Function Report$(LastName$, ByVal x&, ByRef NewPrice#, n, ByVal i, nValue, qValue)
