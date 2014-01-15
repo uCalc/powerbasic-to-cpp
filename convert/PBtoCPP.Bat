@@ -5,7 +5,7 @@ REM
 REM (Rename MyFile.Bas to anything you'd like)
 REM This will produce MyFile.cpp as output.
 
-uCalcTransform  parenth.uc         %1        %1.1.tmp /Q
+uCalcTransform  refactor.uc        %1        %1.1.tmp /Q
 uCalcTransform  strings.uc         %1.1.tmp  %1.2.tmp /Q
 uCalcTransform  typespecifiers.uc  %1.2.tmp  %1.3.tmp /Q
 uCalcTransform  pb-to-cpp.uc       %1.3.tmp  %1.4.tmp /Q
