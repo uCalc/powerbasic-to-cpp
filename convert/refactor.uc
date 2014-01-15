@@ -1,6 +1,6 @@
-# parenth.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.0 on 1/10/2014 2:42:03 PM
-# Comment: Adds parenthesis around args in function/sub calls that don't have it
+# refactor.uc - uCalc Transformation file
+# This file was saved with uCalc Transform 2.5 on 1/15/2014 4:44:51 PM
+# Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
@@ -16,7 +16,7 @@ FindMode: Replace
 Criteria: 0
 Enabled: True
 Exclude: False
-Comment: Adds parenthesis around args in function/sub calls that don't have it
+Comment: This rewrites code in more proper PB form
 Selected: False
 Highlight: False
 ForeColor: ControlText
@@ -50,6 +50,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
 Find: 
 Replace: {@Define::
             Token: [\x27\_].* ~~ Properties: ucWhiteSpace
@@ -57,7 +58,7 @@ Replace: {@Define::
          }{@Define: Var: Args As String}
 
 Criteria: 2
-Selected: True
+Comment: Adds parenthesis around args in function/sub calls that do not have it
 BackColor: Lime
 Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
 Replace: {@Eval:
@@ -67,5 +68,15 @@ Replace: {@Eval:
             {@Eval: "PassOnce ~~ Syntax: {name} "+Args+" ::= {name}("+Args+")"}
             {@Eval: "SkipOver ~~ Syntax: {name} ({etc})"}
          }{Self}
+
+Criteria: 3
+Comment: Adds closing quote for quoted text with missing closing quote
+BackColor: DarkKhaki
+Find: {QuotedText:"\q[^\q\n]*"}{nl}
+Replace: {QuotedText}"{nl}
+
+Criteria: 4
+Find: 
+Replace: 
 
 # End Search
