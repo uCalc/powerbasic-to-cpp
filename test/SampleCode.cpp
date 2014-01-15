@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.0 on 1/13/2014 5:53:20 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/14/2014 7:28:19 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <string>
@@ -107,8 +107,7 @@ void MySub(int x)
       x = x+1;
    }
    
-   delete[] Number;
-   delete[] Other;
+   Array or list bound exceeded
 }
 //   ' This line is broken up using a _ (underscore)
 //   This is a commment (even without ')
@@ -141,10 +140,10 @@ void TestCertainOperators(int x, int y, int z, double& OtherVar, float *FinalArg
       if (x == y && x != 10 || y == x && x < 25) {
          y = x || y == z;
       }
-      if ((x == y & x <> 10 | y == x & x < 25)) {
+      if ((x == y & x != 10 | y == x & x < 25)) {
          y = x || y == z;
       }
-      if ((x == y & x <> 10) || y == x && x < 25) {
+      if ((x == y & x != 10) || y == x && x < 25) {
          y = x || y == z;
       }
       if (~(x == y | x == z)) {
@@ -166,7 +165,7 @@ void TestCertainOperators(int x, int y, int z, double& OtherVar, float *FinalArg
       *pp.x = *pp.y == *pp.x+1;
    }
    
-   delete[] MyArray;
+   Array or list bound exceeded
 }
 
 //  The section below is a test for variables declared implicitely with data type
@@ -177,14 +176,16 @@ float MyValue;
 string Label;
 Currency Price;
 double ExtVal;
-long long qNum;
+__int64 qNum;
 
 int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
 {
    Print MyValue, Label, PriceB;
+   
+   delete[] Other;
 }
 
-string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, long long& qValue)
+string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, __int64& qValue)
 {
    string FirstName;
    unsigned char Age;
@@ -261,7 +262,7 @@ string StringTest(string& MyString, string OtherString)
       MyText.replace((20)-1, MyText.length(), "Test" + to_string(i*15));
    }
    x.replace((25)-1, stold(y) +1, y);
-   MyString.replace((25)-1, 5, y.substr((stold(x) )-1, 7));
+   MyString.replace((25)-1, 5, y.substr((stold(x))-1, 7));
 }
 
 //  This tests exported subs/functions
