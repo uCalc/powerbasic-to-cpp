@@ -201,3 +201,11 @@ End Function
 Sub MyExportSub Alias "MyExportSub" (ByVal a, ByVal b) Export
    DoSomething(1, "xyz", 2, 3)
 End Sub
+
+' Math test
+' If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
+Function DoMath() As Double
+   If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
+   n = Sqr(x) * Atn(y)
+   y = Fix(3.14159)
+End Function
