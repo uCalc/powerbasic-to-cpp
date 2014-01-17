@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/15/2014 3:27:43 PM
+# This file was saved with uCalc Transform 2.5 on 1/17/2014 3:58:08 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -88,71 +88,39 @@ Find: ' [{comment:".*"}]
 Replace: [Skip over]
 
 Criteria: 6
-Comment: Processes some operators
+Comment: Functions, Subs, =
 Pass: 2
 
 Criteria: 7
-Comment: Bitwise AND and OR
-Highlight: True
-Find: ({expr%})
-Replace: ({@Eval: Replace(Replace('{expr}', "&&", "&"), "||", "|")})
-
-Criteria: 8
-Comment: Logical (short-circuit) AND
-Highlight: True
-Find: And
-Replace: &&
-
-Criteria: 9
-Comment: Logical (short-circuit) OR
-Highlight: True
-Find: Or
-Replace: ||
-
-Criteria: 10
-Highlight: True
-Find: Xor
-Replace: ^
-
-Criteria: 11
-Highlight: True
-Find: Not
-Replace: ~
-
-Criteria: 12
-Highlight: True
-Find: IsFalse
-Replace: !
-
-Criteria: 13
-Highlight: True
-Find: <>
-Replace: !=
-
-Criteria: 14
 Highlight: True
 Find: =
 Replace: ==
 
-Criteria: 15
+Criteria: 8
+Selected: True
+SkipOver: True
+Find: !=
+Replace: [Skip over]
+
+Criteria: 9
 Highlight: True
 SkipOver: True
 Find: { {nl}[%]|Then|Else|For|: } {var:" *[a-z\@\.]+"}[({index})] =
 Replace: [Skip over]
 
-Criteria: 16
+Criteria: 10
 Highlight: True
 SkipOver: True
 Find: { { #If | #ElseIf } Not | ' [{comment:".*"}] }
 Replace: [Skip over]
 
-Criteria: 17
+Criteria: 11
 Highlight: True
 SkipOver: True
 Find: Macro {name}[({params})] =
 Replace: [Skip over]
 
-Criteria: 18
+Criteria: 12
 Highlight: True
 PassOnce: False
 Find: Sub {name:1} [Alias {alias}]([{args}])[{exp: Export}] [{comment:" *'.*"}] {nl}
@@ -162,7 +130,7 @@ Replace: {exp:extern "C" __declspec(dllexport)} void {exp:__stdcall} {name}({arg
             {code}
          !!ReleaseDynamicArrays!!}
 
-Criteria: 19
+Criteria: 13
 Highlight: True
 BackColor: DarkKhaki
 PassOnce: False
@@ -173,72 +141,72 @@ Replace: {exp:extern "C" __declspec(dllexport)} {type} {exp:__stdcall} {name}({a
             {code}
          !!ReleaseDynamicArrays!!}
 
-Criteria: 20
+Criteria: 14
 Highlight: True
 PassOnce: False
 Find: Function PBMain [()] [As Long]
 Replace: Function main() As Long
 
-Criteria: 21
+Criteria: 15
 Highlight: True
 PassOnce: False
 Find: Declare Function {name:1} [Lib {lib}] [Alias {alias}]
       [([{args}])] As {type}
 Replace: {lib: extern __declspec(dllimport)} {type} {name}({args})
 
-Criteria: 22
+Criteria: 16
 Highlight: True
 Find: Declare Sub {name:1} [Lib {lib}] [Alias {alias}]
       [([{args}])] 
 Replace: {lib: extern __declspec(dllimport)} void {name}({args})
 
-Criteria: 23
+Criteria: 17
 Highlight: True
 Find: Static
 Replace: static dim
 
-Criteria: 24
-Comment: 
+Criteria: 18
+Comment: Misc
 Pass: 3
 
-Criteria: 25
+Criteria: 19
 Highlight: True
 SkipOver: True
 Find: // [{comment:".*"}]
 Replace: [Skip over]
 
-Criteria: 26
+Criteria: 20
 Highlight: True
 Find: ' [{comment:".*"}]
 Replace: // {comment}
 
-Criteria: 27
+Criteria: 21
 Highlight: True
 BackColor: Green
 PassOnce: False
 Find: {nl}%{equate} = {value}
 Replace: {nl}const int {equate} = {value};
 
-Criteria: 28
+Criteria: 22
 Highlight: True
 BackColor: Green
 Find: %{equate}
 Replace: {equate}
 
-Criteria: 29
+Criteria: 23
 Highlight: True
 BackColor: SandyBrown
 Find: {"&h"}
 Replace: 0x
 
-Criteria: 30
+Criteria: 24
 Highlight: True
 BackColor: Green
 PassOnce: False
 Find: If {cond} Then {statement} [Else {else}]{nl}
 Replace: if ({cond}) {{statement}{nl}}{else: else {{else}{nl}}}{nl}
 
-Criteria: 31
+Criteria: 25
 Highlight: True
 PassOnce: False
 Find: If {cond} Then {nl}
@@ -248,7 +216,7 @@ Replace: if ({cond}) {
             {code}
          }
 
-Criteria: 32
+Criteria: 26
 Highlight: True
 PassOnce: False
 Find: For {x} = {start} To {stop} [Step {inc=1}]{nl}
@@ -258,7 +226,7 @@ Replace: for ({x}={start}; {x}{@Eval: IIF(sgn({inc})>0, '<', '>')}={stop}; {x} +
             {code}
          }
 
-Criteria: 33
+Criteria: 27
 Highlight: True
 PassOnce: False
 Find: While {cond} {nl}
@@ -268,7 +236,7 @@ Replace: while ({cond}) {
             {code}
          }
 
-Criteria: 34
+Criteria: 28
 Highlight: True
 PassOnce: False
 Find: Do { {while: While} | {until: Until} } {cond} {nl}
@@ -278,7 +246,7 @@ Replace: while ({while: {cond}}{until:!({cond})}) {
             {code}
          }
 
-Criteria: 35
+Criteria: 29
 Highlight: True
 PassOnce: False
 Find: Do{nl}
@@ -288,8 +256,7 @@ Replace: do {
             {code}
          } while ({while: {cond}}{until:!({cond})}) 
 
-Criteria: 36
-Selected: True
+Criteria: 30
 Highlight: True
 Find: !!ReleaseDynamicArrays!!
 Replace: {@Eval:
@@ -302,14 +269,14 @@ Replace: {@Eval:
             CleanUp
          }
 
-Criteria: 37
+Criteria: 31
 Highlight: True
 BackColor: Orange
 PassOnce: False
 Find: { Dim | {member: {nl}}} {var:1} As {type} [{ptr: Ptr}]
 Replace: {member: {nl}}{type} {ptr:*}{var};
 
-Criteria: 38
+Criteria: 32
 Highlight: True
 PassOnce: False
 Find: {nl} {bitfield:1} As Bit * {size} [{in: In {type}}]
@@ -318,7 +285,7 @@ Replace: {nl}{@Eval:
             BitType
          } {bitfield} : {size};
 
-Criteria: 39
+Criteria: 33
 Highlight: True
 PassOnce: False
 Find: Dim {array}({subscript}) As {type}
@@ -326,7 +293,7 @@ Replace: {type} *{array} = new {type} [{subscript}+1];{@Eval:
             Insert(ArrayNames, "{array}")
          }{@Define:: Syntax: {array}({index}) ::= {array}[{index}]} 
 
-Criteria: 40
+Criteria: 34
 Highlight: True
 BackColor: SandyBrown
 PassOnce: False
@@ -334,92 +301,97 @@ Find: Dim {var1}, {more}
 Replace: Dim {var1}
          Dim {more}
 
-Criteria: 41
+Criteria: 35
 Highlight: True
 BackColor: Gold
 PassOnce: False
 Find: { Local | Global | Register }
 Replace: Dim
 
-Criteria: 42
+Criteria: 36
 Highlight: True
 Find: @
 Replace: *
 
-Criteria: 43
+Criteria: 37
 Highlight: True
 BackColor: Silver
 Find: VarPtr({var})
 Replace: &{var}
 
-Criteria: 44
+Criteria: 38
 Highlight: True
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: Function = {value}
 Replace: return {value};
 
-Criteria: 45
+Criteria: 39
 Highlight: True
 Find: Exit Sub
 Replace: return;
 
-Criteria: 46
+Criteria: 40
 Highlight: True
 BackColor: Lime
 Find: Long
 Replace: int
 
-Criteria: 47
+Criteria: 41
 Highlight: True
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 48
+Criteria: 42
 Highlight: True
 Find: { Double | Extended | Ext }
 Replace: double{@Note: May instead use "long double" for Extended}
 
-Criteria: 49
+Criteria: 43
 Highlight: True
 Find: Byte
 Replace: unsigned char
 
-Criteria: 50
+Criteria: 44
 Highlight: True
 Find: Integer
 Replace: short
 
-Criteria: 51
+Criteria: 45
 Highlight: True
 Find: Word
 Replace: unsigned short
 
-Criteria: 52
+Criteria: 46
 Highlight: True
 Find: Dword
 Replace: unsigned int
 
-Criteria: 53
+Criteria: 47
 Find: AsciiZ
 Replace: LPCSTR
 
-Criteria: 54
+Criteria: 48
+Highlight: True
+Find: Quad
+Replace: __int64
+
+Criteria: 49
 Highlight: True
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 55
+Criteria: 50
 Highlight: True
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 56
+Criteria: 51
 Highlight: True
 PassOnce: False
 Find: Type {name:1}
@@ -429,68 +401,63 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 57
+Criteria: 52
 Highlight: True
 Find: Macro {name} [{params: ({paramlist})}] = {replacement}
 Replace: #define {name}{params} {replacement}
 
-Criteria: 58
+Criteria: 53
 Highlight: True
 Find: #If
 Replace: #if
 
-Criteria: 59
+Criteria: 54
 Highlight: True
 Find: #Else
 Replace: #else
 
-Criteria: 60
+Criteria: 55
 Highlight: True
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 61
+Criteria: 56
 Highlight: True
 Find: #EndIf
 Replace: #endif
 
-Criteria: 62
+Criteria: 57
 Highlight: True
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 63
+Criteria: 58
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 64
+Criteria: 59
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 65
+Criteria: 60
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 66
+Criteria: 61
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 67
+Criteria: 62
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
-
-Criteria: 68
-Highlight: True
-Find: Quad
-Replace: __int64
 
 # End Search
