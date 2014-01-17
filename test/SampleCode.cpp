@@ -1,8 +1,8 @@
-#include <math.h>
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/16/2014 12:40:12 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/17/2014 4:30:40 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
+#include <math.h>
 #include <string>
 using namespace std;
 
@@ -280,7 +280,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 //  If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
-   if (x % 2 > lround(sqrt(x^2 + y^2))) {
+   if (x 2 > lround(sqrt(x^2 + y^2))) {
       q++;
    } else {
       q--;
