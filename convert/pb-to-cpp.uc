@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/17/2014 3:58:08 PM
+# This file was saved with uCalc Transform 2.5 on 1/20/2014 4:20:12 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -97,7 +97,6 @@ Find: =
 Replace: ==
 
 Criteria: 8
-Selected: True
 SkipOver: True
 Find: !=
 Replace: [Skip over]
@@ -188,9 +187,10 @@ Find: {nl}%{equate} = {value}
 Replace: {nl}const int {equate} = {value};
 
 Criteria: 22
+Selected: True
 Highlight: True
 BackColor: Green
-Find: %{equate}
+Find: %{equate:"[a-z]+"}
 Replace: {equate}
 
 Criteria: 23
