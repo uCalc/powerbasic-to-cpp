@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/17/2014 4:30:40 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/20/2014 5:57:37 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -264,7 +264,7 @@ string StringTest(string& MyString, string OtherString)
       MyText.replace((20)-1, MyText.length(), "Test" + to_string(i*15));
    }
    x.replace((25)-1, stold(y) +1, y);
-   MyString.replace((25)-1, 5, y.substr((stold(x))-1, 7));
+   MyString.replace((25)-1, 5, y.substr((stold(x) )-1, 7));
 }
 
 //  This tests exported subs/functions
@@ -280,11 +280,12 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 //  If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
-   if (x 2 > lround(sqrt(x^2 + y^2))) {
+   if (x % 2 > lround(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
       q--;
    }
-   n = sqrt(x) * atan(y);
+   n = sqrt(x) * atan(y) + 2 // * x^2 + Tan(x^3-1)^2
+   pow(n == x, 2) + pow(y, 2);
    y = trunc(3.14159);
 }
