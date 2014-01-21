@@ -1,7 +1,8 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/20/2014 5:57:37 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/21/2014 3:11:55 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
+#include <Windows.h>
 #include <math.h>
 #include <string>
 using namespace std;
@@ -241,6 +242,44 @@ float main()
    MyFunc(5);
    
    ShellExecute(0, "Open", "ReadMe.Txt", $Nul, $Nul, SW_ShowNormal);
+   
+   //  File handling test
+   //  Open "MyInput.Txt" For Input As #1
+   _FileHandle(1) = CreateFile("MyInput.Txt", GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
+   
+   //  Open "MyOutput.Txt" For Output As #2
+   _FileHandle(2) = CreateFile("MyOutput.Txt", GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+   
+   //  Open "MyAppend.Txt" For Append As #3
+   _FileHandle(3) = CreateFile("MyAppend.Txt", GENERIC_WRITE, 0, 0, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+   SetFilePointer(_FileHandle(3), 0, 0, FILE_END);
+   
+   //  Open "MyBin.Txt" For Binary As #tst
+   _FileHandle(tst) = CreateFile("MyBin.Txt", GENERIC_READ Or GENERIC_WRITE, 0, 0, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+   
+   //  Open "MyRandom.Txt" For Random As #r Len = 1
+   _FileHandle(r) = CreateFile("MyRandom.Txt", GENERIC_READ Or GENERIC_WRITE, 0, 0, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+   
+   
+   //  Close #1
+   CloseHandle(_FileHandle(1));
+   _FileHandle(1) = 0;
+   
+   //  Close #2
+   CloseHandle(_FileHandle(2));
+   _FileHandle(2) = 0;
+   
+   //  Close #3
+   CloseHandle(_FileHandle(3));
+   _FileHandle(3) = 0;
+   
+   //  Close #tst
+   CloseHandle(_FileHandle(tst));
+   _FileHandle(tst) = 0;
+   
+   //  Close #r
+   CloseHandle(_FileHandle(r));
+   _FileHandle(r) = 0;
 } int;
 
 //  This section tests transforms found in strings.uc
