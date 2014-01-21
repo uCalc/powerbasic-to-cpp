@@ -176,6 +176,16 @@ Function PBMain()
    MyFunc 5
 
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
+
+   ' File handling test
+   Open "MyInput.Txt" For Input As #1
+   Open "MyOutput.Txt" For Output As #2
+   Open "MyAppend.Txt" For Append As #3
+   Open "MyBin.Txt" For Binary As #tst
+   Open "MyRandom.Txt" For Random As #r Len = 1
+
+   Close #1
+   Close 2, #3, #tst, r
 End Function
 
 ' This section tests transforms found in strings.uc
