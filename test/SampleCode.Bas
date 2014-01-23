@@ -184,6 +184,10 @@ Function PBMain()
    Open "MyBin.Txt" For Binary As #tst
    Open "MyRandom.Txt" For Random As #r Len = 1
 
+   i = Lof(tst)
+   i = Seek(#tst)
+   Seek #tst, i+100
+
    Close #1
    Close 2, #3, #tst, r
 End Function
