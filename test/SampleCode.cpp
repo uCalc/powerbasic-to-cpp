@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/22/2014 11:18:31 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/23/2014 5:57:04 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
@@ -263,6 +263,7 @@ float main()
    
    i = GetFileSize(_FileHandle(tst), 0);
    i = SetFilePointer(_FileHandle(tst), 0, 0, FILE_CURRENT)+1;
+   i = IIf(Seek(1) == LOF(1)+1, -1, 0);
    SetFilePointer(_FileHandle(tst), i+100-1, 0, FILE_BEGIN);
    
    //  Close #1
