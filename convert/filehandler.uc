@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/22/2014 11:01:56 PM
+# This file was saved with uCalc Transform 2.5 on 1/23/2014 5:55:48 PM
 # Comment: 
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -121,16 +121,20 @@ Find: Seek([#] {filenum})
 Replace: SetFilePointer(_FileHandle({filenum}), 0, 0, FILE_CURRENT)+1
 
 Criteria: 9
-Selected: True
 BackColor: SlateBlue
 Find: LOF({filenum})
 Replace: GetFileSize(_FileHandle({filenum}), 0)
 
 Criteria: 10
+Selected: True
+Find: EOF({filenum})
+Replace: IIf(Seek({filenum}) = LOF({filenum})+1, -1, 0)
+
+Criteria: 11
 Comment: 
 Pass: 2
 
-Criteria: 11
+Criteria: 12
 BackColor: Yellow
 Find: CreateFile({arg1}{nl}{args+})
 Replace: {@Eval: Replace('{Self}', '{"[ \n]+"}', ' ')}
