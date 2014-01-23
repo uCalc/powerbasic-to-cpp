@@ -186,7 +186,8 @@ Function PBMain()
 
    i = Lof(tst)
    i = Seek(#tst)
-   Seek #tst, i+100
+   i = eof(1)
+   Seek #tst, i+100   
 
    Close #1
    Close 2, #3, #tst, r
