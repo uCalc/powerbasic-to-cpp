@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/21/2014 3:11:55 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/22/2014 11:18:31 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
@@ -260,6 +260,10 @@ float main()
    //  Open "MyRandom.Txt" For Random As #r Len = 1
    _FileHandle(r) = CreateFile("MyRandom.Txt", GENERIC_READ Or GENERIC_WRITE, 0, 0, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
    
+   
+   i = GetFileSize(_FileHandle(tst), 0);
+   i = SetFilePointer(_FileHandle(tst), 0, 0, FILE_CURRENT)+1;
+   SetFilePointer(_FileHandle(tst), i+100-1, 0, FILE_BEGIN);
    
    //  Close #1
    CloseHandle(_FileHandle(1));
