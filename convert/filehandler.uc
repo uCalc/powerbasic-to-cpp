@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/21/2014 2:50:03 PM
+# This file was saved with uCalc Transform 2.5 on 1/22/2014 11:01:56 PM
 # Comment: 
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -66,7 +66,6 @@ Replace: #include <Windows.h>
          
 
 Criteria: 4
-Selected: True
 BackColor: DeepSkyBlue
 Find: Open {filespec}
       { For {{Input: Input}|{Output: Output}|{Append: Append}|{Binary: Binary}|{Random: Random}}|{Default: } }
@@ -113,10 +112,25 @@ Replace: Close {file1}
          Close {more}
 
 Criteria: 7
+BackColor: Pink
+Find: Seek [#] {filenum}, {position}
+Replace: SetFilePointer(_FileHandle({filenum}), {position}-1, 0, FILE_BEGIN)
+
+Criteria: 8
+Find: Seek([#] {filenum})
+Replace: SetFilePointer(_FileHandle({filenum}), 0, 0, FILE_CURRENT)+1
+
+Criteria: 9
+Selected: True
+BackColor: SlateBlue
+Find: LOF({filenum})
+Replace: GetFileSize(_FileHandle({filenum}), 0)
+
+Criteria: 10
 Comment: 
 Pass: 2
 
-Criteria: 8
+Criteria: 11
 BackColor: Yellow
 Find: CreateFile({arg1}{nl}{args+})
 Replace: {@Eval: Replace('{Self}', '{"[ \n]+"}', ' ')}
