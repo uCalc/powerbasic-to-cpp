@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/23/2014 5:57:04 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/24/2014 1:27:11 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
@@ -230,6 +230,7 @@ float main()
 {
    double x;
    double pi;
+   string MyString;
    DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
    
    DoSomething(10, "abc", 5, 1);
@@ -263,7 +264,7 @@ float main()
    
    i = GetFileSize(_FileHandle(tst), 0);
    i = SetFilePointer(_FileHandle(tst), 0, 0, FILE_CURRENT)+1;
-   i = IIf(Seek(1) == LOF(1)+1, -1, 0);
+   i = (Seek(1) == LOF(1)+1 ? -1 : 0);
    SetFilePointer(_FileHandle(tst), i+100-1, 0, FILE_BEGIN);
    
    //  Close #1
@@ -285,6 +286,10 @@ float main()
    //  Close #r
    CloseHandle(_FileHandle(r));
    _FileHandle(r) = 0;
+   
+   
+   i = (x > 1 ? Sin(x)+1 : Cos(x)-1) * 2;
+   MyString = (x>50 ? MyString.substr(0, 10) : MyString.substr((25)-1, MyString.length()));
 } int;
 
 //  This section tests transforms found in strings.uc
