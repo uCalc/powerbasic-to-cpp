@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/21/2014 3:02:22 PM
+# This file was saved with uCalc Transform 2.5 on 1/24/2014 1:25:49 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -102,7 +102,6 @@ Find: !=
 Replace: [Skip over]
 
 Criteria: 9
-Selected: True
 Highlight: True
 SkipOver: True
 Find: { {nl}[%]|Then|Else|For|: } {var:" *[a-z\@\.\_]+"}[({index})] =
@@ -459,5 +458,10 @@ Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
+
+Criteria: 63
+Selected: True
+Find: IIf[$]({cond}, {this}, {that})
+Replace: ({cond} ? {this} : {that})
 
 # End Search
