@@ -206,6 +206,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    i = InStr(MyString$, ANY "aeiou")
 '   i = InStr(i+10, "This is a test")
 '   i = InStr("This is a test", ANY "aeiou")
+   x$ = Space$(25)
    MyText$ = Left$(MyString$, 3) + Mid$(OtherString, 5, 10) + Right$(x$, i+1)
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15)
    Mid$(x$, 25, Val(y$)+1) = y$ : Mid$(MyString$, 25, 5) = Mid$(y$, Val(x$), 7)
