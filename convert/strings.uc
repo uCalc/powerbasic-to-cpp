@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/27/2014 5:47:33 PM
+# This file was saved with uCalc Transform 2.5 on 1/28/2014 6:05:22 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -124,7 +124,17 @@ Find: Str$({Number})
 Replace: to_string({Number})
 
 Criteria: 14
+Selected: True
 Find: Space$({count})
-Replace: string({count}, " ")
+Replace: string({count}, _char( ))
+
+Criteria: 15
+Find: String$({count}, {char})
+Replace: string({count}, {char})
+
+Criteria: 16
+BackColor: Violet
+Find: String$({count}, {q}{char}{q})
+Replace: string({count}, _char({char}))
 
 # End Search
