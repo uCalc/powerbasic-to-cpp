@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/27/2014 5:49:24 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/28/2014 6:10:30 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
@@ -308,7 +308,7 @@ string StringTest(string& MyString, string OtherString)
    i = (MyString.find_first_of("aeiou", (1)-1)+1);
    //    i = InStr(i+10, "This is a test")
    //    i = InStr("This is a test", ANY "aeiou")
-   x = string(25, " ");
+   x = string(25, ' ') + string(10, '*') + string(10, 65);
    MyText = MyString.substr(0, 3) + OtherString.substr((5)-1, 10) + x.substr(x.length()-(i+1), i+1);
    if (MyText.substr((3)-1, 5) == y) {
       MyText.replace((20)-1, MyText.length(), "Test" + to_string(i*15));
