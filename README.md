@@ -3,7 +3,18 @@ powerbasic-to-cpp
 
 Converts PowerBASIC source code to C++ using uCalc Transform.
 
-If you write programs using PowerBASIC and would like to extend the reach of your software to smartphones and tablets, and various platforms like Mac OS, Android, Linux at large, or if you want to have a 64-bit version of your DLL for Windows, then one solution is to convert your code to C++, which can then be re-compiled on these other platforms.  You can still continue developing in PowerBASIC, and later perform the auto-conversion of your code to C++ when needed.
+If you write programs using PowerBASIC and would like to extend the reach of your software to smartphones and tablets and other operating systems, with platforms like iOS, Mac OS X, Linux, Android, Windows Phone OS, etc, or if you want to have a 64-bit version of your DLL for Windows, then one solution is to convert your code to C++, which can then be re-compiled on these other platforms.  You can still continue developing in PowerBASIC, and later perform the auto-conversion of your code to C++ when needed.
+
+### How To
+
+To convert your source code with this tool, do the following:
+   1. Download uCalc Transform from http://www.ucalc.com/transform.html
+   2. Click the `Download ZIP` button found on this page
+   3. Place the file(s) you want to convert in the same directory as the files from this page
+   4. Run uCalc Transform, then click on the `C:\> Batch` button
+   5. Go to the directory containing your file(s), and type: PBtoCPP.Bat MyFile.Bas
+
+(where MyFile.Bas is the file you want to convert)
 
 ### Using uCalc Transform
 ![uCalc Transform](http://www.ucalc.com/images/pbtocpp.png "uCalc Transform Example")
@@ -20,7 +31,7 @@ The Replace part (representing C++):
 
 ### How to help
 
-Your help is needed in creating Search/Replace patterns covering as many PowerBASIC statements and constructs as possible.  PowerBASIC is close enough to Visual Basic in a number of ways, so VB users can also help.  Even C++ users who don't program in any flavor of BASIC can help with C++ parts.   On the other hand, if you don't do any C++, there's plenty you can do, such as work on transforms that refactor PowerBASIC code before it is translated to C++.  There's a part for everyone.
+Your help is needed in creating Search/Replace patterns covering as many PowerBASIC statements and constructs as possible.  PowerBASIC is close enough to Visual Basic in a number of ways, so VB users can also help.  Even C++ users who don't program in any flavor of BASIC can help with C++ parts.  On the other hand, if you don't do any C++, there's plenty you can do, such as work on transforms that refactor PowerBASIC code before it is translated to C++.  There's a part for everyone.
 
 Here are various ways you can contribute (choose any combination of these):
 
