@@ -1,9 +1,10 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/28/2014 6:10:30 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/29/2014 3:58:52 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
 #include <math.h>
+#include "pbstrings.h"
 #include <string>
 using namespace std;
 
@@ -303,9 +304,9 @@ string StringTest(string& MyString, string OtherString)
    string y;
    wstring z;
    
-   i = (MyString.find("abc", (1)-1)+1);
-   i = (MyString.find("xyz", (i+10)-1)+1)*2;
-   i = (MyString.find_first_of("aeiou", (1)-1)+1);
+   i = PB_INSTR(1, MyString, "abc");
+   i = PB_INSTR(i+10, MyString, "xyz")*2;
+   i = PB_INSTR_ANY(1, MyString, "aeiou");
    //    i = InStr(i+10, "This is a test")
    //    i = InStr("This is a test", ANY "aeiou")
    x = string(25, ' ') + string(10, '*') + string(10, 65);
