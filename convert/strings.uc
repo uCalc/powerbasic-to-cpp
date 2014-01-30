@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/29/2014 3:05:36 PM
+# This file was saved with uCalc Transform 2.5 on 1/30/2014 6:28:22 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -69,7 +69,6 @@ Replace: #include "pbstrings.h"
          using namespace std;{nl}{nl}
 
 Criteria: 5
-Selected: True
 BackColor: DodgerBlue
 PassOnce: False
 Find: InStr([{n=1},] {MainStr}, {MatchStr})
@@ -82,57 +81,52 @@ Find: InStr([{n=1},] {MainStr}, Any {MatchStr})
 Replace: PB_INSTR_ANY({n}, {MainStr}, {MatchStr})
 
 Criteria: 7
-BackColor: DarkKhaki
-PassOnce: False
-Find: [{Sep: {nl} | : | Then | Else}] Mid$({Str}, {Start})
-Replace: {Sep} Mid$({Str}, {Start}, {Str}.length())
-
-Criteria: 8
+Selected: True
 BackColor: Red
 PassOnce: False
 Find: Left$({Str}, {n})
-Replace: {Str}.substr(0, {n})
+Replace: PB_LEFT({Str}, {n})
 
-Criteria: 9
+Criteria: 8
 BackColor: Brown
 PassOnce: False
 Find: Right$({Str}, {n})
-Replace: {Str}.substr({Str}.length()-({n}), {n})
+Replace: PB_RIGHT({Str}, {n})
 
-Criteria: 10
+Criteria: 9
 BackColor: Orange
 PassOnce: False
-Find: Mid$({Str}, {Start}, {Length})
-Replace: {Str}.substr(({Start})-1, {Length})
+Find: Mid$({Str}, {Start} [, {Length=FULL_STRING}])
+Replace: PB_MID({Str}, {Start}, {Length})
 
-Criteria: 11
+Criteria: 10
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: {Sep: {nl} | : | Then | Else }
-      Mid$({Str}, {Start}, {Length}) = {Txt%}
-Replace: {Sep} {Str}.replace(({Start})-1, {Length}, {Txt})
+      Mid$({Str}, {Start} [, {Length=FULL_STRING}]) = {Txt%}
+Replace: {Sep} PB_MID_REPLACE({Str}, {Txt}, {Start}, {Length})
 
-Criteria: 12
+Criteria: 11
 BackColor: RoyalBlue
 PassOnce: False
 Find: Val({Str})
 Replace: stold({Str}) 
 
-Criteria: 13
+Criteria: 12
 BackColor: Pink
 PassOnce: False
 Find: Str$({Number})
 Replace: to_string({Number})
 
-Criteria: 14
+Criteria: 13
 Find: Space$({count})
 Replace: string({count}, _char( ))
 
-Criteria: 15
+Criteria: 14
 Find: String$({count}, {char})
 Replace: string({count}, {char})
 
-Criteria: 16
+Criteria: 15
 BackColor: Violet
 Find: String$({count}, {q}{char}{q})
 Replace: string({count}, _char({char}))
