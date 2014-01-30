@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/29/2014 3:58:52 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/30/2014 6:28:44 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
@@ -290,7 +290,7 @@ float main()
    
    
    i = (x > 1 ? Sin(x)+1 : Cos(x)-1) * 2;
-   MyString = (x>50 ? MyString.substr(0, 10) : MyString.substr((25)-1, MyString.length()));
+   MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
 } int;
 
 //  This section tests transforms found in strings.uc
@@ -310,12 +310,14 @@ string StringTest(string& MyString, string OtherString)
    //    i = InStr(i+10, "This is a test")
    //    i = InStr("This is a test", ANY "aeiou")
    x = string(25, ' ') + string(10, '*') + string(10, 65);
-   MyText = MyString.substr(0, 3) + OtherString.substr((5)-1, 10) + x.substr(x.length()-(i+1), i+1);
-   if (MyText.substr((3)-1, 5) == y) {
-      MyText.replace((20)-1, MyText.length(), "Test" + to_string(i*15));
+   MyText = PB_LEFT(MyString, 3) + PB_MID(OtherString, 5, 10) + PB_RIGHT(x, i+1);
+   if (PB_MID(MyText, 3, 5) == y) {
+      PB_MID_REPLACE(MyText, "Test" + to_string(i*15), 20, FULL_STRING);
    }
-   x.replace((25)-1, stold(y) +1, y);
-   MyString.replace((25)-1, 5, y.substr((stold(x) )-1, 7));
+   PB_MID_REPLACE(x, y, 25, stold(y) +1);
+   PB_MID_REPLACE(MyString, PB_MID(y, stold(x), 7), 25, 5);
+   PB_MID_REPLACE(x, y, 25, FULL_STRING);
+   PB_MID_REPLACE(MyString, PB_MID(y, stold(x), FULL_STRING), 25, FULL_STRING);
 }
 
 //  This tests exported subs/functions
