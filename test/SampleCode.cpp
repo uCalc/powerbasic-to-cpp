@@ -1,9 +1,10 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/30/2014 6:28:44 PM using the Open Source 
+// with uCalc Transform 2.5 on 1/31/2014 12:57:11 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
 #include <math.h>
+#include <stdlib.h>
 #include "pbstrings.h"
 #include <string>
 using namespace std;
@@ -307,8 +308,8 @@ string StringTest(string& MyString, string OtherString)
    i = PB_INSTR(1, MyString, "abc");
    i = PB_INSTR(i+10, MyString, "xyz")*2;
    i = PB_INSTR_ANY(1, MyString, "aeiou");
-   //    i = InStr(i+10, "This is a test")
-   //    i = InStr("This is a test", ANY "aeiou")
+   i = PB_INSTR(i+10, "This is a test", "is");
+   i = PB_INSTR_ANY(1, "This is a test", "aeiou");
    x = string(25, ' ') + string(10, '*') + string(10, 65);
    MyText = PB_LEFT(MyString, 3) + PB_MID(OtherString, 5, 10) + PB_RIGHT(x, i+1);
    if (PB_MID(MyText, 3, 5) == y) {
@@ -341,4 +342,7 @@ double DoMath()
    n = sqrt(x) * atan(y) + 2 // * x^2 + Tan(x^3-1)^2
    pow(n == x, 2) + pow(y, 2);
    y = trunc(3.14159);
+   
+   srand(1234);
+   y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
 }
