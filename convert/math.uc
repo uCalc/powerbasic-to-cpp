@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/20/2014 4:50:16 PM
+# This file was saved with uCalc Transform 2.5 on 1/31/2014 12:32:06 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -89,14 +89,15 @@ Pass: 3
 
 Criteria: 8
 Enabled: True
-Selected: True
 Find: {@Start}
       {@Note:   
          ToDo:  \ exp10 frac sgn shift
                eqv imp bin hex oct Not
                and fix LCase for next version
       }
-Replace: #include <math.h>{nl}
+Replace: #include <math.h>
+         #include <stdlib.h>
+         {@Note: rand & srand are in stdlib.h}
 
 Criteria: 9
 Enabled: True
@@ -198,5 +199,21 @@ Enabled: True
 BackColor: Violet
 Find: <>
 Replace: !=
+
+Criteria: 26
+Enabled: True
+Find: Randomize {number}
+Replace: srand({number})
+
+Criteria: 27
+Enabled: True
+Selected: True
+Find: Rnd[()]
+Replace: (rand() / RAND_MAX)
+
+Criteria: 28
+Enabled: True
+Find: Rnd({a}, {b})
+Replace: (rand() % ({b}) + ({a}))
 
 # End Search
