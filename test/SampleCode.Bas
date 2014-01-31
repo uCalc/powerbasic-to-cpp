@@ -204,8 +204,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    i = InStr(MyString$, "abc")
    i = InStr(i+10, MyString$, "xyz")*2
    i = InStr(MyString$, ANY "aeiou")
-'   i = InStr(i+10, "This is a test")
-'   i = InStr("This is a test", ANY "aeiou")
+   i = InStr(i+10, "This is a test", "is")
+   i = InStr("This is a test", ANY "aeiou")
    x$ = Space$(25) + String$(10, "*") + String$(10, 65)
    MyText$ = Left$(MyString$, 3) + Mid$(OtherString, 5, 10) + Right$(x$, i+1)
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15)
@@ -229,4 +229,7 @@ Function DoMath() As Double
    n = Sqr(x) * Atn(y) + 2 '* x^2 + Tan(x^3-1)^2
    n = x^2 + y^2
    y = Fix(3.14159)
+
+   Randomize 1234
+   y = Rnd + Rnd() + Rnd(1995, 2014)
 End Function
