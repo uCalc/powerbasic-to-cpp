@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 1/31/2014 12:57:11 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/3/2014 6:23:00 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <Windows.h>
@@ -345,4 +345,6 @@ double DoMath()
    
    srand(1234);
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
+   x = (x >> 1);
+   x = (x << 1);
 }
