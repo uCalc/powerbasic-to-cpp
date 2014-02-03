@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/31/2014 12:32:06 PM
+# This file was saved with uCalc Transform 2.5 on 2/3/2014 6:22:47 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -207,7 +207,6 @@ Replace: srand({number})
 
 Criteria: 27
 Enabled: True
-Selected: True
 Find: Rnd[()]
 Replace: (rand() / RAND_MAX)
 
@@ -215,5 +214,16 @@ Criteria: 28
 Enabled: True
 Find: Rnd({a}, {b})
 Replace: (rand() % ({b}) + ({a}))
+
+Criteria: 29
+Enabled: True
+Find: Shift Right {ivar}, {countexpr}
+Replace: {ivar} = ({ivar} >> {countexpr})
+
+Criteria: 30
+Enabled: True
+Selected: True
+Find: Shift Left {ivar}, {countexpr}
+Replace: {ivar} = ({ivar} << {countexpr})
 
 # End Search
