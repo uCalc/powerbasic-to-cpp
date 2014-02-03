@@ -224,7 +224,7 @@ End Sub
 
 ' Math test
 ' If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
-Function DoMath() As Double
+Function DoMath() As Double   
    If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
    n = Sqr(x) * Atn(y) + 2 '* x^2 + Tan(x^3-1)^2
    n = x^2 + y^2
@@ -232,4 +232,6 @@ Function DoMath() As Double
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
+   Shift Right x, 1
+   Shift Left x, 1
 End Function
