@@ -1,11 +1,11 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/5/2014 5:31:22 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/6/2014 5:06:59 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
-#include <iostream>
-#include <fstream>
 #include <math.h>
 #include <stdlib.h>
+#include <iostream>
+#include <fstream>
 #include "pbstrings.h"
 #include <string>
 using namespace std;
@@ -247,78 +247,29 @@ float main()
    
    ShellExecute(0, "Open", "ReadMe.Txt", $Nul, $Nul, SW_ShowNormal);
    
+   BinFile = 1;
+   InFile  = 2;
+   
    //  File handling test
-   //  PB: Open "MyInput.Txt" For Input As #1
-   fstream file_1 ("MyInput.Txt", ;
-   ios;
-   ;in;
-   
-   
-   
-   
-   
-   );
-   //  PB: Open "MyOutput.Txt" For Output As #2
-   fstream file_2 ("MyOutput.Txt", ;
-   
-   ios;
-   ;out Or ios;
-   ;trunc;
-   
-   
-   
-   
-   );
-   //  PB: Open "MyAppend.Txt" For Append As #3
-   fstream file_3 ("MyAppend.Txt", ;
-   
-   
-   ios;
-   ;out Or ios;
-   ;app;
-   
-   
-   
-   );
-   //  PB: Open "MyBin.Txt" For Binary As #tst
-   fstream file_tst ("MyBin.Txt", ;
-   
-   
-   
-   ios;
-   ;binary Or ios;
-   ;out;
-   
-   
-   );
-   //  PB: Open "MyRandom.Txt" For Random As #r Len = 1
-   fstream file_r ("MyRandom.Txt", ;
-   
-   
-   
-   
-   ios;
-   ;binary Or ios;
-   ;out;
-   
-   );
+   fstream file_BinFile (string("MyBin.Txt").c_str(), ios::binary | ios::out);
+   fstream file_InFile (string("MyInput.Txt").c_str(), ios::in);
+   fstream file_3 (string("MyOutput.Txt").c_str(), ios::out | ios::trunc);
+   fstream file_4 (string("MyAppend.Txt").c_str(), ios::out | ios::app);
    
    i = (missing);
-   i = file_tst.tellg()+1;
+   i = file_BinFile.tellg()+1;
    i = file_1.eof();
    file_tst.seekg(i+100-1);
    file_tst.seekp(i+100-1);
    
-   //  PB: Close #1
-   file_1.close();
-   //  PB: Close #2
-   file_2.close();
-   //  PB: Close #3
-   file_3.close();
-   //  PB: Close #tst
-   file_tst.close();
-   //  PB: Close #r
-   file_r.close();
+   MyString.resize(500);
+   file_1.read(&MyString[0], 500);
+   file_1.write(&MyString[0], MyString.size());
+   
+   file_3.close() //  PB: Close #3
+   file_4.close() //  PB: Close #4
+   file_BinFile.close() //  PB: Close #BinFile
+   file_InFile.close() //  PB: Close #InFile
    
    i = (x > 1 ? Sin(x)+1 : Cos(x)-1) * 2;
    MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
