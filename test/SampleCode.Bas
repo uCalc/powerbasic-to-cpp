@@ -177,20 +177,25 @@ Function PBMain()
 
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
 
+   BinFile = FreeFile
+   InFile  = FreeFile
+
    ' File handling test
-   Open "MyInput.Txt" For Input As #1
-   Open "MyOutput.Txt" For Output As #2
-   Open "MyAppend.Txt" For Append As #3
-   Open "MyBin.Txt" For Binary As #tst
-   Open "MyRandom.Txt" For Random As #r Len = 1
+   Open "MyBin.Txt"    For Binary As #BinFile
+   Open "MyInput.Txt"  For Input  As #InFile
+   Open "MyOutput.Txt" For Output As #3
+   Open "MyAppend.Txt" For Append As #4   
 
-   i = Lof(tst)
-   i = Seek(#tst)
+   i = Lof(BinFile)
+   i = Seek(#BinFile)
    i = eof(1)
-   Seek #tst, i+100   
+   Seek #tst, i+100
 
-   Close #1
-   Close 2, #3, #tst, r
+   Get$ #1, 500, MyString$
+   Put$ #1, MyString$
+
+   Close #3
+   Close 4, #BinFile, InFile
 
    i = IIf(x > 1, Sin(x)+1, Cos(x)-1) * 2
    MyString$ = IIf$(x>50, Left$(MyString$, 10), Mid$(MyString$, 25))
