@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/30/2014 6:28:22 PM
+# This file was saved with uCalc Transform 2.5 on 2/7/2014 3:32:34 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -64,8 +64,9 @@ Replace: wstring
 
 Criteria: 4
 Find: {@Start}
-Replace: #include "pbstrings.h"
+Replace: #include <algorithm>
          #include <string>
+         #include "pbstrings.h"
          using namespace std;{nl}{nl}
 
 Criteria: 5
@@ -81,7 +82,6 @@ Find: InStr([{n=1},] {MainStr}, Any {MatchStr})
 Replace: PB_INSTR_ANY({n}, {MainStr}, {MatchStr})
 
 Criteria: 7
-Selected: True
 BackColor: Red
 PassOnce: False
 Find: Left$({Str}, {n})
@@ -130,5 +130,15 @@ Criteria: 15
 BackColor: Violet
 Find: String$({count}, {q}{char}{q})
 Replace: string({count}, _char({char}))
+
+Criteria: 16
+Find: UCase$({text})
+Replace: PB_UCASE({text})
+
+Criteria: 17
+Selected: True
+BackColor: YellowGreen
+Find: LCase$({text})
+Replace: PB_LCASE({text})
 
 # End Search
