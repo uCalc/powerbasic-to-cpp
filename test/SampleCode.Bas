@@ -189,7 +189,7 @@ Function PBMain()
    i = Lof(BinFile)
    i = Seek(#BinFile)
    i = eof(1)
-   Seek #tst, i+100
+   Seek #BinFile, i+100
 
    Get$ #1, 500, MyString$
    Put$ #1, MyString$
@@ -211,6 +211,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    i = InStr(MyString$, ANY "aeiou")
    i = InStr(i+10, "This is a test", "is")
    i = InStr("This is a test", ANY "aeiou")
+   y$ = UCase$(MyString$) + LCase$(MyString$)
    x$ = Space$(25) + String$(10, "*") + String$(10, 65)
    MyText$ = Left$(MyString$, 3) + Mid$(OtherString, 5, 10) + Right$(x$, i+1)
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15)
