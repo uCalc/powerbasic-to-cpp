@@ -1,13 +1,14 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/6/2014 5:06:59 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/7/2014 3:39:45 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
-#include "pbstrings.h"
+#include <algorithm>
 #include <string>
+#include "pbstrings.h"
 using namespace std;
 
 //  File name: SampleCode.Bas
@@ -259,8 +260,8 @@ float main()
    i = (missing);
    i = file_BinFile.tellg()+1;
    i = file_1.eof();
-   file_tst.seekg(i+100-1);
-   file_tst.seekp(i+100-1);
+   file_BinFile.seekg(i+100-1);
+   file_BinFile.seekp(i+100-1);
    
    MyString.resize(500);
    file_1.read(&MyString[0], 500);
@@ -291,6 +292,7 @@ string StringTest(string& MyString, string OtherString)
    i = PB_INSTR_ANY(1, MyString, "aeiou");
    i = PB_INSTR(i+10, "This is a test", "is");
    i = PB_INSTR_ANY(1, "This is a test", "aeiou");
+   y = PB_UCASE(MyString) + PB_LCASE(MyString);
    x = string(25, ' ') + string(10, '*') + string(10, 65);
    MyText = PB_LEFT(MyString, 3) + PB_MID(OtherString, 5, 10) + PB_RIGHT(x, i+1);
    if (PB_MID(MyText, 3, 5) == y) {
