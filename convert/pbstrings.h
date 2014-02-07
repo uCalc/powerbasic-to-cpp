@@ -19,3 +19,7 @@
 #define PB_INSTR_ANY(n, MainStr, MatchStr) ((n) == 0 ? 0 :   \
    (n)>0 ? string(MainStr).find_first_of(MatchStr, (n)-1)+1  \
          : string(MainStr).find_last_of(MatchStr, string(MainStr).length()+(n))+1)
+
+inline string PB_UCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.begin(), ::toupper); return Str;}
+
+inline string PB_LCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.begin(), ::tolower); return Str;}
