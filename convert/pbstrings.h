@@ -20,6 +20,14 @@
    (n)>0 ? string(MainStr).find_first_of(MatchStr, (n)-1)+1  \
          : string(MainStr).find_last_of(MatchStr, string(MainStr).length()+(n))+1)
 
-inline string PB_UCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.begin(), ::toupper); return Str;}
+inline string PB_UCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.begin(), ::toupper); return Str; }
 
-inline string PB_LCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.begin(), ::tolower); return Str;}
+inline string PB_LCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.begin(), ::tolower); return Str; }
+
+// +++ For now only [L|R]Trim$ with one arg, or with with "ANY" for 2nd arg is impelemented
+
+#define PB_TRIM_ANY(Str, chars) PB_LTRIM_ANY(PB_RTRIM_ANY(Str, chars))
+
+inline string PB_LTRIM_ANY(string Str, string chars) { return Str.substr(Str, Str.find_first_not_of(chars)); }
+
+inline string PB_RTRIM_ANY(string Str, string chars) { Str.erase(Str.find_last_not_of(chars)+1); return Str; }
