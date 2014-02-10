@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/7/2014 3:39:45 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/10/2014 9:31:21 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -252,7 +252,7 @@ float main()
    InFile  = 2;
    
    //  File handling test
-   fstream file_BinFile (string("MyBin.Txt").c_str(), ios::binary | ios::out);
+   fstream file_BinFile (string("MyBin.Txt").c_str(), ios::binary | ios::in | ios::out);
    fstream file_InFile (string("MyInput.Txt").c_str(), ios::in);
    fstream file_3 (string("MyOutput.Txt").c_str(), ios::out | ios::trunc);
    fstream file_4 (string("MyAppend.Txt").c_str(), ios::out | ios::app);
@@ -294,6 +294,7 @@ string StringTest(string& MyString, string OtherString)
    i = PB_INSTR_ANY(1, "This is a test", "aeiou");
    y = PB_UCASE(MyString) + PB_LCASE(MyString);
    x = string(25, ' ') + string(10, '*') + string(10, 65);
+   x = PB_TRIM_ANY(x, " ")+PB_LTRIM_ANY(x, " ")+PB_RTRIM_ANY(x, " ")+PB_TRIM_ANY(x, ".,! ")+PB_LTRIM_ANY(x, ".,! ")+PB_RTRIM_ANY(x, ".,! ");
    MyText = PB_LEFT(MyString, 3) + PB_MID(OtherString, 5, 10) + PB_RIGHT(x, i+1);
    if (PB_MID(MyText, 3, 5) == y) {
       PB_MID_REPLACE(MyText, "Test" + to_string(i*15), 20, FULL_STRING);
