@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/7/2014 3:32:34 PM
+# This file was saved with uCalc Transform 2.5 on 2/10/2014 9:24:02 AM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -136,9 +136,23 @@ Find: UCase$({text})
 Replace: PB_UCASE({text})
 
 Criteria: 17
-Selected: True
 BackColor: YellowGreen
 Find: LCase$({text})
 Replace: PB_LCASE({text})
+
+Criteria: 18
+Find: Trim$({Str} [, ANY {chars=" "}])
+Replace: PB_TRIM_ANY({Str}, {chars})
+
+Criteria: 19
+BackColor: Gold
+Find: LTrim$({Str} [, ANY {chars=" "}])
+Replace: PB_LTRIM_ANY({Str}, {chars})
+
+Criteria: 20
+Selected: True
+BackColor: Silver
+Find: RTrim$({Str} [, ANY {chars=" "}])
+Replace: PB_RTRIM_ANY({Str}, {chars})
 
 # End Search
