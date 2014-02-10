@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/6/2014 4:49:22 PM
+# This file was saved with uCalc Transform 2.5 on 2/10/2014 9:28:20 AM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -75,12 +75,12 @@ Find: Open {filespec}
       { Lock {{LockRead: Read}|{LockWrite: Write}|{LockBoth: Read Write}|{LockShared: Shared}}|{LockDefault: } }
       As [#]{filenum} [Len = {size=128}]
 Replace: fstream file_{filenum} (string({filespec}).c_str(),
-            {Input: ios::in}
-            {Output: ios::out | ios::trunc}
-            {Append: ios::out | ios::app}
-            {Binary: ios::binary | ios::out}
-            {Random: ios::binary | ios::out}
-            {Default: ios::binary | ios::out}
+            {Input:   ios::in}
+            {Output:  ios::out | ios::trunc}
+            {Append:  ios::out | ios::app}
+            {Binary:  ios::binary | ios::in | ios::out}
+            {Random:  ios::binary | ios::in | ios::out}
+            {Default: ios::binary | ios::in | ios::out}
          );
 
 Criteria: 5
