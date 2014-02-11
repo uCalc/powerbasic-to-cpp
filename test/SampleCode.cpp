@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/10/2014 9:31:21 AM using the Open Source 
+// with uCalc Transform 2.5 on 2/11/2014 9:26:37 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -296,6 +296,8 @@ string StringTest(string& MyString, string OtherString)
    x = string(25, ' ') + string(10, '*') + string(10, 65);
    x = PB_TRIM_ANY(x, " ")+PB_LTRIM_ANY(x, " ")+PB_RTRIM_ANY(x, " ")+PB_TRIM_ANY(x, ".,! ")+PB_LTRIM_ANY(x, ".,! ")+PB_RTRIM_ANY(x, ".,! ");
    MyText = PB_LEFT(MyString, 3) + PB_MID(OtherString, 5, 10) + PB_RIGHT(x, i+1);
+   MyText = PB_EXTRACT(1, MyText, "::") + PB_EXTRACT(5+2*i, x, "::");
+   MyText = PB_EXTRACT_ANY(1, MyText, ".!?") + PB_EXTRACT_ANY(15, y, ".!?");
    if (PB_MID(MyText, 3, 5) == y) {
       PB_MID_REPLACE(MyText, "Test" + to_string(i*15), 20, FULL_STRING);
    }
