@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/10/2014 9:24:02 AM
+# This file was saved with uCalc Transform 2.5 on 2/11/2014 9:24:14 AM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -150,9 +150,17 @@ Find: LTrim$({Str} [, ANY {chars=" "}])
 Replace: PB_LTRIM_ANY({Str}, {chars})
 
 Criteria: 20
-Selected: True
 BackColor: Silver
 Find: RTrim$({Str} [, ANY {chars=" "}])
 Replace: PB_RTRIM_ANY({Str}, {chars})
+
+Criteria: 21
+Selected: True
+Find: Extract$([{start=1},] {MainStr}, {MatchStr})
+Replace: PB_EXTRACT({start}, {MainStr}, {MatchStr})
+
+Criteria: 22
+Find: Extract$([{start=1},] {MainStr}, Any {MatchStr})
+Replace: PB_EXTRACT_ANY({start}, {MainStr}, {MatchStr})
 
 # End Search
