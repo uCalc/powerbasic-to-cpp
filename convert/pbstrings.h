@@ -31,3 +31,7 @@ inline string PB_LCASE(string Str) { std::transform(Str.begin(), Str.end(), Str.
 inline string PB_LTRIM_ANY(string Str, string chars) { return Str.substr(Str, Str.find_first_not_of(chars)); }
 
 inline string PB_RTRIM_ANY(string Str, string chars) { Str.erase(Str.find_last_not_of(chars)+1); return Str; }
+
+inline string PB_EXTRACT(long start, string Str, string Match) { return Str.substr(0, Str.find(Match, start-1)-1); }
+
+inline string PB_EXTRACT_ANY(long start, string Str, string Match) { return Str.substr(0, Str.find_first_of(Match, start-1)-1); }
