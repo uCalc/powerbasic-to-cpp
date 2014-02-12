@@ -35,3 +35,7 @@ inline string PB_RTRIM_ANY(string Str, string chars) { Str.erase(Str.find_last_n
 inline string PB_EXTRACT(long start, string Str, string Match) { return Str.substr(0, Str.find(Match, start-1)-1); }
 
 inline string PB_EXTRACT_ANY(long start, string Str, string Match) { return Str.substr(0, Str.find_first_of(Match, start-1)-1); }
+
+inline string PB_REMAIN(long start, string Str, string Match) { return Str.substr(Str.find(Match, start-1)+Str.length()); }
+
+inline string PB_REMAIN_ANY(long start, string Str, string Match) { return Str.substr(Str.find_first_of(Match, start-1)+1); }
