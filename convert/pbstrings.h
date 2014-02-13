@@ -39,3 +39,8 @@ inline string PB_EXTRACT_ANY(long start, string Str, string Match) { return Str.
 inline string PB_REMAIN(long start, string Str, string Match) { return Str.substr(Str.find(Match, start-1)+Str.length()); }
 
 inline string PB_REMAIN_ANY(long start, string Str, string Match) { return Str.substr(Str.find_first_of(Match, start-1)+1); }
+
+// +++ PB_REMOVE here is incomplete; removes just one occurence for now
+inline string PB_REMOVE(string Str, string Match) { PB_EXTRACT(1, Str, Match) + PB_REMAIN(1, Str, MATCH); }
+
+inline string PB_REMOVE_ANY(string Str, string Match) { PB_EXTRACT_ANY(1, Str, Match) + PB_REMAIN_ANY(1, Str, MATCH); }
