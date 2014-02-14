@@ -220,6 +220,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    MyText$ = Remain$(MyText$, "::") + Remain$(5+2*i, x$, "::")
    MyText$ = Remain$(MyText$, Any ".!?") + Remain$(15, y$, Any ".!?")
    MyText$ = Remove$(MyText$, "test") + Remove$(MyText$, Any ".!?")
+   Replace "abc" With "xyz" In MyText$
+   Replace Any "abc" With "xyz" In MyText$
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15)
    Mid$(x$, 25, Val(y$)+1) = y$ : Mid$(MyString$, 25, 5) = Mid$(y$, Val(x$), 7)
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
