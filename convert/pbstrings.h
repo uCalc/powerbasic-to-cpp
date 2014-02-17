@@ -46,3 +46,5 @@ inline string PB_REMOVE(string Str, string Match) { PB_EXTRACT(1, Str, Match) + 
 inline string PB_REMOVE_ANY(string Str, string Match) { PB_EXTRACT_ANY(1, Str, Match) + PB_REMAIN_ANY(1, Str, MATCH); }
 
 inline void PB_REPLACE(string Str, string Match, string NewStr) { PB_EXTRACT(1, Str, Match) + NewStr + PB_REMAIN(1, Str, MATCH); }
+
+inline string PB_REPEAT(string Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr } // +++ must optimize this
