@@ -83,6 +83,8 @@ Sub MySub(ByVal x As Long)
       Test = VarPtr(x)
       Number(z) = @Test + Other(5+x)
       x = x+1
+      if Test < 0 Then Iterate
+      If Test = y Then Exit Sub
    Wend
 End Sub
 
