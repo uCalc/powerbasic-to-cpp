@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/6/2014 4:18:04 PM
+# This file was saved with uCalc Transform 2.5 on 2/18/2014 3:31:39 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -319,78 +319,83 @@ Find: VarPtr({var})
 Replace: &{var}
 
 Criteria: 38
+Selected: True
 Highlight: True
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: Function = {value}
-Replace: return {value};
+Replace: return {value}
 
 Criteria: 39
-Highlight: True
-Find: Exit Sub
-Replace: return;
+Find: Iterate
+Replace: continue
 
 Criteria: 40
+Highlight: True
+Find: Exit Sub
+Replace: return
+
+Criteria: 41
 Highlight: True
 BackColor: Lime
 Find: Long
 Replace: int
 
-Criteria: 41
+Criteria: 42
 Highlight: True
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 42
+Criteria: 43
 Highlight: True
 Find: { Double | Extended | Ext }
 Replace: double{@Note: May instead use "long double" for Extended}
 
-Criteria: 43
+Criteria: 44
 Highlight: True
 Find: Byte
 Replace: unsigned char
 
-Criteria: 44
+Criteria: 45
 Highlight: True
 Find: Integer
 Replace: short
 
-Criteria: 45
+Criteria: 46
 Highlight: True
 Find: Word
 Replace: unsigned short
 
-Criteria: 46
+Criteria: 47
 Highlight: True
 Find: Dword
 Replace: unsigned int
 
-Criteria: 47
+Criteria: 48
 Find: AsciiZ
 Replace: LPCSTR
 
-Criteria: 48
+Criteria: 49
 Highlight: True
 Find: Quad
 Replace: __int64
 
-Criteria: 49
+Criteria: 50
 Highlight: True
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 50
+Criteria: 51
 Highlight: True
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 51
+Criteria: 52
 Highlight: True
 PassOnce: False
 Find: Type {name:1}
@@ -400,76 +405,75 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 52
+Criteria: 53
 Highlight: True
 Find: Macro {name} [{params: ({paramlist})}] = {replacement}
 Replace: #define {name}{params} {replacement}
 
-Criteria: 53
+Criteria: 54
 Highlight: True
 Find: #If
 Replace: #if
 
-Criteria: 54
+Criteria: 55
 Highlight: True
 Find: #Else
 Replace: #else
 
-Criteria: 55
+Criteria: 56
 Highlight: True
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 56
+Criteria: 57
 Highlight: True
 Find: #EndIf
 Replace: #endif
 
-Criteria: 57
+Criteria: 58
 Highlight: True
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 58
+Criteria: 59
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 59
+Criteria: 60
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 60
+Criteria: 61
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 61
+Criteria: 62
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 62
-Selected: True
+Criteria: 63
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 63
+Criteria: 64
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 64
+Criteria: 65
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 65
+Criteria: 66
 Find: _char([{char= }])
 Replace: '{char}'
 
