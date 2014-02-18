@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/17/2014 7:51:43 AM using the Open Source 
+// with uCalc Transform 2.5 on 2/18/2014 4:42:31 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -111,6 +111,12 @@ void MySub(int x)
       Test = &x;
       Number[z] = *Test + Other[5+x];
       x = x+1;
+      if (Test < 0) {
+         continue;
+      }
+      if (Test == y) {
+         return;
+      }
    }
    
    delete[] Other;
