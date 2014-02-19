@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/18/2014 4:42:31 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/19/2014 12:56:04 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -116,6 +116,9 @@ void MySub(int x)
       }
       if (Test == y) {
          return;
+      }
+      if (Test == z) {
+         break;
       }
    }
    
