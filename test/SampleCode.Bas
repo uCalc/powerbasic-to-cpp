@@ -218,6 +218,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    x$ = Space$(25) + String$(10, "*") + String$(10, 65)
    x$ = Trim$(x$)+LTrim$(x$)+RTrim$(x$)+Trim$(x$, ANY ".,! ")+LTrim$(x$, ANY ".,! ")+RTrim$(x$, ANY ".,! ")
    x$ = Repeat$(i+5, "Test")
+   x$ = Choose$(i, "This", "That", "Other", "Misc")
+   i = Choose(Rnd(1, 5), 5, 10, 15, 20, 25)
    MyText$ = Left$(MyString$, 3) + Mid$(OtherString, 5, 10) + Right$(x$, i+1)
    MyText$ = Extract$(MyText$, "::") + Extract$(5+2*i, x$, "::")
    MyText$ = Extract$(MyText$, Any ".!?") + Extract$(15, y$, Any ".!?")
