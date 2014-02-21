@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/20/2014 10:25:34 AM using the Open Source 
+// with uCalc Transform 2.5 on 2/21/2014 1:29:25 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -350,4 +350,11 @@ double DoMath()
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
    x = (x >> 1);
    x = (x << 1);
+}
+
+//  Console routines
+int PBConsoleTest()
+{
+   cout << "PB Semicolon at the end = No new line.  ";
+   cout << "No semicolon = New Line at the end."  << endl;
 }
