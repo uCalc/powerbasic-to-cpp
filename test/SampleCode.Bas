@@ -255,3 +255,9 @@ Function DoMath() As Double
    Shift Right x, 1
    Shift Left x, 1
 End Function
+
+' Console routines
+Function PBConsoleTest() As Long
+   StdOut "PB Semicolon at the end = No new line.  ";
+   StdOut "No semicolon = New Line at the end."
+End Function
