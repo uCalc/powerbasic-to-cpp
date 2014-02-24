@@ -214,6 +214,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    i = InStr(MyString$, ANY "aeiou")
    i = InStr(i+10, "This is a test", "is")
    i = InStr("This is a test", ANY "aeiou")
+   i = Asc("This is a test")
+   i = Asc("This is a test", 10)
    y$ = UCase$(MyString$) + LCase$(MyString$)
    x$ = Space$(25) + String$(10, "*") + String$(10, 65)
    x$ = Trim$(x$)+LTrim$(x$)+RTrim$(x$)+Trim$(x$, ANY ".,! ")+LTrim$(x$, ANY ".,! ")+RTrim$(x$, ANY ".,! ")
