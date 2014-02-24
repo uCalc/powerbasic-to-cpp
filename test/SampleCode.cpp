@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/21/2014 1:29:25 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/24/2014 3:28:33 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -301,6 +301,8 @@ string StringTest(string& MyString, string OtherString)
    i = PB_INSTR_ANY(1, MyString, "aeiou");
    i = PB_INSTR(i+10, "This is a test", "is");
    i = PB_INSTR_ANY(1, "This is a test", "aeiou");
+   i = PB_ASC("This is a test", 1);
+   i = PB_ASC("This is a test", 10);
    y = PB_UCASE(MyString) + PB_LCASE(MyString);
    x = string(25, ' ') + string(10, '*') + string(10, 65);
    x = PB_TRIM_ANY(x, " ")+PB_LTRIM_ANY(x, " ")+PB_RTRIM_ANY(x, " ")+PB_TRIM_ANY(x, ".,! ")+PB_LTRIM_ANY(x, ".,! ")+PB_RTRIM_ANY(x, ".,! ");
