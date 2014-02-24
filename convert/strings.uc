@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/17/2014 7:43:03 AM
+# This file was saved with uCalc Transform 2.5 on 2/24/2014 3:23:19 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -187,8 +187,12 @@ Find: Replace Any {MatchStr} With {NewStr} In {MainStr}
 Replace: PB_REPLACE_ANY({MainStr}, {MatchStr}, {NewStr})
 
 Criteria: 29
-Selected: True
 Find: Repeat$({count}, {Str})
 Replace: PB_REPEAT({Str}, {count})
+
+Criteria: 30
+Selected: True
+Find: Asc({Str}[, {pos=1}])
+Replace: PB_ASC({Str}, {pos})
 
 # End Search
