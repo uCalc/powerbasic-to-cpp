@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/24/2014 3:28:33 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/25/2014 7:51:19 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include <math.h>
@@ -49,6 +49,7 @@ struct MyBits {
    unsigned char Blue : 1;
    unsigned char Green : 1;
    double Other;
+   long double xyz;
 };
 
 int MyFunc(int x)
@@ -191,7 +192,7 @@ void TestCertainOperators(int x, int y, int z, double& OtherVar, float *FinalArg
 float MyValue;
 string Label;
 Currency Price;
-double ExtVal;
+long double ExtVal;
 __int64 qNum;
 
 int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
@@ -231,7 +232,7 @@ extern __declspec(dllimport) unsigned int ShellExecute(unsigned int hwnd, lpOper
 extern __declspec(dllimport) int SetCursorPos(int x, int y);
 extern __declspec(dllimport) void SetLastError(unsigned int dwErrCode);
 
-void DoSomething(int Arg1, string& txt, double& Number, Optional unsigned int *xyz)
+void DoSomething(int Arg1, string& txt, long double& Number, Optional unsigned int *xyz)
 {
    SetCursorPos(10, Arg1 + 5);
    if (Arg1 == 15) {
@@ -241,8 +242,8 @@ void DoSomething(int Arg1, string& txt, double& Number, Optional unsigned int *x
 
 float main()
 {
-   double x;
-   double pi;
+   long double x;
+   long double pi;
    string MyString;
    DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
    
@@ -318,7 +319,7 @@ string StringTest(string& MyString, string OtherString)
    PB_REPLACE(MyText, "abc", "xyz");
    PB_REPLACE_ANY(MyText, "abc", "xyz");
    if (PB_MID(MyText, 3, 5) == y) {
-      PB_MID_REPLACE(MyText, "Test" + to_string(i*15), 20, FULL_STRING);
+      PB_MID_REPLACE(MyText, "Test" + to_string((long double)i*15), 20, FULL_STRING);
    }
    PB_MID_REPLACE(x, y, 25, stold(y) +1);
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), 7), 25, 5);
