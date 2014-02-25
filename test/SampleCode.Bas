@@ -37,6 +37,7 @@ Type MyBits
    Blue       As Bit * 1
    Green      As Bit * 1
    Other      As Double
+   xyz        As Extended
 End Type
 
 Function MyFunc(ByVal x As Long) As Long
