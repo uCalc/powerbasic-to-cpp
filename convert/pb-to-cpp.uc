@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/21/2014 1:26:21 PM
+# This file was saved with uCalc Transform 2.5 on 2/25/2014 7:49:19 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -351,9 +351,8 @@ Find: Single
 Replace: float
 
 Criteria: 44
-Highlight: True
-Find: { Double | Extended | Ext }
-Replace: double{@Note: May instead use "long double" for Extended}
+Find: Double
+Replace: double
 
 Criteria: 45
 Highlight: True
@@ -371,6 +370,7 @@ Find: Word
 Replace: unsigned short
 
 Criteria: 48
+Selected: True
 Highlight: True
 Find: Dword
 Replace: unsigned int
@@ -385,20 +385,30 @@ Find: Quad
 Replace: __int64
 
 Criteria: 51
+SkipOver: True
+Find: long double
+Replace: [Skip over]
+
+Criteria: 52
+Highlight: True
+Find: { Extended | Ext }
+Replace: long double
+
+Criteria: 53
 Highlight: True
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 52
+Criteria: 54
 Highlight: True
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 53
+Criteria: 55
 Highlight: True
 PassOnce: False
 Find: Type {name:1}
@@ -408,99 +418,98 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 54
+Criteria: 56
 Highlight: True
 Find: Macro {name} [{params: ({paramlist})}] = {replacement}
 Replace: #define {name}{params} {replacement}
 
-Criteria: 55
+Criteria: 57
 Highlight: True
 Find: #If
 Replace: #if
 
-Criteria: 56
+Criteria: 58
 Highlight: True
 Find: #Else
 Replace: #else
 
-Criteria: 57
+Criteria: 59
 Highlight: True
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 58
+Criteria: 60
 Highlight: True
 Find: #EndIf
 Replace: #endif
 
-Criteria: 59
+Criteria: 61
 Highlight: True
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 60
+Criteria: 62
 Find: Choose[&]({index}, {choice})
 Replace: IIf({index}, {choice}, 0)
 
-Criteria: 61
+Criteria: 63
 Find: Choose$({index}, {choice})
 Replace: IIf({index}, {choice}, "")
 
-Criteria: 62
+Criteria: 64
 PassOnce: False
 Find: Choose[{type: $ | & }]({index}, {choice1}, {more})
 Replace: IIf({index}, {choice1}, Choose{type}({index}, {more}))
 
-Criteria: 63
-Selected: True
+Criteria: 65
 Find: StdOut {text} { {sameline: ;} | {NewLine: } }
 Replace: cout << {text} {NewLine: << endl;}
 
-Criteria: 64
+Criteria: 66
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 65
+Criteria: 67
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 66
+Criteria: 68
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 67
+Criteria: 69
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 68
+Criteria: 70
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 69
+Criteria: 71
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 70
+Criteria: 72
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 71
+Criteria: 73
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 72
+Criteria: 74
 Find: _char([{char= }])
 Replace: '{char}'
 
