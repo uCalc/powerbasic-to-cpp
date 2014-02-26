@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/10/2014 9:28:20 AM
+# This file was saved with uCalc Transform 2.5 on 2/26/2014 4:57:34 PM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -67,7 +67,6 @@ Replace: #include <iostream>
          {@Var: FreeFileNum}
 
 Criteria: 4
-Selected: True
 BackColor: DeepSkyBlue
 Find: Open {filespec}
       { For {{Input: Input}|{Output: Output}|{Append: Append}|{Binary: Binary}|{Random: Random}}|{Default: } }
@@ -130,10 +129,15 @@ Find: Put$ [#] {filenum}, {text}
 Replace: file_{filenum}.write(&{text}[0], {text}.size())
 
 Criteria: 14
+Selected: True
+Find: IsFile({file})
+Replace: PB_ISFILE({file})
+
+Criteria: 15
 Comment: 
 Pass: 2
 
-Criteria: 15
+Criteria: 16
 BackColor: Yellow
 Find: fstream {file} ({args+})
 Replace: {@Eval: Replace('{Self}', '{"[ \n]+"}', ' ')}
