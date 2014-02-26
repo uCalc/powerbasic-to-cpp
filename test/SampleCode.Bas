@@ -188,8 +188,9 @@ Function PBMain()
    Open "MyBin.Txt"    For Binary As #BinFile
    Open "MyInput.Txt"  For Input  As #InFile
    Open "MyOutput.Txt" For Output As #3
-   Open "MyAppend.Txt" For Append As #4   
+   Open "MyAppend.Txt" For Append As #4
 
+   i = IsFile("Test.Txt")
    i = Lof(BinFile)
    i = Seek(#BinFile)
    i = eof(1)
