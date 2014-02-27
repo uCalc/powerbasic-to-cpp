@@ -1,7 +1,8 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/26/2014 4:57:53 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/27/2014 3:12:16 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
+#include "pbOs.h"
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
@@ -245,6 +246,7 @@ float main()
    long double x;
    long double pi;
    string MyString;
+   string FileInfo;
    DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
    
    DoSomething(10, "abc", 5, 1);
@@ -282,6 +284,12 @@ float main()
    file_4.close() //  PB: Close #4
    file_BinFile.close() //  PB: Close #BinFile
    file_InFile.close() //  PB: Close #InFile
+   
+   FileInfo = PB_EXE_EXTN;
+   FileInfo = PB_EXE_FULL();
+   FileInfo = PB_EXE_NAME;
+   FileInfo = PB_EXE_NAMEX;
+   FileInfo = PB_EXE_PATH;
    
    i = (x > 1 ? Sin(x)+1 : Cos(x)-1) * 2;
    MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
