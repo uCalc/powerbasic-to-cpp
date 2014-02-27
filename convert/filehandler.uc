@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/26/2014 4:57:34 PM
+# This file was saved with uCalc Transform 2.5 on 2/27/2014 1:10:07 PM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -129,15 +129,38 @@ Find: Put$ [#] {filenum}, {text}
 Replace: file_{filenum}.write(&{text}[0], {text}.size())
 
 Criteria: 14
-Selected: True
 Find: IsFile({file})
 Replace: PB_ISFILE({file})
 
 Criteria: 15
+BackColor: Gold
+Find: EXE.Extn$
+Replace: PB_EXE_EXTN
+
+Criteria: 16
+BackColor: Silver
+Find: EXE.Full$
+Replace: PB_EXE_FULL()
+
+Criteria: 17
+Find: EXE.Name$
+Replace: PB_EXE_NAME
+
+Criteria: 18
+BackColor: CornflowerBlue
+Find: EXE.Namex$
+Replace: PB_EXE_NAMEX
+
+Criteria: 19
+Selected: True
+Find: EXE.Path$
+Replace: PB_EXE_PATH
+
+Criteria: 20
 Comment: 
 Pass: 2
 
-Criteria: 16
+Criteria: 21
 BackColor: Yellow
 Find: fstream {file} ({args+})
 Replace: {@Eval: Replace('{Self}', '{"[ \n]+"}', ' ')}
