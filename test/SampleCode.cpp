@@ -1,8 +1,9 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/27/2014 3:12:16 PM using the Open Source 
+// with uCalc Transform 2.5 on 2/28/2014 8:30:11 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
-#include "pbOs.h"
+#include "pbOS.h"
+#include "pbMisc.h"
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
@@ -258,7 +259,7 @@ float main()
    
    MyFunc(5);
    
-   ShellExecute(0, "Open", "ReadMe.Txt", $Nul, $Nul, SW_ShowNormal);
+   ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
    
    BinFile = 1;
    InFile  = 2;
@@ -334,6 +335,10 @@ string StringTest(string& MyString, string OtherString)
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), 7), 25, 5);
    PB_MID_REPLACE(x, y, 25, FULL_STRING);
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), FULL_STRING), 25, FULL_STRING);
+   
+   if (x == PB_CR || x == PB_LF || x == PB_NUL) {
+      MyText = "Line 1" + PB_CRLF + "Line 2" + PB_QCQ + "quote"+PB_DQ +PB_TAB;
+   }
 }
 
 //  This tests exported subs/functions
