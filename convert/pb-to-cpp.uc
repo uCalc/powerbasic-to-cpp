@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/26/2014 5:07:01 PM
+# This file was saved with uCalc Transform 2.5 on 2/28/2014 8:25:14 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -58,7 +58,8 @@ Replace: // This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was conv
          // with {@Eval: AppName} on {@Eval: TimeStamp()} using the Open Source 
          // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
          
-         #include "pbOs.h"
+         #include "pbOS.h"
+         #include "pbMisc.h"
          {@Define:
             Var: Array As String
             Var: ArrayNames As Table
