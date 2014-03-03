@@ -19,3 +19,5 @@ const string PB_SPC  = " ";
 const string PB_DQ   = "\"";
 const string PB_SQ   = "\'";
 const string PB_QCQ  = "\q,\q";
+
+#define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
