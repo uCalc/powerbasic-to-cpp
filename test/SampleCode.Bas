@@ -266,6 +266,8 @@ Function DoMath() As Double
    y = Rnd + Rnd() + Rnd(1995, 2014)
    Shift Right x, 1
    Shift Left x, 1
+
+   y = Sgn(-1) + Sgn(5) + Sgn(y)
 End Function
 
 ' Console routines
