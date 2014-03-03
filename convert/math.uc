@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/3/2014 6:22:47 PM
+# This file was saved with uCalc Transform 2.5 on 3/3/2014 5:18:43 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -222,8 +222,13 @@ Replace: {ivar} = ({ivar} >> {countexpr})
 
 Criteria: 30
 Enabled: True
-Selected: True
 Find: Shift Left {ivar}, {countexpr}
 Replace: {ivar} = ({ivar} << {countexpr})
+
+Criteria: 31
+Enabled: True
+Selected: True
+Find: Sgn({number})
+Replace: PB_SGN({number})
 
 # End Search
