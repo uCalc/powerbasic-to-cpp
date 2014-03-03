@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 2/28/2014 8:30:11 AM using the Open Source 
+// with uCalc Transform 2.5 on 3/3/2014 5:22:47 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -367,6 +367,8 @@ double DoMath()
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
    x = (x >> 1);
    x = (x << 1);
+   
+   y = PB_SGN(-1) + PB_SGN(5) + PB_SGN(y);
 }
 
 //  Console routines
