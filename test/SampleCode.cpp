@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 3/3/2014 5:22:47 PM using the Open Source 
+// with uCalc Transform 2.5 on 3/4/2014 5:35:14 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -369,6 +369,15 @@ double DoMath()
    x = (x << 1);
    
    y = PB_SGN(-1) + PB_SGN(5) + PB_SGN(y);
+   //    If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
+   //    If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y^2
+   if (((y == x) <> 0) || !(y > x + 1)) {
+      y = y+2;
+   }
+   if (((y == x) <> 0) || !(y > x + 1) && x < 10) {
+      y = y+2;
+   }
+   y = ((x) <> 0);
 }
 
 //  Console routines
