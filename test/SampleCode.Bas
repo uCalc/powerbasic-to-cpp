@@ -268,6 +268,11 @@ Function DoMath() As Double
    Shift Left x, 1
 
    y = Sgn(-1) + Sgn(5) + Sgn(y)
+'   If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
+'   If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y^2
+   If IsTrue y = x Or IsFalse y > x + 1 Then y = y+2
+   If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y+2
+   y = IsTrue x
 End Function
 
 ' Console routines
