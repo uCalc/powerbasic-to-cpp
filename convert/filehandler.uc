@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/27/2014 1:10:07 PM
+# This file was saved with uCalc Transform 2.5 on 3/5/2014 5:31:29 PM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -152,15 +152,23 @@ Find: EXE.Namex$
 Replace: PB_EXE_NAMEX
 
 Criteria: 19
-Selected: True
 Find: EXE.Path$
 Replace: PB_EXE_PATH
 
 Criteria: 20
+Find: Dir$({mask})
+Replace: PB_DIR({mask})
+
+Criteria: 21
+Selected: True
+Find: Dir$([Next])
+Replace: PB_DIR_NEXT
+
+Criteria: 22
 Comment: 
 Pass: 2
 
-Criteria: 21
+Criteria: 23
 BackColor: Yellow
 Find: fstream {file} ({args+})
 Replace: {@Eval: Replace('{Self}', '{"[ \n]+"}', ' ')}
