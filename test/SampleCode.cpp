@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 3/4/2014 5:35:14 PM using the Open Source 
+// with uCalc Transform 2.5 on 3/5/2014 5:32:52 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -244,10 +244,13 @@ void DoSomething(int Arg1, string& txt, long double& Number, Optional unsigned i
 
 float main()
 {
+   //  +++ Dim MyFile$(50)
    long double x;
    long double pi;
    string MyString;
    string FileInfo;
+   string *MyFile = new string [50+1];
+   int n;
    DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
    
    DoSomething(10, "abc", 5, 1);
@@ -294,6 +297,18 @@ float main()
    
    i = (x > 1 ? Sin(x)+1 : Cos(x)-1) * 2;
    MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
+   
+   MyFile = PB_DIR("*.Bas");
+   MyFile = PB_DIR_NEXT;
+   MyFile = PB_DIR_NEXT;
+   
+   // +++   MyFile$(0) = Dir$("*.Bas")
+   //    While Len(MyFile$(n)) > 0 And n < 50
+   //       MyFile$(n) = Dir$()
+   //       n += 1;
+   //    Wend
+   
+   delete[] MyFile;
 } int;
 
 //  This section tests transforms found in strings.uc
