@@ -170,7 +170,8 @@ Sub DoSomething(ByVal Arg1 As Long, ByRef txt$, Number##, Optional ByVal xyz As 
 End Sub
 
 Function PBMain()
-   Dim x As Ext, pi As Ext, MyString$, FileInfo$
+   ' +++ Dim MyFile$(50)
+   Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile(50) As String, n As Long
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
    DoSomething 10, "abc", 5, 1 : DoSomething 1, "x", 5, 0  ' Etc...
@@ -210,6 +211,16 @@ Function PBMain()
 
    i = IIf(x > 1, Sin(x)+1, Cos(x)-1) * 2
    MyString$ = IIf$(x>50, Left$(MyString$, 10), Mid$(MyString$, 25))
+
+   MyFile$ = Dir$("*.Bas")
+   MyFile$ = Dir$()
+   MyFile$ = Dir$(Next)
+
+'+++   MyFile$(0) = Dir$("*.Bas")
+'   While Len(MyFile$(n)) > 0 And n < 50
+'      MyFile$(n) = Dir$()
+'      n += 1;
+'   Wend
 End Function
 
 ' This section tests transforms found in strings.uc
