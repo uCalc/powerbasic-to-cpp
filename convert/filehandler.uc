@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 3/5/2014 5:31:29 PM
+# This file was saved with uCalc Transform 2.5 on 3/6/2014 11:27:00 AM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -162,7 +162,7 @@ Replace: PB_DIR({mask})
 Criteria: 21
 Selected: True
 Find: Dir$([Next])
-Replace: PB_DIR_NEXT
+Replace: PB_DIR_NEXT()
 
 Criteria: 22
 Comment: 
