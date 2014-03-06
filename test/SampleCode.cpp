@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 3/5/2014 5:32:52 PM using the Open Source 
+// with uCalc Transform 2.5 on 3/6/2014 11:28:26 AM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -244,7 +244,6 @@ void DoSomething(int Arg1, string& txt, long double& Number, Optional unsigned i
 
 float main()
 {
-   //  +++ Dim MyFile$(50)
    long double x;
    long double pi;
    string MyString;
@@ -299,14 +298,14 @@ float main()
    MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
    
    MyFile = PB_DIR("*.Bas");
-   MyFile = PB_DIR_NEXT;
-   MyFile = PB_DIR_NEXT;
+   MyFile = PB_DIR_NEXT();
+   MyFile = PB_DIR_NEXT();
    
-   // +++   MyFile$(0) = Dir$("*.Bas")
-   //    While Len(MyFile$(n)) > 0 And n < 50
-   //       MyFile$(n) = Dir$()
-   //       n += 1;
-   //    Wend
+   MyFile[0] = PB_DIR("*.Bas");
+   while (MyFile[n] != "" && n < 50) {
+      MyFile[n] = PB_DIR_NEXT();
+      n += 1;
+   }
    
    delete[] MyFile;
 } int;
