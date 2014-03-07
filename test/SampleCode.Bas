@@ -283,6 +283,7 @@ Function DoMath() As Double
    If IsTrue y = x Or IsFalse y > x + 1 Then y = y+2
    If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y+2
    y = IsTrue x
+   y = Max(3, 10, -2, 15+4, 23)
 End Function
 
 ' Console routines
