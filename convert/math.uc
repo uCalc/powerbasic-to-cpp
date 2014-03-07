@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 3/4/2014 5:27:46 PM
+# This file was saved with uCalc Transform 2.5 on 3/7/2014 4:49:52 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
@@ -190,7 +190,6 @@ Replace: (({x}) <> 0)
 
 Criteria: 24
 Enabled: True
-Selected: True
 BackColor: SandyBrown
 Find: IsFalse {x%} [{stop-: And | Or | Then | : }]
 Replace: !({x})
@@ -230,5 +229,11 @@ Criteria: 31
 Enabled: True
 Find: Sgn({number})
 Replace: PB_SGN({number})
+
+Criteria: 32
+Enabled: True
+Selected: True
+Find: Max({args})
+Replace: PB_MAX({args})
 
 # End Search
