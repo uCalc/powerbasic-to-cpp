@@ -30,3 +30,4 @@ inline string PB_EXE_FULL() { TCHAR fName[MAX_PATH]; GetModuleFileNameW(NULL, fN
 #define PB_EXE_PATH  PB_EXE_FULL().substr(PB_EXE_FULL().rfind("\"))
 #define PB_EXE_EXTN  PB_EXE_FULL().substr(PB_EXE_FULL().rfind("."))
 
+#define PB_SLEEP(milliseconds) Sleep(milliseconds)
