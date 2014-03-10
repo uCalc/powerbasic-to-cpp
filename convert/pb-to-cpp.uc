@@ -1,10 +1,10 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 3/6/2014 8:02:47 AM
+# This file was saved with uCalc Transform 2.95 on 3/10/2014 7:14:01 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
-ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
+ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
 
 FindMode: Replace
 
@@ -33,11 +33,13 @@ FilterSort: False
 FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
+FilterTally: False
 Min: 0
 Max: -1
 MinSoft: 0
 MaxSoft: -1
 BatchAction: Transform
+InputFile: 
 OutputFile: 
 SEND: 
 StartAfter: 0
@@ -99,7 +101,6 @@ Find: =
 Replace: ==
 
 Criteria: 8
-Selected: True
 SkipOver: True
 Find: { + | - | * | / | % | & | ^ | ! }=
 Replace: [Skip over]
@@ -469,49 +470,54 @@ Find: StdOut {text} { {sameline: ;} | {NewLine: } }
 Replace: cout << {text} {NewLine: << endl;}
 
 Criteria: 66
+Selected: True
+Find: Sleep {milliseconds}
+Replace: PB_SLEEP({milliseconds})
+
+Criteria: 67
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 67
+Criteria: 68
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 68
+Criteria: 69
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 69
+Criteria: 70
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 70
+Criteria: 71
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 71
+Criteria: 72
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 72
+Criteria: 73
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 73
+Criteria: 74
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 74
+Criteria: 75
 Find: _char([{char= }])
 Replace: '{char}'
 
