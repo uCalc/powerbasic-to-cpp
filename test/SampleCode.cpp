@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.5 on 3/7/2014 4:50:45 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/10/2014 7:16:58 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -124,6 +124,7 @@ void MySub(int x)
          break;
       }
    }
+   PB_SLEEP(2+y);
    
    delete[] Other;
    delete[] Number;
@@ -393,6 +394,7 @@ double DoMath()
    }
    y = ((x) <> 0);
    y = PB_MAX(3, 10, -2, 15+4, 23);
+   //  y = Abs(-1)+Tan(Sin(2.5)+Cos(3.5))+Exp(1)+Exp2(5)+Log(5)+Log2(5)+Log10(5)+Ceil(5)
 }
 
 //  Console routines
