@@ -88,6 +88,7 @@ Sub MySub(ByVal x As Long)
       If Test = y Then Exit Sub
       If Test = z Then Exit
    Wend
+   Sleep 2+y
 End Sub
 
 Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (underscore)
@@ -284,6 +285,7 @@ Function DoMath() As Double
    If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y+2
    y = IsTrue x
    y = Max(3, 10, -2, 15+4, 23)
+   ' y = Abs(-1)+Tan(Sin(2.5)+Cos(3.5))+Exp(1)+Exp2(5)+Log(5)+Log2(5)+Log10(5)+Ceil(5)
 End Function
 
 ' Console routines
