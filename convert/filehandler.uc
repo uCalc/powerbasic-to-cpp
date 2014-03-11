@@ -1,10 +1,10 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 3/6/2014 11:27:00 AM
+# This file was saved with uCalc Transform 2.95 on 3/11/2014 7:02:25 PM
 # Comment: File handler
 
-ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
+ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
 
 FindMode: Replace
 
@@ -33,11 +33,13 @@ FilterSort: False
 FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
+FilterTally: False
 Min: 0
 Max: -1
 MinSoft: 0
 MaxSoft: -1
 BatchAction: Transform
+InputFile: 
 OutputFile: 
 SEND: 
 StartAfter: 0
@@ -160,15 +162,19 @@ Find: Dir$({mask})
 Replace: PB_DIR({mask})
 
 Criteria: 21
-Selected: True
 Find: Dir$([Next])
 Replace: PB_DIR_NEXT()
 
 Criteria: 22
+Selected: True
+Find: Print #{filenum}, {text}
+Replace: file_{filenum} << {text} << endl;
+
+Criteria: 23
 Comment: 
 Pass: 2
 
-Criteria: 23
+Criteria: 24
 BackColor: Yellow
 Find: fstream {file} ({args+})
 Replace: {@Eval: Replace('{Self}', '{"[ \n]+"}', ' ')}
