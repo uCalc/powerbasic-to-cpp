@@ -202,6 +202,9 @@ Function PBMain()
 
    Print #3, "This is a test"
    Print #3, "This is a test";
+   Print #3, "Part 1..."; "Part 2"
+   Print #3, "Part 1..."; "Part 2";
+   Print #3, "Part 1..."; "Part 2"; "Part 3"
    Close #3
    Close 4, #BinFile, InFile
 
