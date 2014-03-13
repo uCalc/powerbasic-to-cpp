@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/12/2014 11:31:38 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/13/2014 3:55:00 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -286,6 +286,9 @@ float main()
    
    file_3 << "This is a test" << endl;
    file_3 << "This is a test";
+   file_3 << "Part 1..." << "Part 2" << endl;
+   file_3 << "Part 1..." << "Part 2";
+   file_3 << "Part 1..." << "Part 2" << "Part 3" << endl;
    file_3.close() //  PB: Close #3
    file_4.close() //  PB: Close #4
    file_BinFile.close() //  PB: Close #BinFile
