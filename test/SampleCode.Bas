@@ -201,6 +201,7 @@ Function PBMain()
    Put$ #1, MyString$
 
    Print #3, "This is a test"
+   Print #3, "This is a test";
    Close #3
    Close 4, #BinFile, InFile
 
