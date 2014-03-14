@@ -200,6 +200,7 @@ Function PBMain()
    Get$ #1, 500, MyString$
    Put$ #1, MyString$
 
+   Print #3
    Print #3, "This is a test"
    Print #3, "This is a test";
    Print #3, "Part 1..."; "Part 2"
