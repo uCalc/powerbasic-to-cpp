@@ -171,7 +171,7 @@ Sub DoSomething(ByVal Arg1 As Long, ByRef txt$, Number##, Optional ByVal xyz As 
 End Sub
 
 Function PBMain()
-   Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long
+   Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long, dwTest As Dword
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
    DoSomething 10, "abc", 5, 1 : DoSomething 1, "x", 5, 0  ' Etc...
@@ -181,6 +181,9 @@ Function PBMain()
    MyFunc 5
 
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
+
+   dwTest = CvDwd(MyString$)
+   dwTest = CvDwd(MyString$, 3)
 
    BinFile = FreeFile
    InFile  = FreeFile
