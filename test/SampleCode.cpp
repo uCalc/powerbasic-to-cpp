@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/14/2014 8:52:36 AM using the Open Source 
+// with uCalc Transform 2.95 on 3/17/2014 7:17:59 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -251,6 +251,7 @@ float main()
    string FileInfo;
    string *MyFile = new string [50+1];
    int n;
+   unsigned int dwTest;
    DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
    
    DoSomething(10, "abc", 5, 1);
@@ -263,6 +264,9 @@ float main()
    MyFunc(5);
    
    ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
+   
+   dwTest = PB_CVDWD(MyString, 1);
+   dwTest = PB_CVDWD(MyString, 3);
    
    BinFile = 1;
    InFile  = 2;
