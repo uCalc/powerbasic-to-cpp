@@ -21,3 +21,6 @@ const string PB_SQ   = "\'";
 const string PB_QCQ  = "\q,\q";
 
 #define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
+
+// +++ Offset is missing
+inline unsigned int PB_DVDWD(string Str, int Offset) { return (unsigned int)Str.data(); }
