@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/17/2014 7:01:20 PM
+# This file was saved with uCalc Transform 2.95 on 3/18/2014 3:34:41 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -475,8 +475,8 @@ Replace: PB_SLEEP({milliseconds})
 
 Criteria: 67
 Selected: True
-Find: CvDwd({string} [, {offset=1}])
-Replace: PB_CVDWD({string}, {offset})
+Find: {keyword:"CV(BYT|DWD|D|E|I|L|Q|S|WRD)"}({string} [, {offset=1}])
+Replace: PB_{keyword}({string}, {offset})
 
 Criteria: 68
 Comment: Adds semi-colons to statements
