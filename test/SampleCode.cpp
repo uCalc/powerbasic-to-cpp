@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/17/2014 7:17:59 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/18/2014 3:40:41 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -252,6 +252,7 @@ float main()
    string *MyFile = new string [50+1];
    int n;
    unsigned int dwTest;
+   string Num;
    DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
    
    DoSomething(10, "abc", 5, 1);
@@ -265,8 +266,8 @@ float main()
    
    ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
    
-   dwTest = PB_CVDWD(MyString, 1);
-   dwTest = PB_CVDWD(MyString, 3);
+   dwTest = PB_CvDwd(MyString, 1);
+   dwTest = PB_CvDwd(MyString, 3);
    
    BinFile = 1;
    InFile  = 2;
@@ -288,6 +289,10 @@ float main()
    file_1.read(&MyString[0], 500);
    file_1.write(&MyString[0], MyString.size());
    
+   file_3 << PB_CvByt(Num, n) << endl;
+   file_3 << PB_Cvd(Num, 1) << endl;
+   file_3 << PB_Cvi(Num, 4) << endl;
+   file_3 << PB_Cvl(Num, 1) << endl;
    file_3 << endl;
    file_3 << "This is a test" << endl;
    file_3 << "This is a test";
