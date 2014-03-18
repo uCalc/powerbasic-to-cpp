@@ -22,5 +22,16 @@ const string PB_QCQ  = "\q,\q";
 
 #define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
 
-// +++ Offset is missing
-inline unsigned int PB_DVDWD(string Str, int Offset) { return (unsigned int)Str.data(); }
+#define PB_CV(keyword, type) inline type keyword(string Str, int Offset=1) \
+        { type *ret; ret = (type*)(Str.data()+Offset-1); return *ret; }
+PB_CV(PB_CVBYT, unsigned char)
+PB_CV(PB_CVD,   double)
+PB_CV(PB_DWD,   unsigned int)
+PB_CV(PB_CVE,   long double)
+PB_CV(PB_CVI,   short)
+PB_CV(PB_CVL,   int)
+PB_CV(PB_CVQ,   long long)
+PB_CV(PB_CVS,   float)
+PB_CV(PB_CVWRD, unsigned short)
+// PB_CV(PB_CVCUR, ...) +++ no C++ type for currency
+// PB_CV(PB_CVCUX, ...)
