@@ -171,7 +171,7 @@ Sub DoSomething(ByVal Arg1 As Long, ByRef txt$, Number##, Optional ByVal xyz As 
 End Sub
 
 Function PBMain()
-   Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long, dwTest As Dword
+   Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long, dwTest As Dword, Num$
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
    DoSomething 10, "abc", 5, 1 : DoSomething 1, "x", 5, 0  ' Etc...
@@ -203,6 +203,10 @@ Function PBMain()
    Get$ #1, 500, MyString$
    Put$ #1, MyString$
 
+   Print #3, CvByt(Num$, n)
+   Print #3, Cvd(Num$)
+   Print #3, Cvi(Num$, 4)
+   Print #3, Cvl(Num$)
    Print #3
    Print #3, "This is a test"
    Print #3, "This is a test";
