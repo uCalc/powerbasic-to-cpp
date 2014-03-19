@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/18/2014 3:34:41 PM
+# This file was saved with uCalc Transform 2.95 on 3/19/2014 12:47:29 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -428,100 +428,89 @@ Replace: #define {name}{params} {replacement}
 
 Criteria: 57
 Highlight: True
-Find: #If
-Replace: #if
-
-Criteria: 58
-Highlight: True
-Find: #Else
-Replace: #else
-
-Criteria: 59
-Highlight: True
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 60
-Highlight: True
-Find: #EndIf
-Replace: #endif
+Criteria: 58
+Selected: True
+Find: #{directive: If | Else | EndIf }
+Replace: #{@Eval: LCase("{directive}", "{'.*'}")}
 
-Criteria: 61
+Criteria: 59
 Highlight: True
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 62
+Criteria: 60
 Find: Choose[&]({index}, {choice})
 Replace: IIf({index}, {choice}, 0)
 
-Criteria: 63
+Criteria: 61
 Find: Choose$({index}, {choice})
 Replace: IIf({index}, {choice}, "")
 
-Criteria: 64
+Criteria: 62
 PassOnce: False
 Find: Choose[{type: $ | & }]({index}, {choice1}, {more})
 Replace: IIf({index}, {choice1}, Choose{type}({index}, {more}))
 
-Criteria: 65
+Criteria: 63
 Find: StdOut {text} { {sameline: ;} | {NewLine: } }
 Replace: cout << {text} {NewLine: << endl;}
 
-Criteria: 66
+Criteria: 64
 Find: Sleep {milliseconds}
 Replace: PB_SLEEP({milliseconds})
 
-Criteria: 67
-Selected: True
+Criteria: 65
 Find: {keyword:"CV(BYT|DWD|D|E|I|L|Q|S|WRD)"}({string} [, {offset=1}])
-Replace: PB_{keyword}({string}, {offset})
+Replace: PB_{@Eval:UCase("{keyword}", "{'.*'}")}({string}, {offset})
 
-Criteria: 68
+Criteria: 66
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 69
+Criteria: 67
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 70
+Criteria: 68
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 71
+Criteria: 69
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 72
+Criteria: 70
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 73
+Criteria: 71
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 74
+Criteria: 72
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 75
+Criteria: 73
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 76
+Criteria: 74
 Find: _char([{char= }])
 Replace: '{char}'
 
