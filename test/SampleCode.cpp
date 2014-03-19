@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/18/2014 3:40:41 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/19/2014 4:58:49 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -253,7 +253,7 @@ float main()
    int n;
    unsigned int dwTest;
    string Num;
-   DoSomething(Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, &x-4) //  Comment
+   DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4) //  Comment
    
    DoSomething(10, "abc", 5, 1);
    DoSomething(1, "x", 5, 0)  //  Etc...
@@ -266,8 +266,8 @@ float main()
    
    ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
    
-   dwTest = PB_CvDwd(MyString, 1);
-   dwTest = PB_CvDwd(MyString, 3);
+   dwTest = PB_CVDWD(MyString, 1);
+   dwTest = PB_CVDWD(MyString, 3);
    
    BinFile = 1;
    InFile  = 2;
@@ -289,10 +289,10 @@ float main()
    file_1.read(&MyString[0], 500);
    file_1.write(&MyString[0], MyString.size());
    
-   file_3 << PB_CvByt(Num, n) << endl;
-   file_3 << PB_Cvd(Num, 1) << endl;
-   file_3 << PB_Cvi(Num, 4) << endl;
-   file_3 << PB_Cvl(Num, 1) << endl;
+   file_3 << PB_CVBYT(Num, n) << endl;
+   file_3 << PB_CVD(Num, 1) << endl;
+   file_3 << PB_CVI(Num, 4) << endl;
+   file_3 << PB_CVL(Num, 1) << endl;
    file_3 << endl;
    file_3 << "This is a test" << endl;
    file_3 << "This is a test";
@@ -310,7 +310,7 @@ float main()
    FileInfo = PB_EXE_NAMEX;
    FileInfo = PB_EXE_PATH;
    
-   i = (x > 1 ? Sin(x)+1 : Cos(x)-1) * 2;
+   i = (x > 1 ? sin(x)+1 : cos(x)-1) * 2;
    MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
    
    MyFile = PB_DIR("*.Bas");
@@ -409,7 +409,7 @@ double DoMath()
    }
    y = ((x) <> 0);
    y = PB_MAX(3, 10, -2, 15+4, 23);
-   //  y = Abs(-1)+Tan(Sin(2.5)+Cos(3.5))+Exp(1)+Exp2(5)+Log(5)+Log2(5)+Log10(5)+Ceil(5)
+   y = abs(-1)+tan(sin(2.5)+cos(3.5))+exp(1)+exp2(5)+log(5)+log2(5)+log10(5)+ceil(5);
 }
 
 //  Console routines
