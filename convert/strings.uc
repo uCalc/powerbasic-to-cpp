@@ -1,10 +1,10 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/28/2014 8:27:30 AM
+# This file was saved with uCalc Transform 2.95 on 3/19/2014 12:58:24 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
-ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
+ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
 
 FindMode: Replace
 
@@ -33,11 +33,13 @@ FilterSort: False
 FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
+FilterTally: False
 Min: 0
 Max: -1
 MinSoft: 0
 MaxSoft: -1
 BatchAction: Transform
+InputFile: 
 OutputFile: 
 SEND: 
 StartAfter: 0
@@ -50,24 +52,25 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-SkipOver: True
-Find: ' {Comment:".*"}
-Replace: [Skip over]
-
-Criteria: 2
-Find: String
-Replace: string
-
-Criteria: 3
-Find: WString
-Replace: wstring
-
-Criteria: 4
 Find: {@Start}
 Replace: #include <algorithm>
          #include <string>
          #include "pbstrings.h"
          using namespace std;{nl}{nl}
+
+Criteria: 2
+SkipOver: True
+Find: ' {Comment:".*"}
+Replace: [Skip over]
+
+Criteria: 3
+Find: String
+Replace: string
+
+Criteria: 4
+Selected: True
+Find: WString
+Replace: wstring
 
 Criteria: 5
 BackColor: DodgerBlue
@@ -195,8 +198,7 @@ Find: Asc({Str}[, {pos=1}])
 Replace: PB_ASC({Str}, {pos})
 
 Criteria: 31
-Selected: True
-Find: ${e: NUL|BEL|BS|TAB|LF|VT|FF|CR|CRLF|EOF|ESC|SPC|DQ|SQ|QCQ }
-Replace: PB_{e}
+Find: ${equate: NUL|BEL|BS|TAB|LF|VT|FF|CR|CRLF|EOF|ESC|SPC|DQ|SQ|QCQ }
+Replace: PB_{@Eval: UCase("{equate}", "{'.*'}")}
 
 # End Search
