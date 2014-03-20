@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/19/2014 12:47:29 PM
+# This file was saved with uCalc Transform 2.95 on 3/20/2014 6:10:26 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -66,6 +66,8 @@ Replace: // This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was conv
             Var: ArrayNames As Table
             Var: CleanUp As String
             Var: BitType As String
+         }{@Define::
+            Token: \xFF[^\xFF]*\xFF\n ~~ Properties: ucWhiteSpace
          }
 
 Criteria: 2
@@ -75,9 +77,9 @@ Pass: 1
 Criteria: 3
 Highlight: True
 PassOnce: False
-Find: {nl}{line} _ [{comment:".*"}] {nl}
+Find: {nl}{line} _ [{" +"}] [{comment:".+"}]{nl}
       
-Replace: {comment: ' {comment}{nl}}{nl}{line}{sp}
+Replace: {nl}{line} {#255}{comment}{#255}{nl}
 
 Criteria: 4
 Highlight: True
@@ -432,7 +434,6 @@ Find: #ElseIf
 Replace: #elif
 
 Criteria: 58
-Selected: True
 Find: #{directive: If | Else | EndIf }
 Replace: #{@Eval: LCase("{directive}", "{'.*'}")}
 
@@ -513,5 +514,14 @@ Replace: ({cond} ? {this} : {that})
 Criteria: 74
 Find: _char([{char= }])
 Replace: '{char}'
+
+Criteria: 75
+Find: {" \xFF\xFF\n"}
+Replace: {nl}
+
+Criteria: 76
+Selected: True
+Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
+Replace:  /* {comment} */{nl}
 
 # End Search
