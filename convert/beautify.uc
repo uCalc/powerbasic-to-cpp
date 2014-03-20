@@ -1,10 +1,10 @@
 # beautify.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 1/14/2014 6:37:14 PM
+# This file was saved with uCalc Transform 2.95 on 3/20/2014 6:31:38 PM
 # Comment: Fixes indentation and spacing in C++ source code
 
-ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
+ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
 
 FindMode: Replace
 
@@ -33,11 +33,13 @@ FilterSort: False
 FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
+FilterTally: False
 Min: 0
 Max: -1
 MinSoft: 0
 MaxSoft: -1
 BatchAction: Transform
+InputFile: 
 OutputFile: 
 SEND: 
 StartAfter: 0
@@ -70,61 +72,73 @@ Find: {"\n"}{" +"}
 Replace: {nl}
 
 Criteria: 4
+SkipOver: True
+Find: ({code~})
+Replace: [Skip over]
+
+Criteria: 5
+Comment: 
+Pass: 2
+
+Criteria: 6
 BackColor: RoyalBlue
 Find: {spc} "{" {spc}
 Replace: {
 
-Criteria: 5
+Criteria: 7
 BackColor: Pink
 Find: {spc} "}"
 Replace: }
 
-Criteria: 6
+Criteria: 8
 BackColor: Purple
 Find: {" *; *"}
 Replace: ;
 
-Criteria: 7
+Criteria: 9
 Find: {" *, *"}
 Replace: ,{sp}
 
-Criteria: 8
+Criteria: 10
 Comment: Handles semicolons
-Pass: 2
+Pass: 3
 
-Criteria: 9
-Selected: True
+Criteria: 11
 BackColor: Green
 Find: ({params~})
 Replace: ({@Eval: Replace({Q}{params}{Q}, ";", "; ")})
 
-Criteria: 10
+Criteria: 12
 BackColor: SandyBrown
 Find: ;{char:"[^\n]"}
 Replace: ;{nl}{char}
 
-Criteria: 11
+Criteria: 13
 Comment: Performs indentation
-Pass: 3
+Pass: 4
 
-Criteria: 12
+Criteria: 14
 BackColor: DeepSkyBlue
 Find: {nl}
 Replace: {nl}{indent}
 
-Criteria: 13
+Criteria: 15
 BackColor: DarkKhaki
-Find: "{" [{comment: //{".*"}}]
+Find: "{" [{comment: //{c:".*"}}]
 Replace: {sp}{{comment: {comment}}{nl}{indent+}{indent}
 
-Criteria: 14
+Criteria: 16
 BackColor: Yellow
-Find: "}" [{comment: //{".*"}}]
+Find: "}" [{comment: //{c:".*"}}]
 Replace: {nl}{indent-}{indent}}{comment: {comment}}
 
-Criteria: 15
+Criteria: 17
 BackColor: Brown
-Find: {nl}{type:1}{func:1}([{args}])"{"
+Find: {nl}{type:1}{func:1}([{args+}])"{"
 Replace: {nl}{type} {func}({args}){nl}{{indent+}{nl}{indent}
+
+Criteria: 18
+Find: 
+Replace: 
 
 # End Search
