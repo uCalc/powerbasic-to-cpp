@@ -96,7 +96,7 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
                          ByVal z As Long, _
                          ByRef OtherVar As Double,    _ Everything after _ is a comment
                          ByVal FinalArg As Single Ptr _
-                        ) ' Note: comments after _ are regrouped into a different place
+                        ) ' Embedded comments after _ are preserved in their original location
 
    Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr, n As Long
 
