@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/19/2014 4:58:49 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/20/2014 6:31:52 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -129,13 +129,14 @@ void MySub(int x)
    delete[] Other;
    delete[] Number;
 }
-//   ' This line is broken up using a _ (underscore)
-//   This is a commment (even without ')
-//   Everything after _ is a comment
 
-void TestCertainOperators(int x, int y, int z, double& OtherVar, float *FinalArg)
+void TestCertainOperators(int x, /* ' This line is broken up using a _ (underscore) */
+                         int y, /* This is a commment (even without ') */
+                         int z, 
+                         double& OtherVar, /* Everything after _ is a comment */
+                         float *FinalArg)
 {
-   //  Note: comments after _ are regrouped into a different place
+   //  Embedded comments after _ are preserved in their original location
    
    int *MyArray = new int [10+1];
    Point MyPoint;
