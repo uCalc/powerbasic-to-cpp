@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/19/2014 12:58:24 PM
+# This file was saved with uCalc Transform 2.95 on 3/21/2014 12:43:54 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -55,6 +55,7 @@ Criteria: 1
 Find: {@Start}
 Replace: #include <algorithm>
          #include <string>
+         #include <sstream>
          #include "pbstrings.h"
          using namespace std;{nl}{nl}
 
@@ -68,7 +69,6 @@ Find: String
 Replace: string
 
 Criteria: 4
-Selected: True
 Find: WString
 Replace: wstring
 
@@ -116,88 +116,78 @@ Find: Val({Str})
 Replace: stold({Str}) 
 
 Criteria: 12
-BackColor: Pink
-PassOnce: False
-Find: Str$({Number})
-Replace: to_string((long double){Number})
-
-Criteria: 13
+Selected: True
 Find: Space$({count})
 Replace: string({count}, _char( ))
 
-Criteria: 14
+Criteria: 13
 Find: String$({count}, {char})
 Replace: string({count}, {char})
 
-Criteria: 15
+Criteria: 14
 BackColor: Violet
 Find: String$({count}, {q}{char}{q})
 Replace: string({count}, _char({char}))
 
+Criteria: 15
+Find: {function: UCase | LCase | Hex | Oct | Str}$({arg})
+Replace: PB_{@Eval: UCase("{function}", "{'.*'}")}({arg})
+
 Criteria: 16
-Find: UCase$({text})
-Replace: PB_UCASE({text})
-
-Criteria: 17
-BackColor: YellowGreen
-Find: LCase$({text})
-Replace: PB_LCASE({text})
-
-Criteria: 18
 Find: Trim$({Str} [, ANY {chars=" "}])
 Replace: PB_TRIM_ANY({Str}, {chars})
 
-Criteria: 19
+Criteria: 17
 BackColor: Gold
 Find: LTrim$({Str} [, ANY {chars=" "}])
 Replace: PB_LTRIM_ANY({Str}, {chars})
 
-Criteria: 20
+Criteria: 18
 BackColor: Silver
 Find: RTrim$({Str} [, ANY {chars=" "}])
 Replace: PB_RTRIM_ANY({Str}, {chars})
 
-Criteria: 21
+Criteria: 19
 Find: Extract$([{start=1},] {MainStr}, {MatchStr})
 Replace: PB_EXTRACT({start}, {MainStr}, {MatchStr})
 
-Criteria: 22
+Criteria: 20
 Find: Extract$([{start=1},] {MainStr}, Any {MatchStr})
 Replace: PB_EXTRACT_ANY({start}, {MainStr}, {MatchStr})
 
-Criteria: 23
+Criteria: 21
 Find: Remain$([{start=1},] {MainStr}, {MatchStr})
 Replace: PB_REMAIN({start}, {MainStr}, {MatchStr})
 
-Criteria: 24
+Criteria: 22
 Find: Remain$([{start=1},] {MainStr}, Any {MatchStr})
 Replace: PB_REMAIN_ANY({start}, {MainStr}, {MatchStr})
 
-Criteria: 25
+Criteria: 23
 Find: Remove$({Str}, {MatchStr})
 Replace: PB_REMOVE({Str}, {MatchStr})
 
-Criteria: 26
+Criteria: 24
 Find: Remove$({Str}, Any {MatchStr})
 Replace: PB_REMOVE_ANY({Str}, {MatchStr})
 
-Criteria: 27
+Criteria: 25
 Find: Replace {MatchStr} With {NewStr} In {MainStr}
 Replace: PB_REPLACE({MainStr}, {MatchStr}, {NewStr})
 
-Criteria: 28
+Criteria: 26
 Find: Replace Any {MatchStr} With {NewStr} In {MainStr}
 Replace: PB_REPLACE_ANY({MainStr}, {MatchStr}, {NewStr})
 
-Criteria: 29
+Criteria: 27
 Find: Repeat$({count}, {Str})
 Replace: PB_REPEAT({Str}, {count})
 
-Criteria: 30
+Criteria: 28
 Find: Asc({Str}[, {pos=1}])
 Replace: PB_ASC({Str}, {pos})
 
-Criteria: 31
+Criteria: 29
 Find: ${equate: NUL|BEL|BS|TAB|LF|VT|FF|CR|CRLF|EOF|ESC|SPC|DQ|SQ|QCQ }
 Replace: PB_{@Eval: UCase("{equate}", "{'.*'}")}
 
