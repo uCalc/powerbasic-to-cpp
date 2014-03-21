@@ -50,3 +50,11 @@ inline void PB_REPLACE(string Str, string Match, string NewStr) { PB_EXTRACT(1, 
 inline string PB_REPEAT(string Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr; } // +++ must optimize this
 
 inline int PB_ASC(string Str, int pos) { return (int)Str.at(pos-1); }
+
+inline string PB_STR(long double number, int prec=16) { stringstream Str; Str.precision(prec); Str << number; return Str.str(); }
+
+inline string PB_HEX(int number) { stringstream Str; Str << hex << uppercase << number; return Str.str(); }
+
+inline string PB_OCT(int number) { stringstream Str; Str << oct << uppercase << number; return Str.str(); }
+
+// +++ Need something for PB_BIN
