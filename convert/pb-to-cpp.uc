@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/20/2014 6:10:26 PM
+# This file was saved with uCalc Transform 2.95 on 3/21/2014 9:44:32 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -110,7 +110,7 @@ Replace: [Skip over]
 Criteria: 9
 Highlight: True
 SkipOver: True
-Find: { {nl}[%]|Then|Else|For|: } {var:" *[a-z\@\.\_]+"}[({index})] =
+Find: { {nl}[{ %|$ }]|Then|Else|For|: } {var:" *[a-z\@\.\_]+"}[({index})] =
 Replace: [Skip over]
 
 Criteria: 10
@@ -181,21 +181,22 @@ Find: // [{comment:".*"}]
 Replace: [Skip over]
 
 Criteria: 20
+Selected: True
 Highlight: True
 Find: ' [{comment:".*"}]
-Replace: // {comment}
+Replace: //{comment}
 
 Criteria: 21
 Highlight: True
 BackColor: Green
 PassOnce: False
-Find: {nl}%{equate} = {value}
-Replace: {nl}const int {equate} = {value};
+Find: {nl}{ {num: %} | {str: $} }{equate} = {value}
+Replace: {nl}const{num: int}{str: string} {equate} = {value};
 
 Criteria: 22
 Highlight: True
 BackColor: Green
-Find: %{equate:"[a-z]+"}
+Find: { % | $ }{equate:"[a-z]+"}
 Replace: {equate}
 
 Criteria: 23
@@ -469,58 +470,62 @@ Find: {keyword:"CV(BYT|DWD|D|E|I|L|Q|S|WRD)"}({string} [, {offset=1}])
 Replace: PB_{@Eval:UCase("{keyword}", "{'.*'}")}({string}, {offset})
 
 Criteria: 66
+PassOnce: False
+Find: Line Input [{prompt: {q}{str}{q} | ${equate:1}}][,] {StrVariable:1}
+Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
+
+Criteria: 67
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 67
+Criteria: 68
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 68
+Criteria: 69
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 69
+Criteria: 70
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 70
+Criteria: 71
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 71
+Criteria: 72
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 72
+Criteria: 73
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 73
+Criteria: 74
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 74
+Criteria: 75
 Find: _char([{char= }])
 Replace: '{char}'
 
-Criteria: 75
+Criteria: 76
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 76
-Selected: True
+Criteria: 77
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
