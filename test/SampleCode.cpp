@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/20/2014 6:31:52 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/21/2014 4:22:15 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -10,28 +10,30 @@
 #include <fstream>
 #include <algorithm>
 #include <string>
+#include <sstream>
 #include "pbstrings.h"
 using namespace std;
 
-//  File name: SampleCode.Bas
-//  To convert this file to C++ make sure you have uCalc Transform on your PC
-//  and *.uc from github.com/uCalc/powerbasic-to-cpp/tree/master/convert
-//  Do the following at the Command Prompt:
-// 
-//  C:\> PBtoCPP.Bat SampleCode.Bas
+// File name: SampleCode.Bas
+// To convert this file to C++ make sure you have uCalc Transform on your PC
+// and *.uc from github.com/uCalc/powerbasic-to-cpp/tree/master/convert
+// Do the following at the Command Prompt:
+//
+// C:\> PBtoCPP.Bat SampleCode.Bas
 
 
 const int MyEquate = 0x100;
 const int Other = 0x200;
+const string StrEquate = "Just a test: ";
 
 int ProgStatus;
 
 #if defined Other
-//  Something
+// Something
 #elif !defined abcd
-//  Something else
+// Something else
 #else
-//  Etc
+// Etc
 #endif
 
 #define MyMacroNum 12345
@@ -66,8 +68,8 @@ int MyFunction(int a, float& b)
    int *Test = new int [a+25+1];
    int yVar;
    int MyValue;
-   //  Dim q As Long
-   //  The commented line above is not translated
+   // Dim q As Long
+   // The commented line above is not translated
    
    MyFunc(a);
    x = MyFunc(b)+1;
@@ -136,7 +138,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
                          double& OtherVar, /* Everything after _ is a comment */
                          float *FinalArg)
 {
-   //  Embedded comments after _ are preserved in their original location
+   // Embedded comments after _ are preserved in their original location
    
    int *MyArray = new int [10+1];
    Point MyPoint;
@@ -144,7 +146,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    int n;
    
    for (x=1; x<=10; x += 1) {
-      n = y == z //  This works differently in PB than in C++
+      n = y == z // This works differently in PB than in C++
       MyArray[x] = x*2;
       if (x == 5) {
          y = x+5;
@@ -189,8 +191,8 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    delete[] MyArray;
 }
 
-//  The section below is a test for variables declared implicitely with data type
-//  based on Def[Type] declarations or on type specifiers.
+// The section below is a test for variables declared implicitely with data type
+// based on Def[Type] declarations or on type specifiers.
 
 
 float MyValue;
@@ -228,10 +230,10 @@ unsigned char  Bye() {
 }
 
 
-//  This section is a test for Subs or Functions that are called as a statement
-//  without parentheses.  The converter adds them.
+// This section is a test for Subs or Functions that are called as a statement
+// without parentheses.  The converter adds them.
 
-// #Include "Win32API.inc"
+//#Include "Win32API.inc"
 extern __declspec(dllimport) unsigned int ShellExecute(unsigned int hwnd, lpOperation As LPCSTR, lpFile As LPCSTR, lpParameters As LPCSTR, lpDirectory As LPCSTR, int nShowCmd);
 extern __declspec(dllimport) int SetCursorPos(int x, int y);
 extern __declspec(dllimport) void SetLastError(unsigned int dwErrCode);
@@ -254,18 +256,28 @@ float main()
    int n;
    unsigned int dwTest;
    string Num;
-   DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4) //  Comment
+   DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4) // Comment
    
    DoSomething(10, "abc", 5, 1);
-   DoSomething(1, "x", 5, 0)  //  Etc...
+   DoSomething(1, "x", 5, 0)  // Etc...
    
    if (x > 1) {
-      DoSomething(1, "x", 5, 0) //  Parenthesis already here
+      DoSomething(1, "x", 5, 0) // Parenthesis already here
    }
    
    MyFunc(5);
    
    ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
+   
+   getline(cin, MyString); // No prompt
+   cout << "Please enter some text:";
+   getline(cin, MyString); // quoted prompt - no comma
+   cout << "Please enter some text:";
+   getline(cin, MyString); // quoted prompt - with comma
+   cout << StrEquate;
+   getline(cin, MyString); // equate prompt - no comma
+   cout << StrEquate;
+   getline(cin, MyString); // equate prompt - with comma
    
    dwTest = PB_CVDWD(MyString, 1);
    dwTest = PB_CVDWD(MyString, 3);
@@ -273,7 +285,7 @@ float main()
    BinFile = 1;
    InFile  = 2;
    
-   //  File handling test
+   // File handling test
    fstream file_BinFile (string("MyBin.Txt").c_str(), ios::binary | ios::in | ios::out);
    fstream file_InFile (string("MyInput.Txt").c_str(), ios::in);
    fstream file_3 (string("MyOutput.Txt").c_str(), ios::out | ios::trunc);
@@ -300,10 +312,10 @@ float main()
    file_3 << "Part 1..." << "Part 2" << endl;
    file_3 << "Part 1..." << "Part 2";
    file_3 << "Part 1..." << "Part 2" << "Part 3" << endl;
-   file_3.close() //  PB: Close #3
-   file_4.close() //  PB: Close #4
-   file_BinFile.close() //  PB: Close #BinFile
-   file_InFile.close() //  PB: Close #InFile
+   file_3.close() // PB: Close #3
+   file_4.close() // PB: Close #4
+   file_BinFile.close() // PB: Close #BinFile
+   file_InFile.close() // PB: Close #InFile
    
    FileInfo = PB_EXE_EXTN;
    FileInfo = PB_EXE_FULL();
@@ -327,7 +339,7 @@ float main()
    delete[] MyFile;
 } int;
 
-//  This section tests transforms found in strings.uc
+// This section tests transforms found in strings.uc
 string StringTest(string& MyString, string OtherString)
 {
    string MyText;
@@ -360,7 +372,7 @@ string StringTest(string& MyString, string OtherString)
    PB_REPLACE(MyText, "abc", "xyz");
    PB_REPLACE_ANY(MyText, "abc", "xyz");
    if (PB_MID(MyText, 3, 5) == y) {
-      PB_MID_REPLACE(MyText, "Test" + to_string((long double)i*15), 20, FULL_STRING);
+      PB_MID_REPLACE(MyText, "Test" + PB_STR(i*15) + "  " + PB_STR(10/7, 4), 20, FULL_STRING);
    }
    PB_MID_REPLACE(x, y, 25, stold(y) +1);
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), 7), 25, 5);
@@ -370,9 +382,11 @@ string StringTest(string& MyString, string OtherString)
    if (x == PB_CR || x == PB_LF || x == PB_NUL) {
       MyText = "Line 1" + PB_CRLF + "Line 2" + PB_QCQ + "quote"+PB_DQ +PB_TAB;
    }
+   MyText = PB_HEX(123) + "   " + PB_OCT(1+2+3);
+   // +++ C++ doesn't seem to have a built-in string stream flag for Binary
 }
 
-//  This tests exported subs/functions
+// This tests exported subs/functions
 extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
    StringTest("abc", "xyz");
 }
@@ -381,8 +395,8 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
    DoSomething(1, "xyz", 2, 3);
 }
 
-//  Math test
-//  If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
+// Math test
+// If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
    if (x % 2 > lround(sqrt(pow(x, 2) + pow(y, 2)))) {
@@ -390,7 +404,7 @@ double DoMath()
    } else {
       q--;
    }
-   n = sqrt(x) * atan(y) + 2 // * x^2 + Tan(x^3-1)^2
+   n = sqrt(x) * atan(y) + 2 //* x^2 + Tan(x^3-1)^2
    pow(n == x, 2) + pow(y, 2);
    y = trunc(3.14159);
    
@@ -400,8 +414,8 @@ double DoMath()
    x = (x << 1);
    
    y = PB_SGN(-1) + PB_SGN(5) + PB_SGN(y);
-   //    If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
-   //    If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y^2
+   //   If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
+   //   If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y^2
    if (((y == x) <> 0) || !(y > x + 1)) {
       y = y+2;
    }
@@ -413,7 +427,7 @@ double DoMath()
    y = abs(-1)+tan(sin(2.5)+cos(3.5))+exp(1)+exp2(5)+log(5)+log2(5)+log10(5)+ceil(5);
 }
 
-//  Console routines
+// Console routines
 int PBConsoleTest()
 {
    cout << "PB Semicolon at the end = No new line.  ";
