@@ -9,6 +9,7 @@ DefLng a-z
 
 %MyEquate = &h100
 %Other = &h200
+$StrEquate = "Just a test: "
 
 Global ProgStatus As Long
 
@@ -182,6 +183,12 @@ Function PBMain()
 
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
 
+   Line Input MyString$ ' No prompt
+   Line Input "Please enter some text: " MyString$ ' quoted prompt - no comma
+   Line Input "Please enter some text: ", MyString$ ' quoted prompt - with comma
+   Line Input $StrEquate MyString$  ' equate prompt - no comma
+   Line Input $StrEquate, MyString$ ' equate prompt - with comma
+
    dwTest = CvDwd(MyString$)
    dwTest = CvDwd(MyString$, 3)
 
@@ -262,11 +269,13 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    MyText$ = Remove$(MyText$, "test") + Remove$(MyText$, Any ".!?")
    Replace "abc" With "xyz" In MyText$
    Replace Any "abc" With "xyz" In MyText$
-   If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15)
+   If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15) + "  " + Str$(10/7, 4)
    Mid$(x$, 25, Val(y$)+1) = y$ : Mid$(MyString$, 25, 5) = Mid$(y$, Val(x$), 7)
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
 
    If x$ = $Cr or x$ = $Lf or x$ = $Nul Then MyText$ = "Line 1" + $CrLf + "Line 2" + $Qcq + "quote"+$Dq +$Tab
+   MyText$ = Hex$(123) + "   " + Oct$(1+2+3)
+   ' +++ C++ doesn't seem to have a built-in string stream flag for Binary
 End Function
 
 ' This tests exported subs/functions
