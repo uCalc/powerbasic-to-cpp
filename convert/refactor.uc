@@ -1,5 +1,5 @@
 # refactor.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/19/2014 12:35:15 PM
+# This file was saved with uCalc Transform 2.95 on 3/24/2014 5:11:45 PM
 # Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -53,7 +53,6 @@ RightToLeft: False
 
 Criteria: 1
 Comment: Defines comments as whitespace and colon as separator
-Selected: True
 Find: 
 Replace: {@Define::
             Token: [\x27\_].* ~~ Properties: ucWhiteSpace
@@ -77,5 +76,11 @@ Comment: Adds closing quote for quoted text with missing closing quote
 BackColor: DarkKhaki
 Find: {QuotedText:"\q[^\q\n]*"}{nl}
 Replace: {QuotedText}"{nl}
+
+Criteria: 4
+Comment: Adds () As Long to PBMain if missing
+Selected: True
+Find: Function PBMain [()] [As Long]
+Replace: Function PBMain() As Long
 
 # End Search
