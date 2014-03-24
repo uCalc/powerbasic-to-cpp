@@ -72,7 +72,7 @@ Function MyFunction(ByVal a As Long, ByRef b As Single) As Long
    End If
 End Function
 
-Sub MySub(ByVal x As Long)
+Sub MySub(ByVal x As Long, dArray() As Double)
    Local y As Long, Test As Single Ptr
    Dim Number(10) As Single, Other(x) As Long
    Register z As Long
@@ -84,6 +84,7 @@ Sub MySub(ByVal x As Long)
       y = MyFunction(x, @Test)
       Test = VarPtr(x)
       Number(z) = @Test + Other(5+x)
+      dArray(x) = Number(x)
       x = x+1
       If Test < 0 Then Iterate
       If Test = y Then Exit Sub
@@ -173,6 +174,8 @@ End Sub
 
 Function PBMain()
    Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long, dwTest As Dword, Num$
+   Dim mArray(10) As Double
+
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
    DoSomething 10, "abc", 5, 1 : DoSomething 1, "x", 5, 0  ' Etc...
@@ -180,6 +183,7 @@ Function PBMain()
    If x > 1 Then DoSomething(1, "x", 5, 0) ' Parenthesis already here
 
    MyFunc 5
+   MySub 10, mArray()
 
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
 
@@ -239,7 +243,7 @@ Function PBMain()
    MyFile$(0) = Dir$("*.Bas")
    While MyFile$(n) <> "" And n < 50
       MyFile$(n) = Dir$()
-      n += 1;
+      n += 1
    Wend
 End Function
 
@@ -289,7 +293,8 @@ End Sub
 
 ' Math test
 ' If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
-Function DoMath() As Double   
+Function DoMath() As Double
+   Dim i As Long
    If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
    n = Sqr(x) * Atn(y) + 2 '* x^2 + Tan(x^3-1)^2
    n = x^2 + y^2
@@ -297,8 +302,8 @@ Function DoMath() As Double
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
-   Shift Right x, 1
-   Shift Left x, 1
+   Shift Right i, 1
+   Shift Left i, 1
 
    y = Sgn(-1) + Sgn(5) + Sgn(y)
 '   If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
