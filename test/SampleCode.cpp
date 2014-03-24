@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/21/2014 4:22:15 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/24/2014 6:20:14 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -98,7 +98,7 @@ int MyFunction(int a, float& b)
    delete[] Test;
 }
 
-void MySub(int x)
+void MySub(int x, double dArray[])
 {
    int y;
    float *Test;
@@ -115,6 +115,7 @@ void MySub(int x)
       y = MyFunction(x, *Test);
       Test = &x;
       Number[z] = *Test + Other[5+x];
+      dArray[x] = Number[x];
       x = x+1;
       if (Test < 0) {
          continue;
@@ -246,7 +247,7 @@ void DoSomething(int Arg1, string& txt, long double& Number, Optional unsigned i
    }
 }
 
-float main()
+int main()
 {
    long double x;
    long double pi;
@@ -256,6 +257,8 @@ float main()
    int n;
    unsigned int dwTest;
    string Num;
+   double *mArray = new double [10+1];
+   
    DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4) // Comment
    
    DoSomething(10, "abc", 5, 1);
@@ -266,6 +269,7 @@ float main()
    }
    
    MyFunc(5);
+   MySub(10, mArray[]);
    
    ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
    
@@ -337,7 +341,8 @@ float main()
    }
    
    delete[] MyFile;
-} int;
+   delete[] mArray;
+}
 
 // This section tests transforms found in strings.uc
 string StringTest(string& MyString, string OtherString)
@@ -399,6 +404,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 // If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
+   int i;
    if (x % 2 > lround(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
@@ -410,8 +416,8 @@ double DoMath()
    
    srand(1234);
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
-   x = (x >> 1);
-   x = (x << 1);
+   i = (i >> 1);
+   i = (i << 1);
    
    y = PB_SGN(-1) + PB_SGN(5) + PB_SGN(y);
    //   If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
