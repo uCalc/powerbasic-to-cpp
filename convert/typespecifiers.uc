@@ -1,10 +1,10 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 3/6/2014 9:46:56 AM
+# This file was saved with uCalc Transform 2.95 on 3/24/2014 5:55:59 PM
 # Comment: Replaces data type specifiers with explicit type names
 
-ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
+ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
 
 FindMode: Replace
 
@@ -33,11 +33,13 @@ FilterSort: False
 FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
+FilterTally: False
 Min: 0
 Max: -1
 MinSoft: 0
 MaxSoft: -1
 BatchAction: Transform
+InputFile: 
 OutputFile: 
 SEND: 
 StartAfter: 0
@@ -156,8 +158,9 @@ Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}{spec:"[!?@#$%&]+"}
 Replace: <Arg>{by} {name} As {@Eval: ReadStr(Specifier, "{spec}")}
 
 Criteria: 14
+Selected: True
 SkipOver: True
-Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1} As
+Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}[()] As
 Replace: [Skip over]
 
 Criteria: 15
@@ -184,7 +187,6 @@ Find: {nl}Function {name}([{args%}]) As {type}
 Replace: {nl}Function {name}({args}) As {type}
 
 Criteria: 19
-Selected: True
 Find: As {type:1}({arraysize})
 Replace: ({arraysize}) As {type}
 
@@ -203,5 +205,13 @@ Comment: Removes statement specifiers
 BackColor: Violet
 Find: {variable:"[a-z0-9_]+"}{spec:"[!?@#$%&]+"}
 Replace: {variable}
+
+Criteria: 23
+Comment: Accommodates array passed as arg
+Pass: 5
+
+Criteria: 24
+Find: As ()
+Replace: ()
 
 # End Search
