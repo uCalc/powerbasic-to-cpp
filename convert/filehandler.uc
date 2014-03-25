@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/14/2014 8:52:21 AM
+# This file was saved with uCalc Transform 2.95 on 3/25/2014 6:01:40 PM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -107,9 +107,10 @@ Find: Seek([#] {filenum})
 Replace: file_{filenum}.tellg()+1
 
 Criteria: 9
+Selected: True
 BackColor: SlateBlue
 Find: LOF({filenum})
-Replace: (missing)
+Replace: PB_LOF({filenum})
 
 Criteria: 10
 Find: EOF({filenum})
@@ -166,7 +167,6 @@ Find: Dir$([Next])
 Replace: PB_DIR_NEXT()
 
 Criteria: 22
-Selected: True
 Find: Print #{filenum}
 Replace: file_{filenum} << endl
 
