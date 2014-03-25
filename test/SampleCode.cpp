@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/24/2014 6:20:14 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/25/2014 6:25:45 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -296,7 +296,7 @@ int main()
    fstream file_4 (string("MyAppend.Txt").c_str(), ios::out | ios::app);
    
    i = PB_ISFILE("Test.Txt");
-   i = (missing);
+   i = PB_LOF(BinFile);
    i = file_BinFile.tellg()+1;
    i = file_1.eof();
    file_BinFile.seekg(i+100-1);
