@@ -35,3 +35,13 @@ PB_CV(PB_CVS,   float)
 PB_CV(PB_CVWRD, unsigned short)
 // PB_CV(PB_CVCUR, ...) +++ no C++ type for currency
 // PB_CV(PB_CVCUX, ...)
+
+inline int PB_LOF(fstream& file) {
+   int size, current_loc;
+   
+   current_loc = file.tellg();
+   file.seekg(0, file.end);
+   size = file.tellg();
+   file.seekg(0, current_loc);
+   return size;
+}
