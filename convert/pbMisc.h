@@ -20,8 +20,6 @@ const string PB_DQ   = "\"";
 const string PB_SQ   = "\'";
 const string PB_QCQ  = "\q,\q";
 
-#define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
-
 #define PB_CV(keyword, type) inline type keyword(string Str, int Offset=1) \
         { type *ret; ret = (type*)(Str.data()+Offset-1); return *ret; }
 PB_CV(PB_CVBYT, unsigned char)
@@ -45,3 +43,11 @@ inline int PB_LOF(fstream& file) {
    file.seekg(0, current_loc);
    return size;
 }
+
+// Math
+
+#define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
+
+inline long double PB_FIX(long double n) {long double fix; modf(n, &fix); return fix;}
+inline long double PB_FRAC(long double n) {long double ignore; return modf(n, &ignore);}
+
