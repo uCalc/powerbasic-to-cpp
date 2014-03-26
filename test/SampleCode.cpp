@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/25/2014 6:25:45 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/26/2014 4:57:39 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -405,14 +405,16 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 double DoMath()
 {
    int i;
-   if (x % 2 > lround(sqrt(pow(x, 2) + pow(y, 2)))) {
+   if (x % 2 > (short)(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
       q--;
    }
    n = sqrt(x) * atan(y) + 2 //* x^2 + Tan(x^3-1)^2
    pow(n == x, 2) + pow(y, 2);
-   y = trunc(3.14159);
+   y = PB_FIX(3.14159);
+   n = PB_FRAC(3.14159);
+   n = (__int64)(3.14159) + (short)(3.14159);
    
    srand(1234);
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
