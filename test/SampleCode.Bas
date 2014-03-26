@@ -299,6 +299,8 @@ Function DoMath() As Double
    n = Sqr(x) * Atn(y) + 2 '* x^2 + Tan(x^3-1)^2
    n = x^2 + y^2
    y = Fix(3.14159)
+   n = Frac(3.14159)
+   n = Int(3.14159) + CInt(3.14159)
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
