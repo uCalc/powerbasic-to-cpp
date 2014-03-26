@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/19/2014 12:34:35 PM
+# This file was saved with uCalc Transform 2.95 on 3/26/2014 4:52:38 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -101,7 +101,6 @@ Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 10
-Selected: True
 Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
 Replace: {@Eval: LCase("{func}", "{'.*'}")}
 
@@ -122,89 +121,98 @@ Replace: sqrt
 Criteria: 14
 BackColor: Brown
 Find: Fix
-Replace: trunc
+Replace: PB_FIX
 
 Criteria: 15
-BackColor: Pink
-Find: Cint
-Replace: lround
+Find: Frac
+Replace: PB_FRAC
 
 Criteria: 16
+Selected: True
+BackColor: Pink
+Find: Cint
+Replace: (short)
+
+Criteria: 17
+Find: Int
+Replace: (__int64)
+
+Criteria: 18
 BackColor: Red
 Find: Incr {var:1}
 Replace: {var}++
 
-Criteria: 17
+Criteria: 19
 BackColor: RoyalBlue
 Find: Decr {var:1}
 Replace: {var}--
 
-Criteria: 18
+Criteria: 20
 Comment: Logical (short-circuit) AND
 Find: And
 Replace: &&
 
-Criteria: 19
+Criteria: 21
 Comment: Logical (short-circuit) OR
 BackColor: Purple
 Find: Or
 Replace: ||
 
-Criteria: 20
+Criteria: 22
 BackColor: Khaki
 Find: Xor
 Replace: ^
 
-Criteria: 21
+Criteria: 23
 BackColor: Green
 Find: Not
 Replace: ~
 
-Criteria: 22
+Criteria: 24
 SkipOver: True
 Find: #{metastatement:1} Not
 Replace: [Skip over]
 
-Criteria: 23
+Criteria: 25
 BackColor: Silver
 Find: IsTrue {x%}  [{stop-: And | Or | Then | : }]
 Replace: (({x}) <> 0)
 
-Criteria: 24
+Criteria: 26
 BackColor: SandyBrown
 Find: IsFalse {x%} [{stop-: And | Or | Then | : }]
 Replace: !({x})
 
-Criteria: 25
+Criteria: 27
 BackColor: Violet
 Find: <>
 Replace: !=
 
-Criteria: 26
+Criteria: 28
 Find: Randomize {number}
 Replace: srand({number})
 
-Criteria: 27
+Criteria: 29
 Find: Rnd[()]
 Replace: (rand() / RAND_MAX)
 
-Criteria: 28
+Criteria: 30
 Find: Rnd({a}, {b})
 Replace: (rand() % ({b}) + ({a}))
 
-Criteria: 29
+Criteria: 31
 Find: Shift Right {ivar}, {countexpr}
 Replace: {ivar} = ({ivar} >> {countexpr})
 
-Criteria: 30
+Criteria: 32
 Find: Shift Left {ivar}, {countexpr}
 Replace: {ivar} = ({ivar} << {countexpr})
 
-Criteria: 31
+Criteria: 33
 Find: Sgn({number})
 Replace: PB_SGN({number})
 
-Criteria: 32
+Criteria: 34
 Find: Max({args})
 Replace: PB_MAX({args})
 
