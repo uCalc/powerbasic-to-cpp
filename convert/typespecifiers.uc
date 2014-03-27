@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/24/2014 5:55:59 PM
+# This file was saved with uCalc Transform 2.95 on 3/27/2014 6:28:46 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -158,7 +158,6 @@ Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}{spec:"[!?@#$%&]+"}
 Replace: <Arg>{by} {name} As {@Eval: ReadStr(Specifier, "{spec}")}
 
 Criteria: 14
-Selected: True
 SkipOver: True
 Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}[()] As
 Replace: [Skip over]
@@ -207,10 +206,16 @@ Find: {variable:"[a-z0-9_]+"}{spec:"[!?@#$%&]+"}
 Replace: {variable}
 
 Criteria: 23
+Selected: True
+SkipOver: True
+Find: {"(min|max)[\$\&]"}
+Replace: [Skip over]
+
+Criteria: 24
 Comment: Accommodates array passed as arg
 Pass: 5
 
-Criteria: 24
+Criteria: 25
 Find: As ()
 Replace: ()
 
