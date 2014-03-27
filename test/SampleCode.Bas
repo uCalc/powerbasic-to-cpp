@@ -271,6 +271,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    MyText$ = Remain$(MyText$, "::") + Remain$(5+2*i, x$, "::")
    MyText$ = Remain$(MyText$, Any ".!?") + Remain$(15, y$, Any ".!?")
    MyText$ = Remove$(MyText$, "test") + Remove$(MyText$, Any ".!?")
+   MyText$ = Max$("This", "That", x$, Mid$(x$, 2, 3), y$, "!")
+   MyText$ = Min$("xyz", Max$(x$, y$), ".")
    Replace "abc" With "xyz" In MyText$
    Replace Any "abc" With "xyz" In MyText$
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15) + "  " + Str$(10/7, 4)
@@ -300,7 +302,10 @@ Function DoMath() As Double
    n = x^2 + y^2
    y = Fix(3.14159)
    n = Frac(3.14159)
-   n = Int(3.14159) + CInt(3.14159)
+   n = Int(3.14159) + CInt(3.14159) + EXP10(3+2)
+   n = Max(5.3, 11/2, 17, 4, Min(5, 3.5, -2, 8/7))
+   i = Min&(3, -10, 7, -1, Max&(3, 1, 7, -5), 23, 11)
+   i = Min&(1, 2, Max(5, 6, 7.5))
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
