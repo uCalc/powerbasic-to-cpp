@@ -47,7 +47,29 @@ inline int PB_LOF(fstream& file) {
 // Math
 
 #define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
+#define PB_EXP10(number) (10^(number))
 
 inline long double PB_FIX(long double n) {long double fix; modf(n, &fix); return fix;}
 inline long double PB_FRAC(long double n) {long double ignore; return modf(n, &ignore);}
 
+#define ARGCOUNT(x) x  // ARGCOUNT simply makes the first arg of variadic function stand out
+#define GREATER >
+#define LESS <
+
+#define MAXMIN(func, type, compare_op)                                                             \
+inline type func(int argCount, ...) {                                                              \
+   type max, value;                                                                                \
+   va_list args;                                                                                   \
+   va_start(args, argCount);                                                                       \
+   max = va_arg(args, type);                                                                       \
+   for(int x = 2; x <= argCount; x++) if((value = va_arg(args, type)) compare_op max) max = value; \
+   va_end(args);                                                                                   \
+   return max;                                                                                     \
+}
+
+MAXMIN(PB_MAX,     long double, GREATER)
+MAXMIN(PB_MAX_INT, int,         GREATER)
+MAXMIN(PB_MAX_STR, string,      GREATER)
+MAXMIN(PB_MIN,     long double, LESS)
+MAXMIN(PB_MIN_INT, int,         LESS)
+MAXMIN(PB_MIN_STR, string,      LESS)
