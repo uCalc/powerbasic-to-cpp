@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/26/2014 4:52:38 PM
+# This file was saved with uCalc Transform 2.95 on 3/27/2014 6:16:51 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,57 +52,54 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Find: 
+Replace: {@Var: Type As String}
+
+Criteria: 2
 Comment: ^ (power)
 Pass: 1
 
-Criteria: 2
+Criteria: 3
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 3
+Criteria: 4
 BackColor: Gold
 Precedence: 100
 Find: {x} ^ {y}  {@Note: precedence property set to 100}
 Replace: pow({x}, {y})
 
-Criteria: 4
+Criteria: 5
 Comment: Bitwise AND and OR
 Pass: 2
 
-Criteria: 5
+Criteria: 6
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 6
+Criteria: 7
 Comment: Bitwise AND and OR
 BackColor: YellowGreen
 Find: ({expr})
 Replace: ({@Eval: Replace(Replace('{expr}', "And", "&"), "Or", "|")})
 
-Criteria: 7
+Criteria: 8
 Comment: Everything else
 Pass: 3
 
-Criteria: 8
-Find: {@Start}
-      {@Note:   
-         ToDo:  \ exp10 frac sgn shift
-               eqv imp bin hex oct Not         
-      }
-Replace: #include <math.h>
-         #include <stdlib.h>
-         {@Note: rand & srand are in stdlib.h}
-
 Criteria: 9
+Find: {@Start}
+      {@Note: ToDo: \ eqv imp bin }
+Replace: #include <cmath>
+         #include <cstdlib>
+         {@Note: rand & srand are in cstdlib}
+
+Criteria: 10
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
-
-Criteria: 10
-Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
-Replace: {@Eval: LCase("{func}", "{'.*'}")}
 
 Criteria: 11
 Find: Mod
@@ -119,101 +116,105 @@ Find: Sqr
 Replace: sqrt
 
 Criteria: 14
-BackColor: Brown
-Find: Fix
-Replace: PB_FIX
-
-Criteria: 15
-Find: Frac
-Replace: PB_FRAC
-
-Criteria: 16
-Selected: True
 BackColor: Pink
 Find: Cint
 Replace: (short)
 
-Criteria: 17
-Find: Int
-Replace: (__int64)
+Criteria: 15
+Find: Int({arg})
+Replace: (__int64)({arg})
 
-Criteria: 18
+Criteria: 16
 BackColor: Red
 Find: Incr {var:1}
 Replace: {var}++
 
-Criteria: 19
+Criteria: 17
 BackColor: RoyalBlue
 Find: Decr {var:1}
 Replace: {var}--
 
-Criteria: 20
+Criteria: 18
 Comment: Logical (short-circuit) AND
 Find: And
 Replace: &&
 
-Criteria: 21
+Criteria: 19
 Comment: Logical (short-circuit) OR
 BackColor: Purple
 Find: Or
 Replace: ||
 
-Criteria: 22
+Criteria: 20
 BackColor: Khaki
 Find: Xor
 Replace: ^
 
-Criteria: 23
+Criteria: 21
 BackColor: Green
 Find: Not
 Replace: ~
 
-Criteria: 24
+Criteria: 22
 SkipOver: True
 Find: #{metastatement:1} Not
 Replace: [Skip over]
 
-Criteria: 25
+Criteria: 23
 BackColor: Silver
 Find: IsTrue {x%}  [{stop-: And | Or | Then | : }]
 Replace: (({x}) <> 0)
 
-Criteria: 26
+Criteria: 24
 BackColor: SandyBrown
 Find: IsFalse {x%} [{stop-: And | Or | Then | : }]
 Replace: !({x})
 
-Criteria: 27
+Criteria: 25
 BackColor: Violet
 Find: <>
 Replace: !=
 
-Criteria: 28
+Criteria: 26
 Find: Randomize {number}
 Replace: srand({number})
 
-Criteria: 29
+Criteria: 27
 Find: Rnd[()]
 Replace: (rand() / RAND_MAX)
 
-Criteria: 30
+Criteria: 28
 Find: Rnd({a}, {b})
 Replace: (rand() % ({b}) + ({a}))
 
-Criteria: 31
+Criteria: 29
 Find: Shift Right {ivar}, {countexpr}
 Replace: {ivar} = ({ivar} >> {countexpr})
 
-Criteria: 32
+Criteria: 30
 Find: Shift Left {ivar}, {countexpr}
 Replace: {ivar} = ({ivar} << {countexpr})
 
-Criteria: 33
-Find: Sgn({number})
-Replace: PB_SGN({number})
+Criteria: 31
+Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
+Replace: {@Eval: LCase("{func}", "{'.*'}")}
 
-Criteria: 34
-Find: Max({args})
-Replace: PB_MAX({args})
+Criteria: 32
+Find: {func: Exp10 | Fix | Frac | Sgn}
+Replace: PB_{@Eval: UCase("{func}", "{'.*'}")}
+
+Criteria: 33
+Selected: True
+PassOnce: False
+Find: {func: Min | Max}[{ {int: &} | {str: $} | {dbl: } }]
+      ({args})
+Replace: PB_{@Evaluate:
+            Type = "(double)"
+            IIf("{int}" <> "", Type = "(int)")
+            IIf("{str}" <> "", Type = "(string)")
+            UCase("{func}", "{'.*'}")
+         }{int:_INT}{str:_STR}(ARGCOUNT({@Evaluate: 
+         Tally({args}, ",", Skip("({nest})"))+1}), {@Evaluate:
+         Type + Replace({args}, ",", ", "+Type, Skip("({nest})"))})
 
 # End Search
