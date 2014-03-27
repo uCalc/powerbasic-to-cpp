@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/24/2014 5:58:21 PM
+# This file was saved with uCalc Transform 2.95 on 3/27/2014 10:05:28 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,6 +52,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
 Highlight: True
 PassOnce: False
 Find: {@Start}
@@ -61,6 +62,7 @@ Replace: // This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was conv
          
          #include "pbOS.h"
          #include "pbMisc.h"
+         #include <cstdarg>
          {@Define:
             Var: Array As String
             Var: ArrayNames As Table
@@ -407,7 +409,6 @@ Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
 Criteria: 54
-Selected: True
 PassOnce: False
 Find: ByRef {array}() As {type:1}
 Replace: {type} {array}[]{@Define::
