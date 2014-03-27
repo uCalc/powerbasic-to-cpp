@@ -1,11 +1,12 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/26/2014 4:57:39 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/27/2014 6:29:00 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
 #include "pbMisc.h"
-#include <math.h>
-#include <stdlib.h>
+#include <cstdarg>
+#include <cmath>
+#include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -374,6 +375,8 @@ string StringTest(string& MyString, string OtherString)
    MyText = PB_REMAIN(1, MyText, "::") + PB_REMAIN(5+2*i, x, "::");
    MyText = PB_REMAIN_ANY(1, MyText, ".!?") + PB_REMAIN_ANY(15, y, ".!?");
    MyText = PB_REMOVE(MyText, "test") + PB_REMOVE_ANY(MyText, ".!?");
+   MyText = PB_MAX_STR(ARGCOUNT(6), (string)"This", (string) "That", (string) x, (string) PB_MID(x, 2, 3), (string) y, (string) "!");
+   MyText = PB_MIN_STR(ARGCOUNT(3), (string)"xyz", (string) PB_MAX_STR(ARGCOUNT(2), (string)x, (string) y), (string) ".");
    PB_REPLACE(MyText, "abc", "xyz");
    PB_REPLACE_ANY(MyText, "abc", "xyz");
    if (PB_MID(MyText, 3, 5) == y) {
@@ -414,7 +417,10 @@ double DoMath()
    pow(n == x, 2) + pow(y, 2);
    y = PB_FIX(3.14159);
    n = PB_FRAC(3.14159);
-   n = (__int64)(3.14159) + (short)(3.14159);
+   n = (__int64)(3.14159) + (short)(3.14159) + PB_EXP10(3+2);
+   n = PB_MAX(ARGCOUNT(5), (double)5.3, (double) 11/2, (double) 17, (double) 4, (double) PB_MIN(ARGCOUNT(4), (double)5, (double) 3.5, (double) -2, (double) 8/7));
+   i = PB_MIN_INT(ARGCOUNT(7), (int)3, (int) -10, (int) 7, (int) -1, (int) PB_MAX_INT(ARGCOUNT(4), (int)3, (int) 1, (int) 7, (int) -5), (int) 23, (int) 11);
+   i = PB_MIN_INT(ARGCOUNT(3), (int)1, (int) 2, (int) PB_MAX(ARGCOUNT(3), (double)5, (double) 6, (double) 7.5));
    
    srand(1234);
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
@@ -431,7 +437,7 @@ double DoMath()
       y = y+2;
    }
    y = ((x) <> 0);
-   y = PB_MAX(3, 10, -2, 15+4, 23);
+   y = PB_MAX(ARGCOUNT(5), (double)3, (double) 10, (double) -2, (double) 15+4, (double) 23);
    y = abs(-1)+tan(sin(2.5)+cos(3.5))+exp(1)+exp2(5)+log(5)+log2(5)+log10(5)+ceil(5);
 }
 
