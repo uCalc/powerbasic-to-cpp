@@ -34,6 +34,11 @@ PB_CV(PB_CVWRD, unsigned short)
 // PB_CV(PB_CVCUR, ...) +++ no C++ type for currency
 // PB_CV(PB_CVCUX, ...)
 
+inline string PB_PEEK_STR(int address, int count) { return string((char *)address, count); }
+inline void PB_POKE_STR(int address, string data) { memmove((void *)address, data.c_str(), data.length()); }
+
+inline void PB_NAME(string oldname, string newname) { rename(oldname.c_str(), newname.c_str()); }
+
 inline int PB_LOF(fstream& file) {
    int size, current_loc;
    
