@@ -245,6 +245,8 @@ Function PBMain()
       MyFile$(n) = Dir$()
       n += 1
    Wend
+
+   Name "Temp.Txt" As "Text.Tmp" : Name "Something.Txt" As "Other.Txt"
 End Function
 
 ' This section tests transforms found in strings.uc
@@ -278,6 +280,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15) + "  " + Str$(10/7, 4)
    Mid$(x$, 25, Val(y$)+1) = y$ : Mid$(MyString$, 25, 5) = Mid$(y$, Val(x$), 7)
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
+
+   Poke$ VarPtr(i), "ABCD" : MyText$ = Peek$(VarPtr(i), 2)
 
    If x$ = $Cr or x$ = $Lf or x$ = $Nul Then MyText$ = "Line 1" + $CrLf + "Line 2" + $Qcq + "quote"+$Dq +$Tab
    MyText$ = Hex$(123) + "   " + Oct$(1+2+3)
