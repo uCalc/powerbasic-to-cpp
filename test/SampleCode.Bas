@@ -77,20 +77,31 @@ Sub MySub(ByVal x As Long, dArray() As Double)
    Dim Number(10) As Single, Other(x) As Long
    Register z As Long
 
-   ProgStatus = 10
-   y = x + 1 : z = y+x : Other(x) = x+1
-
-   While x < 10
-      y = MyFunction(x, @Test)
-      Test = VarPtr(x)
-      Number(z) = @Test + Other(5+x)
-      dArray(x) = Number(x)
-      x = x+1
-      If Test < 0 Then Iterate
-      If Test = y Then Exit Sub
-      If Test = z Then Exit
-   Wend
-   Sleep 2+y
+   If x = 0 Then ' If Then
+      ProgStatus = 10
+      y = x + 1 : z = y+x : Other(x) = x+1
+   ElseIf x = -1 Then ' Test for ElseIf
+      While x < 10
+         y = MyFunction(x, @Test)
+         Test = VarPtr(x)
+         Number(z) = @Test + Other(5+x)
+         dArray(x) = Number(x)
+         x = x+1
+         If Test < 0 Then Iterate
+         If Test = y Then Exit Sub
+         If Test = z Then Exit
+      Wend
+   ElseIf x = 1 Then
+      Sleep 2+y
+   Else ' Test for Else
+      ProgStatus = 25
+      If x = 2 Then
+         y = x * 25
+         z = y - 7
+      Else
+         Other(1) = x+1
+      End If
+   End If
 End Sub
 
 Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (underscore)
