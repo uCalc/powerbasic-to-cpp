@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/28/2014 2:36:42 PM using the Open Source 
+// with uCalc Transform 2.95 on 3/31/2014 6:32:40 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -107,28 +107,42 @@ void MySub(int x, double dArray[])
    int *Other = new int [x+1];
    int z;
    
-   ProgStatus = 10;
-   y = x + 1;
-   z = y+x;
-   Other[x] = x+1;
-   
-   while (x < 10) {
-      y = MyFunction(x, *Test);
-      Test = &x;
-      Number[z] = *Test + Other[5+x];
-      dArray[x] = Number[x];
-      x = x+1;
-      if (Test < 0) {
-         continue;
+   if (x == 0) { // If Then
+      
+      ProgStatus = 10;
+      y = x + 1;
+      z = y+x;
+      Other[x] = x+1;
+   } else if (x == -1) { // Test for ElseIf
+      
+      while (x < 10) {
+         y = MyFunction(x, *Test);
+         Test = &x;
+         Number[z] = *Test + Other[5+x];
+         dArray[x] = Number[x];
+         x = x+1;
+         if (Test < 0) {
+            continue;
+         }
+         if (Test == y) {
+            return;
+         }
+         if (Test == z) {
+            break;
+         }
       }
-      if (Test == y) {
-         return;
-      }
-      if (Test == z) {
-         break;
+   } else if (x == 1) {
+      PB_SLEEP(2+y);
+   } else { // Test for Else
+      
+      ProgStatus = 25;
+      if (x == 2) {
+         y = x * 25;
+         z = y - 7;
+      } else {
+         Other[1] = x+1;
       }
    }
-   PB_SLEEP(2+y);
    
    delete[] Other;
    delete[] Number;
