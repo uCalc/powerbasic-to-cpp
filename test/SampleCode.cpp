@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 3/31/2014 6:32:40 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/1/2014 6:27:44 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -190,6 +190,12 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
       }
       if (~(x == y | x == z)) {
          x = y + 10;
+      }
+      
+      if (x == 1) {
+         MyArray.clear();
+      } else {
+         MyArray.clear(); // Erase with and without optional () in PB
       }
       
       if (x != y) {
