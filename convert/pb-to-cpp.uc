@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/31/2014 6:26:39 PM
+# This file was saved with uCalc Transform 2.95 on 4/1/2014 6:25:16 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -227,7 +227,6 @@ Find: {nl}Else
 Replace: {nl} } else {
 
 Criteria: 27
-Selected: True
 Find: {nl}ElseIf {cond} Then
 Replace: {nl} } else if ({cond}) {
 
@@ -309,6 +308,11 @@ Replace: {type} *{array} = new {type} [{subscript}+1];{@Eval:
          }{@Define:: Syntax: {array}([{index}]) ::= {array}[{index}]} 
 
 Criteria: 36
+Selected: True
+Find: Erase {array:1}[()]
+Replace: {array}.clear();
+
+Criteria: 37
 Highlight: True
 BackColor: SandyBrown
 PassOnce: False
@@ -316,121 +320,121 @@ Find: Dim {var1}, {more}
 Replace: Dim {var1}
          Dim {more}
 
-Criteria: 37
+Criteria: 38
 Highlight: True
 BackColor: Gold
 PassOnce: False
 Find: { Local | Global | Register }
 Replace: Dim
 
-Criteria: 38
+Criteria: 39
 Highlight: True
 Find: @
 Replace: *
 
-Criteria: 39
+Criteria: 40
 Highlight: True
 BackColor: Silver
 Find: VarPtr({var})
 Replace: &{var}
 
-Criteria: 40
+Criteria: 41
 Highlight: True
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: Function = {value}
 Replace: return {value}
 
-Criteria: 41
+Criteria: 42
 Find: Iterate
 Replace: continue
 
-Criteria: 42
+Criteria: 43
 Find: Exit
 Replace: break
 
-Criteria: 43
+Criteria: 44
 Highlight: True
 Find: Exit Sub
 Replace: return
 
-Criteria: 44
+Criteria: 45
 Highlight: True
 BackColor: Lime
 Find: Long
 Replace: int
 
-Criteria: 45
+Criteria: 46
 Highlight: True
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 46
+Criteria: 47
 Find: Double
 Replace: double
 
-Criteria: 47
+Criteria: 48
 Highlight: True
 Find: Byte
 Replace: unsigned char
 
-Criteria: 48
+Criteria: 49
 Highlight: True
 Find: Integer
 Replace: short
 
-Criteria: 49
+Criteria: 50
 Highlight: True
 Find: Word
 Replace: unsigned short
 
-Criteria: 50
+Criteria: 51
 Highlight: True
 Find: Dword
 Replace: unsigned int
 
-Criteria: 51
+Criteria: 52
 Find: AsciiZ
 Replace: LPCSTR
 
-Criteria: 52
+Criteria: 53
 Highlight: True
 Find: Quad
 Replace: __int64
 
-Criteria: 53
+Criteria: 54
 SkipOver: True
 Find: long double
 Replace: [Skip over]
 
-Criteria: 54
+Criteria: 55
 Highlight: True
 Find: { Extended | Ext }
 Replace: long double
 
-Criteria: 55
+Criteria: 56
 Highlight: True
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 56
+Criteria: 57
 PassOnce: False
 Find: ByRef {array}() As {type:1}
 Replace: {type} {array}[]{@Define::
             Syntax: {array}([{index}]) ::= {array}[{index}]
          }
 
-Criteria: 57
+Criteria: 58
 Highlight: True
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 58
+Criteria: 59
 Highlight: True
 PassOnce: False
 Find: Type {name:1}
@@ -440,108 +444,108 @@ Replace: struct {name} {
             {members}
          }
 
-Criteria: 59
+Criteria: 60
 Highlight: True
 Find: Macro {name} [{params: ({paramlist})}] = {replacement}
 Replace: #define {name}{params} {replacement}
 
-Criteria: 60
+Criteria: 61
 Highlight: True
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 61
+Criteria: 62
 Find: #{directive: If | Else | EndIf }
 Replace: #{@Eval: LCase("{directive}", "{'.*'}")}
 
-Criteria: 62
+Criteria: 63
 Highlight: True
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 63
+Criteria: 64
 Find: Choose[&]({index}, {choice})
 Replace: IIf({index}, {choice}, 0)
 
-Criteria: 64
+Criteria: 65
 Find: Choose$({index}, {choice})
 Replace: IIf({index}, {choice}, "")
 
-Criteria: 65
+Criteria: 66
 PassOnce: False
 Find: Choose[{type: $ | & }]({index}, {choice1}, {more})
 Replace: IIf({index}, {choice1}, Choose{type}({index}, {more}))
 
-Criteria: 66
+Criteria: 67
 Find: StdOut {text} { {sameline: ;} | {NewLine: } }
 Replace: cout << {text} {NewLine: << endl;}
 
-Criteria: 67
+Criteria: 68
 Find: Sleep {milliseconds}
 Replace: PB_SLEEP({milliseconds})
 
-Criteria: 68
+Criteria: 69
 Find: {keyword:"CV(BYT|DWD|D|E|I|L|Q|S|WRD)"}({string} [, {offset=1}])
 Replace: PB_{@Eval:UCase("{keyword}", "{'.*'}")}({string}, {offset})
 
-Criteria: 69
+Criteria: 70
 PassOnce: False
 Find: Line Input [{prompt: {q}{str}{q} | ${equate:1}}][,] {StrVariable:1}
 Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
 
-Criteria: 70
+Criteria: 71
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 71
+Criteria: 72
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 72
+Criteria: 73
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 73
+Criteria: 74
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 74
+Criteria: 75
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 75
+Criteria: 76
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 76
+Criteria: 77
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 77
+Criteria: 78
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 78
+Criteria: 79
 Find: _char([{char= }])
 Replace: '{char}'
 
-Criteria: 79
+Criteria: 80
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 80
+Criteria: 81
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
