@@ -125,6 +125,8 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
       If Not(x = y Or x = z) Then x = y + 10
       If Not(x = y Or x = z) Then x = y + 10
 
+      If x = 1 Then Erase MyArray() Else Erase MyArray ' Erase with and without optional () in PB
+
       If x <> y Then MyPoint.x = y Else MyPoint.x = x
 
       pp = VarPtr(p)
