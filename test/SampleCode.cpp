@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/1/2014 6:27:44 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/2/2014 4:51:30 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -66,7 +66,7 @@ int MyFunction(int a, float& b)
 {
    int x;
    int y;
-   int *Test = new int [a+25+1];
+   std::vector<int> Test[a+25+1];
    int yVar;
    int MyValue;
    // Dim q As Long
@@ -95,16 +95,14 @@ int MyFunction(int a, float& b)
          }
       }
    }
-   
-   delete[] Test;
 }
 
 void MySub(int x, double dArray[])
 {
    int y;
    float *Test;
-   float *Number = new float [10+1];
-   int *Other = new int [x+1];
+   std::vector<float> Number[10+1];
+   std::vector<int> Other[x+1];
    int z;
    
    if (x == 0) { // If Then
@@ -143,9 +141,6 @@ void MySub(int x, double dArray[])
          Other[1] = x+1;
       }
    }
-   
-   delete[] Other;
-   delete[] Number;
 }
 
 void TestCertainOperators(int x, /* ' This line is broken up using a _ (underscore) */
@@ -156,7 +151,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
 {
    // Embedded comments after _ are preserved in their original location
    
-   int *MyArray = new int [10+1];
+   std::vector<int> MyArray[10+1];
    Point MyPoint;
    Point *pp;
    int n;
@@ -209,8 +204,6 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
       n = MyPoint.x == MyPoint.y;
       *pp.x = *pp.y == *pp.x+1;
    }
-   
-   delete[] MyArray;
 }
 
 // The section below is a test for variables declared implicitely with data type
@@ -222,6 +215,8 @@ string Label;
 Currency Price;
 long double ExtVal;
 __int64 qNum;
+std::vector<int> gArray;
+std::vector<float> gArray2;
 
 int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
 {
@@ -274,11 +269,11 @@ int main()
    long double pi;
    string MyString;
    string FileInfo;
-   string *MyFile = new string [50+1];
+   std::vector<string> MyFile[50+1];
    int n;
    unsigned int dwTest;
    string Num;
-   double *mArray = new double [10+1];
+   std::vector<double> mArray[10+1];
    
    DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4) // Comment
    
@@ -291,6 +286,12 @@ int main()
    
    MyFunc(5);
    MySub(10, mArray[]);
+   
+   gArray.clear();
+   gArray.resize(15+1);
+   gArray2.clear();
+   gArray2.resize(35+1);
+   mArray.resize(200+1);
    
    ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
    
@@ -363,9 +364,6 @@ int main()
    
    PB_NAME("Temp.Txt", "Text.Tmp");
    PB_NAME("Something.Txt", "Other.Txt");
-   
-   delete[] MyFile;
-   delete[] mArray;
 }
 
 // This section tests transforms found in strings.uc
