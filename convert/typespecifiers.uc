@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/27/2014 6:28:46 PM
+# This file was saved with uCalc Transform 2.95 on 4/2/2014 4:44:28 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -186,7 +186,8 @@ Find: {nl}Function {name}([{args%}]) As {type}
 Replace: {nl}Function {name}({args}) As {type}
 
 Criteria: 19
-Find: As {type:1}({arraysize})
+Selected: True
+Find: As {type:1}([{arraysize}])
 Replace: ({arraysize}) As {type}
 
 Criteria: 20
@@ -206,7 +207,6 @@ Find: {variable:"[a-z0-9_]+"}{spec:"[!?@#$%&]+"}
 Replace: {variable}
 
 Criteria: 23
-Selected: True
 SkipOver: True
 Find: {"(min|max)[\$\&]"}
 Replace: [Skip over]
