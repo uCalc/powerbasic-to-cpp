@@ -147,6 +147,7 @@ DefSng n-p, x-z
 ' Note: DefLng a-z was already defined at the beginning of the code
 
 Global MyValue!, Label$, Price@, ExtVal##, qNum&&
+Global gArray() As Long, gArray2!()
 
 Function TestFunc(a, b, c, i, s, n)
    Print MyValue!, Label$, PriceB#
@@ -198,6 +199,9 @@ Function PBMain()
    MyFunc 5
    MySub 10, mArray()
 
+   ReDim gArray(15), gArray2(35)
+   Redim Preserve mArray(200) As Double
+   
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
 
    Line Input MyString$ ' No prompt
