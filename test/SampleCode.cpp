@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/2/2014 4:51:30 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/3/2014 6:18:26 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -104,6 +104,9 @@ void MySub(int x, double dArray[])
    std::vector<float> Number[10+1];
    std::vector<int> Other[x+1];
    int z;
+   
+   z = (dArray.size()-1);
+   z = (Number.size()-1);
    
    if (x == 0) { // If Then
       
