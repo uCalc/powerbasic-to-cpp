@@ -77,6 +77,9 @@ Sub MySub(ByVal x As Long, dArray() As Double)
    Dim Number(10) As Single, Other(x) As Long
    Register z As Long
 
+   z = UBound(dArray)
+   z = UBound(Number)
+
    If x = 0 Then ' If Then
       ProgStatus = 10
       y = x + 1 : z = y+x : Other(x) = x+1
