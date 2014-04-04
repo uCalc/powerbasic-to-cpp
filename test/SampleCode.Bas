@@ -154,6 +154,8 @@ Global gArray() As Long, gArray2!()
 
 Function TestFunc(a, b, c, i, s, n)
    Print MyValue!, Label$, PriceB#
+   Print
+   Print
 
    Label$ = "Missing quote at the end of this line is added by Refactor.uc
 End Function
