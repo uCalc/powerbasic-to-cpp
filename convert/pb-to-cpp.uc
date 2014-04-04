@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/3/2014 6:08:45 PM
+# This file was saved with uCalc Transform 2.95 on 4/4/2014 6:00:07 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -306,7 +306,6 @@ Find: ReDim Preserve {array}({size}) [As {type}] [{more: , {etc}}]
 Replace: {array}.resize({size}+1); {more: {nl} ReDim Preserve {etc}}
 
 Criteria: 38
-Selected: True
 Find: UBound({array})
 Replace: ({array}.size()-1)
 
@@ -493,57 +492,72 @@ Find: Line Input [{prompt: {q}{str}{q} | ${equate:1}}][,] {StrVariable:1}
 Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
 
 Criteria: 73
+PassOnce: False
+Find: cout << {data},
+Replace: cout << left << setw(14) << {data}
+
+Criteria: 74
+PassOnce: False
+Find: cout << { {nl} | : }
+Replace: cout << endl;
+
+Criteria: 75
+Selected: True
+Find: Print
+Replace: cout <<
+
+Criteria: 76
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 74
+Criteria: 77
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 75
+Criteria: 78
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 76
+Criteria: 79
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 77
+Criteria: 80
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 78
+Criteria: 81
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 79
+Criteria: 82
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 80
+Criteria: 83
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 81
+Criteria: 84
 Find: _char([{char= }])
 Replace: '{char}'
 
-Criteria: 82
+Criteria: 85
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 83
+Criteria: 86
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
