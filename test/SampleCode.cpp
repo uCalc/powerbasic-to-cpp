@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/4/2014 6:00:20 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/7/2014 7:26:21 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -223,10 +223,11 @@ std::vector<float> gArray2;
 
 int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
 {
-   cout << MyValue, Label, PriceB;
-   cout <<;
-   cout <<;
-   
+   cout << PZONE << MyValue;
+   cout << PZONE << Label;
+   cout << PriceB;
+   cout << endl;
+   cout << endl;
    Label = "Missing quote at the end of this line is added by Refactor.uc";
 }
 
@@ -237,7 +238,13 @@ string Report(string& LastName, int x, double& NewPrice, float& n, short i, floa
    double Total;
    static int Index;
    
-   cout << LastName, x, NewPrice, n, i, nValue, qValue;
+   cout << PZONE << LastName;
+   cout << PZONE << x;
+   cout << PZONE << NewPrice;
+   cout << PZONE << n;
+   cout << PZONE << i;
+   cout << PZONE << nValue;
+   cout << qValue;
    Report = FirstName + LastName;
 }
 
