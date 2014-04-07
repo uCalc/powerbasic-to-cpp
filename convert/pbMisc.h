@@ -78,3 +78,5 @@ MAXMIN(PB_MAX_STR, string,      GREATER)
 MAXMIN(PB_MIN,     long double, LESS)
 MAXMIN(PB_MIN_INT, int,         LESS)
 MAXMIN(PB_MIN_STR, string,      LESS)
+
+#define PZONE left << setw(14)
