@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/4/2014 6:00:07 PM
+# This file was saved with uCalc Transform 2.95 on 4/7/2014 6:58:30 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -53,7 +53,6 @@ RightToLeft: False
 
 Criteria: 1
 Highlight: True
-PassOnce: False
 Find: {@Start}
 Replace: // This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was converted from {@Eval: Extract(ShortName(InputFile), ".")}.Bas
          // with {@Eval: AppName} on {@Eval: TimeStamp()} using the Open Source 
@@ -493,16 +492,15 @@ Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
 
 Criteria: 73
 PassOnce: False
-Find: cout << {data},
-Replace: cout << left << setw(14) << {data}
+Find: cout << {data}, [{more}]
+Replace: cout << PZONE << {data}{more: {nl}cout << {more}}
 
 Criteria: 74
-PassOnce: False
 Find: cout << { {nl} | : }
 Replace: cout << endl;
 
 Criteria: 75
-Selected: True
+PassOnce: False
 Find: Print
 Replace: cout <<
 
