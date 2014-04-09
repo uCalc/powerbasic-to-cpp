@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/7/2014 6:58:30 PM
+# This file was saved with uCalc Transform 2.95 on 4/8/2014 6:32:25 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -491,72 +491,62 @@ Find: Line Input [{prompt: {q}{str}{q} | ${equate:1}}][,] {StrVariable:1}
 Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
 
 Criteria: 73
-PassOnce: False
-Find: cout << {data}, [{more}]
-Replace: cout << PZONE << {data}{more: {nl}cout << {more}}
-
-Criteria: 74
-Find: cout << { {nl} | : }
-Replace: cout << endl;
-
-Criteria: 75
-PassOnce: False
-Find: Print
-Replace: cout <<
-
-Criteria: 76
 Comment: Adds semi-colons to statements
 Pass: 4
 
-Criteria: 77
+Criteria: 74
 Highlight: True
 SkipOver: True
 Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
 Replace: [Skip over]
 
-Criteria: 78
+Criteria: 75
 Comment: Skips over so that colons in bit fields are not affected
 Highlight: True
 SkipOver: True
 Find: struct {name:1} "{" {members+} "}"
 Replace: [Skip over]
 
-Criteria: 79
+Criteria: 76
 SkipOver: True
 Find: ({cond} ? {this} :
 Replace: [Skip over]
 
-Criteria: 80
+Criteria: 77
 Highlight: True
 Find: :
 Replace: ;
 
-Criteria: 81
+Criteria: 78
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 82
+Criteria: 79
 Highlight: True
 PassOnce: False
 Find: {nl}
 Replace: ;{nl}
 
-Criteria: 83
+Criteria: 80
 PassOnce: False
 Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 84
+Criteria: 81
 Find: _char([{char= }])
 Replace: '{char}'
 
-Criteria: 85
+Criteria: 82
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 86
+Criteria: 83
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
+
+Criteria: 84
+Find: 
+Replace: 
 
 # End Search
