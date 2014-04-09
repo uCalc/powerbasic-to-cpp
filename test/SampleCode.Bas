@@ -353,3 +353,21 @@ Function PBConsoleTest() As Long
    StdOut "PB Semicolon at the end = No new line.  ";
    StdOut "No semicolon = New Line at the end."
 End Function
+
+' Test for the PRINT function
+Sub PrintTest()
+   Print
+   Print a
+   Print a,
+   Print a;
+   Print : Print ' Print
+   Print : Print : Print : Print
+   Print a : Print b : Print c : Print d
+   Print a, : Print b,
+   Print , a: Print b, : Print c; d, : Print e
+   Print , a
+   Print , a, b
+   Print ,, a, b,
+   Print a; b, c; d, e; f,
+   Print a; b; c, : Print d
+End Sub
