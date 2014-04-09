@@ -1,5 +1,5 @@
 # print.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/8/2014 6:29:17 PM
+# This file was saved with uCalc Transform 2.95 on 4/9/2014 5:21:42 PM
 # Comment: 
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -14,7 +14,7 @@ FindMode: Replace
 # Search Criteria
 
 Criteria: 0
-Enabled: False
+Enabled: True
 Exclude: False
 Comment: 
 Selected: False
@@ -52,18 +52,18 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Enabled: True
+Selected: True
 Highlight: True
 BackColor: Yellow
 Find: 
 Replace: {@Token:: : ~~ Properties: ucStatementSep }
+         {@Token:: [\x27\_].* ~~ Properties: ucWhiteSpace}
 
 Criteria: 2
 Comment: 
 Pass: 1
 
 Criteria: 3
-Enabled: True
 BackColor: Purple
 Find: Print
 Replace: cout <<
@@ -73,14 +73,12 @@ Comment: Add ENDL to lines that need it
 Pass: 2
 
 Criteria: 5
-Enabled: True
 Highlight: True
 BackColor: DarkKhaki
 Find: cout << [{data}]
 Replace: cout << {data} << endl
 
 Criteria: 6
-Enabled: True
 Highlight: True
 BackColor: DeepSkyBlue
 Find: cout << [{data}] {punc: ; | , }{end: {nl} | : }
@@ -91,7 +89,6 @@ Comment:
 Pass: 3
 
 Criteria: 8
-Enabled: True
 Highlight: True
 BackColor: Lime
 PassOnce: False
@@ -99,8 +96,6 @@ Find: cout << {data}, [{more}]
 Replace: cout << PZONE << {data}{more: : cout << {more}}
 
 Criteria: 9
-Enabled: True
-Selected: True
 BackColor: SlateBlue
 PassOnce: False
 Find: cout << {data}; [{more}]
@@ -111,7 +106,6 @@ Comment: Clean up
 Pass: 4
 
 Criteria: 11
-Enabled: True
 Highlight: True
 BackColor: RoyalBlue
 PassOnce: False
@@ -119,7 +113,6 @@ Find: << <<
 Replace: <<
 
 Criteria: 12
-Enabled: True
 BackColor: SlateBlue
 PassOnce: False
 Find: cout << {data} : cout <<
