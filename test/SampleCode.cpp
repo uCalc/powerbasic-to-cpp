@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/8/2014 9:38:17 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/9/2014 5:23:10 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -475,4 +475,23 @@ int PBConsoleTest()
 {
    cout << "PB Semicolon at the end = No new line.  ";
    cout << "No semicolon = New Line at the end."  << endl;
+}
+
+// Test for the PRINT function
+void PrintTest()
+{
+   cout << endl;
+   cout << a << endl;
+   cout << PZONE << a;
+   cout << a;
+   cout << endl << endl // Print
+   cout << endl << endl << endl << endl;
+   cout << a << endl << b << endl << c << endl << d << endl;
+   cout << PZONE << a << PZONE << b;
+   cout <<, a << endl << PZONE << b << c << PZONE << d << e << endl;
+   cout <<, a << endl;
+   cout << PZONE << PZONE << a << b << endl;
+   cout << PZONE << PZONE << PZONE << a << PZONE << b;
+   cout << a << PZONE << b << c << PZONE << d << e << PZONE << f;
+   cout << a << b << PZONE << c << d << endl;
 }
