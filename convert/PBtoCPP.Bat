@@ -10,8 +10,9 @@ uCalcTransform  strings.uc         %1.1.tmp  %1.2.tmp /Q
 uCalcTransform  filehandler.uc     %1.2.tmp  %1.3.tmp /Q
 uCalcTransform  typespecifiers.uc  %1.3.tmp  %1.4.tmp /Q
 uCalCTransform  math.uc            %1.4.tmp  %1.5.tmp /Q
-uCalcTransform  pb-to-cpp.uc       %1.5.tmp  %1.6.tmp /Q
-uCalcTransform  beautify.uc        %1.6.tmp  %~n1.cpp /Q
+uCalCTransform  print.uc           %1.5.tmp  %1.6.tmp /Q
+uCalcTransform  pb-to-cpp.uc       %1.6.tmp  %1.7.tmp /Q
+uCalcTransform  beautify.uc        %1.7.tmp  %~n1.cpp /Q
 
 
 REM Del *.tmp
