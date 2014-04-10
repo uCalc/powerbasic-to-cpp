@@ -368,6 +368,9 @@ Sub PrintTest()
    Print , a
    Print , a, b
    Print ,, a, b,
+   Print ,,,,a
+   Print ,a,,,
+   Print ,a,,,""
    Print a; b, c; d, e; f,
    Print a; b; c, : Print d
 End Sub
