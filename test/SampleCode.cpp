@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/10/2014 5:25:32 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/11/2014 3:02:25 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -153,7 +153,6 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
                          float *FinalArg)
 {
    // Embedded comments after _ are preserved in their original location
-   
    std::vector<int> MyArray[10+1];
    Point MyPoint;
    Point *pp;
@@ -238,7 +237,7 @@ string Report(string& LastName, int x, double& NewPrice, float& n, short i, floa
    static int Index;
    
    cout << PZONE << LastName << PZONE << x << PZONE << NewPrice << PZONE << n << PZONE << i << PZONE << nValue << qValue << endl;
-   Report = FirstName + LastName;
+   return FirstName + LastName;
 }
 
 string Hello(string& txt)
@@ -484,6 +483,8 @@ void PrintTest()
    cout << a << endl;
    cout << PZONE << a;
    cout << a;
+   cout << a << endl // My comment
+   cout << PZONE << a;
    cout << endl << endl // Print
    cout << endl << endl << endl << endl;
    cout << a << endl << b << endl << c << endl << d << endl;
