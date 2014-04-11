@@ -1,10 +1,10 @@
 # interactive.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.5 on 2/4/2014 3:13:21 PM
+# This file was saved with uCalc Transform 2.95 on 4/11/2014 10:25:00 AM
 # Comment: Allows you to convert with a click of a button instead of a batch file
 
-ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, OutputFile, BatchAction, SEND
+ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
-ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique
+ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
 
 FindMode: Replace
 
@@ -33,11 +33,13 @@ FilterSort: False
 FilterSortFunc: 
 FilterStartText: 
 FilterUnique: False
+FilterTally: False
 Min: 0
 Max: -1
 MinSoft: 0
 MaxSoft: -1
 BatchAction: Transform
+InputFile: 
 OutputFile: 
 SEND: 
 StartAfter: 0
@@ -59,7 +61,8 @@ Replace: {@Evaluate:
             Text = Transform(Text, "typespecifiers.uc")
             Text = Transform(Text, "math.uc")
             Text = Transform(Text, "filehandler.uc")
-            Text = Transform(Text, "pb-to-cpp.uc")   
+            Text = Transform(Text, "print.uc")
+            Text = Transform(Text, "pb-to-cpp.uc") 
             Text
          }
 
