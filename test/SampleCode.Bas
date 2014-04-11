@@ -360,6 +360,8 @@ Sub PrintTest()
    Print a
    Print a,
    Print a;
+   Print a ' My comment
+   Print a, ' Some comment
    Print : Print ' Print
    Print : Print : Print : Print
    Print a : Print b : Print c : Print d
