@@ -1,5 +1,5 @@
 # print.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/10/2014 5:25:00 PM
+# This file was saved with uCalc Transform 2.95 on 4/11/2014 3:00:18 PM
 # Comment: 
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -57,7 +57,7 @@ BackColor: Yellow
 PassOnce: False
 Find: 
 Replace: {@Token:: : ~~ Properties: ucStatementSep }
-         {@Token:: [\x27\_].* ~~ Properties: ucWhiteSpace}
+         {@Token:: [\x27_].* ~~ Properties: ucWhiteSpace}
 
 Criteria: 2
 Comment: 
@@ -84,10 +84,11 @@ Comment: Add ENDL to lines that need it
 Pass: 2
 
 Criteria: 7
+Selected: True
 Highlight: True
 BackColor: DarkKhaki
 Find: cout << [{data}]
-Replace: cout << {data} << endl
+Replace: cout << {data} << endl;
 
 Criteria: 8
 Highlight: True
@@ -124,7 +125,6 @@ Find: << <<
 Replace: <<
 
 Criteria: 14
-Selected: True
 BackColor: SlateBlue
 PassOnce: False
 Find: cout << {data} : cout <<
