@@ -29,17 +29,42 @@ Type point
    y As Long
 End Type
 
-Type MyBits
+Type TestType
+   a As Long
+   b As Long Ptr
+   c As point
+   d As point ptr
+End Type
+
+Type OtherType
+   First As Long
+   Second As Long Ptr
+   Third As TestType Ptr
+End Type
+
+Type MyBits ' A comment goes here
    Year       As Bit * 7 In Dword
    Month      As Bit * 5
    DayOfMonth As Bit * 4
    DayOfWeek  As Bit * 3
-   Red        As Bit * 1 In Byte
-   Blue       As Bit * 1
+   Red        As Bit * 1 In Byte ' A comment here
+   Blue       As Bit * 1 ' A comment there
    Green      As Bit * 1
    Other      As Double
    xyz        As Extended
 End Type
+
+Union MyUnion
+   x As Long
+   y As Dword
+   z As Single
+End Union
+
+Union OtherUinion ' A comment goes here
+   xx As Long
+   yy As Dword
+   zz As Single
+End Union
 
 Function MyFunc(ByVal x As Long) As Long
    Function = x * 2
@@ -105,6 +130,25 @@ Sub MySub(ByVal x As Long, dArray() As Double)
          Other(1) = x+1
       End If
    End If
+
+   Dim t1 As OtherType, t2 As OtherType Ptr
+
+   i = t1.First
+   i = t1.@Second
+   i = t1.Third
+   i = t1.@Third.a
+   i = t1.@Third.b
+   i = t1.@Third.@b
+   i = t1.@Third.@x.x
+
+   i = @t2.First
+   i = @t2.@Second
+   i = @t2.Third
+   i = @t2.@Third.a
+   i = @t2.@Third.b
+   i = @t2.@Third.@b
+   i = @t2.@Third.@x.x
+   i = t1.@Second + t1.@Third.b + @t2.First + @t2.@Second + @t2.@Third.a + @t2.@Third.@b + @t2.@Third.@x.x
 End Sub
 
 Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (underscore)
@@ -116,7 +160,7 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
 
    Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr, n As Long
 
-   For x = 1 To 10
+   For x = 1 To 10 ' Just a test {comment}.
       n = y = z ' This works differently in PB than in C++
       MyArray(x) = x*2
       If x = 5 Then y = x+5 Else y = 23*2
@@ -158,6 +202,7 @@ Function TestFunc(a, b, c, i, s, n)
    Print
 
    Label$ = "Missing quote at the end of this line is added by Refactor.uc
+   Function = b + c
 End Function
 
 Function Report$(LastName$, ByVal x&, ByRef NewPrice#, n, ByVal i, nValue, qValue)
@@ -281,8 +326,13 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    i = InStr(MyString$, ANY "aeiou")
    i = InStr(i+10, "This is a test", "is")
    i = InStr("This is a test", ANY "aeiou")
+   i = Asc(MyText$)
+   i = Asc(MyText$, 5)
    i = Asc("This is a test")
-   i = Asc("This is a test", 10)
+   i = Asc("This is a test", 9)
+   i = Asc("This is a test", 10+i)
+   i = Asc("A") + 32
+   i = Asc("Test", 3)
    y$ = UCase$(MyString$) + LCase$(MyString$)
    x$ = Space$(25) + String$(10, "*") + String$(10, 65)
    x$ = Trim$(x$)+LTrim$(x$)+RTrim$(x$)+Trim$(x$, ANY ".,! ")+LTrim$(x$, ANY ".,! ")+RTrim$(x$, ANY ".,! ")
@@ -317,6 +367,20 @@ End Function
 
 Sub MyExportSub Alias "MyExportSub" (ByVal a, ByVal b) Export
    DoSomething(1, "xyz", 2, 3)
+
+   Select Case StringTest("abc", q$)
+   Case "a", "b", "c"
+      Print "Test"
+   Case "x"
+   Case q$
+      Select Case Rnd(1, 10)
+      Case 1: Print 1+1
+      Case 2 ' Comment
+         Print "Do some thing"
+      Case Else
+         Print "Whatever"
+      End Select
+   End Select
 End Sub
 
 ' Math test
