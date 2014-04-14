@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/11/2014 3:02:25 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/14/2014 5:48:27 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -45,16 +45,41 @@ struct point {
    int y;
 };
 
-struct MyBits {
+struct TestType {
+   int a;
+   int *b;
+   point c;
+   point *d;
+};
+
+struct OtherType {
+   int First;
+   int *Second;
+   TestType *Third;
+};
+
+struct MyBits { // A comment goes here
    unsigned int Year : 7;
    unsigned int Month : 5;
    unsigned int DayOfMonth : 4;
    unsigned int DayOfWeek : 3;
-   unsigned char Red : 1;
-   unsigned char Blue : 1;
+   unsigned char Red : 1; // A comment here
+   unsigned char Blue : 1; // A comment there
    unsigned char Green : 1;
    double Other;
    long double xyz;
+};
+
+union MyUnion {
+   int x;
+   unsigned int y;
+   float z;
+};
+
+union OtherUinion { // A comment goes here 
+   int xx;
+   unsigned int yy;
+   float zz;
 };
 
 int MyFunc(int x)
@@ -109,13 +134,11 @@ void MySub(int x, double dArray[])
    z = (Number.size()-1);
    
    if (x == 0) { // If Then
-      
       ProgStatus = 10;
       y = x + 1;
       z = y+x;
       Other[x] = x+1;
    } else if (x == -1) { // Test for ElseIf
-      
       while (x < 10) {
          y = MyFunction(x, *Test);
          Test = &x;
@@ -135,7 +158,6 @@ void MySub(int x, double dArray[])
    } else if (x == 1) {
       PB_SLEEP(2+y);
    } else { // Test for Else
-      
       ProgStatus = 25;
       if (x == 2) {
          y = x * 25;
@@ -144,6 +166,26 @@ void MySub(int x, double dArray[])
          Other[1] = x+1;
       }
    }
+   
+   OtherType t1;
+   OtherType *t2;
+   
+   i = t1.First;
+   i = *t1.Second;
+   i = t1.Third;
+   i = t1.Third->a;
+   i = t1.Third->b;
+   i = *t1.Third->b;
+   i = t1.Third->x->x;
+   
+   i = t2->First;
+   i = *t2->Second;
+   i = t2->Third;
+   i = t2->Third->a;
+   i = t2->Third->b;
+   i = *t2->Third->b;
+   i = t2->Third->x->x;
+   i = *t1.Second + t1.Third->b + t2->First + *t2->Second + t2->Third->a + *t2->Third->b + t2->Third->x->x;
 }
 
 void TestCertainOperators(int x, /* ' This line is broken up using a _ (underscore) */
@@ -158,7 +200,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    Point *pp;
    int n;
    
-   for (x=1; x<=10; x += 1) {
+   for (x=1; x<=10; x += 1) { // Just a test {comment}.
       n = y == z // This works differently in PB than in C++
       MyArray[x] = x*2;
       if (x == 5) {
@@ -204,7 +246,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
       pp = &p;
       MyPoint.x = MyPoint.y+1;
       n = MyPoint.x == MyPoint.y;
-      *pp.x = *pp.y == *pp.x+1;
+      pp->x = pp->y == pp->x+1;
    }
 }
 
@@ -227,6 +269,7 @@ int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
    cout << endl;
    
    Label = "Missing quote at the end of this line is added by Refactor.uc";
+   return b + c;
 }
 
 string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, __int64& qValue)
@@ -386,8 +429,13 @@ string StringTest(string& MyString, string OtherString)
    i = PB_INSTR_ANY(1, MyString, "aeiou");
    i = PB_INSTR(i+10, "This is a test", "is");
    i = PB_INSTR_ANY(1, "This is a test", "aeiou");
-   i = PB_ASC("This is a test", 1);
-   i = PB_ASC("This is a test", 10);
+   i = PB_ASC(MyText, 1);
+   i = PB_ASC(MyText, 5);
+   i = 'T';
+   i = 'a';
+   i = PB_ASC("This is a test", 10+i);
+   i = 'A' + 32;
+   i = 's';
    y = PB_UCASE(MyString) + PB_LCASE(MyString);
    x = string(25, ' ') + string(10, '*') + string(10, 65);
    x = PB_TRIM_ANY(x, " ")+PB_LTRIM_ANY(x, " ")+PB_RTRIM_ANY(x, " ")+PB_TRIM_ANY(x, ".,! ")+PB_LTRIM_ANY(x, ".,! ")+PB_RTRIM_ANY(x, ".,! ");
@@ -429,6 +477,25 @@ extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
 
 extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char b) {
    DoSomething(1, "xyz", 2, 3);
+    {
+      auto CASE_VAR = StringTest("abc", q);
+      if (CASE_VAR == "a" || CASE_VAR == "b" || CASE_VAR == "c") {
+         cout << "Test" << endl;
+      } else if (CASE_VAR == "x") {
+         
+      } else if (CASE_VAR == q) {
+          {
+            auto CASE_VAR = (rand() % (10) + (1));
+            if (CASE_VAR == 1) {
+               cout << 1+1 << endl;
+            } else if (CASE_VAR == 2) {
+               cout << "Do some thing" << endl;
+            } else {
+               cout << "Whatever" << endl;
+            }
+         }
+      }
+   }
 }
 
 // Math test
