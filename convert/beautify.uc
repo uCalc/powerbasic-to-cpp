@@ -1,5 +1,5 @@
 # beautify.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/21/2014 9:34:42 AM
+# This file was saved with uCalc Transform 2.95 on 4/14/2014 5:32:53 PM
 # Comment: Fixes indentation and spacing in C++ source code
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -60,91 +60,101 @@ Replace: {@Define:
             Inline: {indent+} := Indentation += IndentSize
             Inline: {indent-} := Indentation -= IndentSize
             Inline: {indent}  := " " * Indentation
-         }{@Eval: Indentation = 0}
+         }
+         {@Eval: Indentation = 0}
+         {@Token:: //[^`]*` ~~ Properties: ucWhiteSpace}
 
 Criteria: 2
 Comment: Strips all indentation and some spacing
 Pass: 1
 
 Criteria: 3
+Find: {comment:"//.*"}
+Replace: {comment}`
+
+Criteria: 4
 BackColor: Brown
 Find: {"\n"}{" +"}
 Replace: {nl}
 
-Criteria: 4
+Criteria: 5
 SkipOver: True
 Find: ({code~})
 Replace: [Skip over]
 
-Criteria: 5
+Criteria: 6
 Comment: 
 Pass: 2
 
-Criteria: 6
+Criteria: 7
 BackColor: RoyalBlue
 Find: {spc} "{" {spc}
 Replace: {
 
-Criteria: 7
+Criteria: 8
 BackColor: Pink
 Find: {spc} "}"
 Replace: }
 
-Criteria: 8
+Criteria: 9
 BackColor: Purple
 Find: {" *; *"}
 Replace: ;
 
-Criteria: 9
+Criteria: 10
 Find: {" *, *"}
 Replace: ,{sp}
 
-Criteria: 10
+Criteria: 11
 Comment: Handles semicolons
 Pass: 3
 
-Criteria: 11
+Criteria: 12
 BackColor: Green
 Find: ({params~})
 Replace: ({@Eval: Replace({Q}{params}{Q}, ";", "; ")})
 
-Criteria: 12
+Criteria: 13
 BackColor: SandyBrown
 Find: ;{char:"[^\n]"}
 Replace: ;{nl}{char}
 
-Criteria: 13
-Comment: Preserves comment location if it's after a ";"
-Selected: True
-Find: ;//{comment:".*"}
-Replace: ; //{comment}
-
 Criteria: 14
+Comment: Preserves comment location if it's after a ";"
+Find: ;{" *//"}
+Replace: ; //
+
+Criteria: 15
 Comment: Performs indentation
 Pass: 4
 
-Criteria: 15
+Criteria: 16
 BackColor: DeepSkyBlue
 Find: {nl}
 Replace: {nl}{indent}
 
-Criteria: 16
+Criteria: 17
 BackColor: DarkKhaki
-Find: "{" [{comment: //{c:".*"}}]
+Find: "{" [[{" +"}]{comment:"//[^`]*`"}[{nl}]]
 Replace: {sp}{{comment: {comment}}{nl}{indent+}{indent}
 
-Criteria: 17
+Criteria: 18
 BackColor: Yellow
-Find: "}" [{comment: //{c:".*"}}]
+Find: "}" [[{" +"}]{comment:"//[^`]*`"}]
 Replace: {nl}{indent-}{indent}}{comment: {comment}}
 
-Criteria: 18
+Criteria: 19
 BackColor: Brown
 Find: {nl}{type:1}{func:1}([{args+}])"{"
 Replace: {nl}{type} {func}({args}){nl}{{indent+}{nl}{indent}
 
-Criteria: 19
-Find: 
-Replace: 
+Criteria: 20
+Comment: 
+Pass: 5
+
+Criteria: 21
+Selected: True
+Find: {comment:" *//[^`]*"}`
+Replace: {comment}
 
 # End Search
