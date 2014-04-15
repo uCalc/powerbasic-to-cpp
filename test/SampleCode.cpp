@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/14/2014 5:48:27 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/15/2014 3:04:20 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -488,7 +488,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
             auto CASE_VAR = (rand() % (10) + (1));
             if (CASE_VAR == 1) {
                cout << 1+1 << endl;
-            } else if (CASE_VAR == 2) {
+            } else if (CASE_VAR == 2) { //  Comment
                cout << "Do some thing" << endl;
             } else {
                cout << "Whatever" << endl;
