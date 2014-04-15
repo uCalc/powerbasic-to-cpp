@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/14/2014 5:48:11 PM
+# This file was saved with uCalc Transform 2.95 on 4/14/2014 6:18:21 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -270,10 +270,11 @@ Find: End Select
 Replace: }}
 
 Criteria: 38
-Find: Case [IS] {test%} [:]
+Selected: True
+Find: Case [IS] {test%} [:] [' {comment:".*"}]
 Replace: {@Evaluate:
             IIf(Case1==1, Case1=0; "", "} else")
-         } if (CASE_VAR == {test}) {
+         } if (CASE_VAR == {test}) {{comment: // {comment}}
 
 Criteria: 39
 PassOnce: False
@@ -342,7 +343,6 @@ Find: { Local | Global | Register }
 Replace: Dim
 
 Criteria: 50
-Selected: True
 Find: `{typevar}.@{last:1}`
 Replace: *`{typevar}.{last}`
 
