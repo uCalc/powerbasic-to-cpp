@@ -9,7 +9,7 @@
 WIN32_FIND_DATA FindFileData;
 HANDLE DirHandle = INVALID_HANDLE_VALUE;
 
-inline string PB_DIR(string file) {
+inline string PB_DIR(const string& file) {
    DirHandle = FindFirstFile(file, &FindFileData);
    return (DirHandle == INVALID_HANDLE_VALUE ? "" : FindFileData.cFileName);
 }
@@ -19,7 +19,7 @@ inline string PB_DIR_NEXT() {
    return (DirHandle == INVALID_HANDLE_VALUE ? "" : FindFileData.cFileName);
 }
 
-inline BOOL PB_ISFILE(string FileName) {
+inline BOOL PB_ISFILE(const string& FileName) {
    DWORD attr = GetFileAttributes(FileName.c_str());
    return (attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY));
 }
