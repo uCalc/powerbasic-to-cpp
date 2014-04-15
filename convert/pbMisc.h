@@ -20,7 +20,7 @@ const string PB_DQ   = "\"";
 const string PB_SQ   = "\'";
 const string PB_QCQ  = "\q,\q";
 
-#define PB_CV(keyword, type) inline type keyword(string Str, int Offset=1) \
+#define PB_CV(keyword, type) inline type keyword(const string& Str, int Offset=1) \
         { type *ret; ret = (type*)(Str.data()+Offset-1); return *ret; }
 PB_CV(PB_CVBYT, unsigned char)
 PB_CV(PB_CVD,   double)
@@ -35,9 +35,9 @@ PB_CV(PB_CVWRD, unsigned short)
 // PB_CV(PB_CVCUX, ...)
 
 inline string PB_PEEK_STR(int address, int count) { return string((char *)address, count); }
-inline void PB_POKE_STR(int address, string data) { memmove((void *)address, data.c_str(), data.length()); }
+inline void PB_POKE_STR(int address, const string& data) { memmove((void *)address, data.c_str(), data.length()); }
 
-inline void PB_NAME(string oldname, string newname) { rename(oldname.c_str(), newname.c_str()); }
+inline void PB_NAME(const string& oldname, const string& newname) { rename(oldname.c_str(), newname.c_str()); }
 
 inline int PB_LOF(fstream& file) {
    int size, current_loc;
