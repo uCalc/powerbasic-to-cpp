@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/15/2014 3:04:20 PM using the Open Source 
+// with uCalc Transform 2.95 on 4/16/2014 4:47:14 PM using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -450,6 +450,7 @@ string StringTest(string& MyString, string OtherString)
    MyText = PB_REMOVE(MyText, "test") + PB_REMOVE_ANY(MyText, ".!?");
    MyText = PB_MAX_STR(ARGCOUNT(6), (string)"This", (string) "That", (string) x, (string) PB_MID(x, 2, 3), (string) y, (string) "!");
    MyText = PB_MIN_STR(ARGCOUNT(3), (string)"xyz", (string) PB_MAX_STR(ARGCOUNT(2), (string)x, (string) y), (string) ".");
+   MyText = "Backslash\\is\\an\\escape\\char in C++.";
    PB_REPLACE(MyText, "abc", "xyz");
    PB_REPLACE_ANY(MyText, "abc", "xyz");
    if (PB_MID(MyText, 3, 5) == y) {
