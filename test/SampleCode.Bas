@@ -347,6 +347,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    MyText$ = Remove$(MyText$, "test") + Remove$(MyText$, Any ".!?")
    MyText$ = Max$("This", "That", x$, Mid$(x$, 2, 3), y$, "!")
    MyText$ = Min$("xyz", Max$(x$, y$), ".")
+   MyText$ = "Backslash\is\an\escape\char in C++."
    Replace "abc" With "xyz" In MyText$
    Replace Any "abc" With "xyz" In MyText$
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15) + "  " + Str$(10/7, 4)
