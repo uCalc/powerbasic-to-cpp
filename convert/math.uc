@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/27/2014 6:16:51 PM
+# This file was saved with uCalc Transform 2.95 on 4/17/2014 11:18:47 AM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -83,7 +83,7 @@ Criteria: 7
 Comment: Bitwise AND and OR
 BackColor: YellowGreen
 Find: ({expr})
-Replace: ({@Eval: Replace(Replace('{expr}', "And", "&"), "Or", "|")})
+Replace: ({@Evaluate: Replace(Replace({expr}, "And", "&"), "Or", "|")})
 
 Criteria: 8
 Comment: Everything else
@@ -197,14 +197,14 @@ Replace: {ivar} = ({ivar} << {countexpr})
 
 Criteria: 31
 Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
-Replace: {@Eval: LCase("{func}", "{'.*'}")}
+Replace: {@Evaluate: LCase("{func}", "{'.*'}")}
 
 Criteria: 32
+Selected: True
 Find: {func: Exp10 | Fix | Frac | Sgn}
-Replace: PB_{@Eval: UCase("{func}", "{'.*'}")}
+Replace: PB_{@Evaluate: UCase("{func}", "{'.*'}")}
 
 Criteria: 33
-Selected: True
 PassOnce: False
 Find: {func: Min | Max}[{ {int: &} | {str: $} | {dbl: } }]
       ({args})
