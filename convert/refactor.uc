@@ -1,5 +1,5 @@
 # refactor.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 3/24/2014 5:11:45 PM
+# This file was saved with uCalc Transform 2.95 on 4/17/2014 10:42:45 AM
 # Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -61,10 +61,11 @@ Replace: {@Define::
 
 Criteria: 2
 Comment: Adds parenthesis around args in function/sub calls that do not have it
+Selected: True
 BackColor: Lime
 Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
-Replace: {@Eval:
-            Args = Remove("{args}", "{ Optional|ByVal|ByRef|As {type:1} [Ptr] | {'[#!@$%&]+'} | () }")
+Replace: {@Evaluate:
+            Args = Remove({args}, "{ Optional|ByVal|ByRef|As {type:1} [Ptr] | {'[#!@$%&]+'} | () }")
             Args = SetSyntaxParams(Args, Args)
          }{@Define::
             {@Eval: "PassOnce ~~ Syntax: {name} "+Args+" ::= {name}("+Args+")"}
@@ -79,7 +80,6 @@ Replace: {QuotedText}"{nl}
 
 Criteria: 4
 Comment: Adds () As Long to PBMain if missing
-Selected: True
 Find: Function PBMain [()] [As Long]
 Replace: Function PBMain() As Long
 
