@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/2/2014 4:44:28 PM
+# This file was saved with uCalc Transform 2.95 on 4/17/2014 10:52:15 AM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -96,9 +96,9 @@ Criteria: 3
 Comment: Stores the DefType statement associated with character initials
 BackColor: Purple
 Find: {"Def"}{type:"{@Eval: dType}"} {char} {nl}
-Replace: {@Eval:
-            SetVar(DefTypeInitial(Asc(LCase("{char}"))), ReadStr(DefType, "{type}"))
-            SetVar(DefTypeInitial(Asc(UCase("{char}"))), ReadStr(DefType, "{type}"))
+Replace: {@Evaluate:
+            SetVar(DefTypeInitial(Asc(LCase({char}))), ReadStr(DefType, {type}))
+            SetVar(DefTypeInitial(Asc(UCase({char}))), ReadStr(DefType, {type}))
          }
 
 Criteria: 4
@@ -120,7 +120,7 @@ Criteria: 6
 Comment: Inserts <arg> marker for easier parsing
 BackColor: Red
 Find: {nl}{decl: Sub | Function } {etc} ({args})
-Replace: {nl}{decl} {etc}(<Arg>{@Eval: Replace("{args}", ",", ", <Arg>")})
+Replace: {nl}{decl} {etc}(<Arg>{@Evaluate: Replace({args}, ",", ", <Arg>")})
 
 Criteria: 7
 SkipOver: True
@@ -151,11 +151,11 @@ Pass: 3
 Criteria: 12
 BackColor: RoyalBlue
 Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}
-Replace: <Arg>{by} {name} As {@Eval: DefTypeInitial(Asc("{name}"))}
+Replace: <Arg>{by} {name} As {@Evaluate: DefTypeInitial(Asc({name}))}
 
 Criteria: 13
 Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}{spec:"[!?@#$%&]+"}
-Replace: <Arg>{by} {name} As {@Eval: ReadStr(Specifier, "{spec}")}
+Replace: <Arg>{by} {name} As {@Evaluate: ReadStr(Specifier, {spec})}
 
 Criteria: 14
 SkipOver: True
@@ -166,18 +166,19 @@ Criteria: 15
 BackColor: Tomato
 PassOnce: False
 Find: {decl: Dim | Global | Local | Static }{etc}{spec:"[!?@#$%&]+"}
-Replace: {decl} {etc} As {@Eval: ReadStr(Specifier, "{spec}")}
+Replace: {decl} {etc} As {@Evaluate: ReadStr(Specifier, {spec})}
 
 Criteria: 16
 Comment: Adds the appropriate type for functions with no explicit type or specifier
 BackColor: CornflowerBlue
 Find: {nl}Function {name:1}([{args%}])
-Replace: {nl}Function {name}({args}) As {@Eval: DefTypeInitial(Asc("{name}"))}
+Replace: {nl}Function {name}({args}) As {@Evaluate: DefTypeInitial(Asc({name}))}
 
 Criteria: 17
 Comment: Changes function type specifier to data type name
+Selected: True
 Find: {nl}Function {name:1}{spec:"[!?@#$%&]+"}([{args%}])
-Replace: {nl}Function {name}({args}) As {@Eval: ReadStr(Specifier, "{spec}")}
+Replace: {nl}Function {name}({args}) As {@Evaluate: ReadStr(Specifier, {spec})}
 
 Criteria: 18
 Comment: Skips functions that already have an explicit type
@@ -186,7 +187,6 @@ Find: {nl}Function {name}([{args%}]) As {type}
 Replace: {nl}Function {name}({args}) As {type}
 
 Criteria: 19
-Selected: True
 Find: As {type:1}([{arraysize}])
 Replace: ({arraysize}) As {type}
 
