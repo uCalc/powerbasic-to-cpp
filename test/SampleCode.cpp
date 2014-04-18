@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 4/16/2014 4:47:14 PM using the Open Source 
+// with uCalc Transform 2.95 on 04/18/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -310,6 +310,9 @@ void DoSomething(int Arg1, string& txt, long double& Number, Optional unsigned i
    }
 }
 
+const int True_Renamed = 1;
+const int False_Renamed = 0;
+
 int main()
 {
    long double x;
@@ -411,6 +414,23 @@ int main()
    
    PB_NAME("Temp.Txt", "Text.Tmp");
    PB_NAME("Something.Txt", "Other.Txt");
+   
+   // Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
+   int Auto_Renamed;
+   int Break_Renamed;
+   double Float_Renamed;
+   unsigned char char_Renamed;
+   int This_Renamed;
+   
+   Break_Renamed = False_Renamed;
+   for (Auto_Renamed=1; Auto_Renamed<=10; Auto_Renamed += 1) {
+      if (Auto_Renamed == 5) {
+         Break_Renamed = True_Renamed;
+      }
+      Float_Renamed = 1/Auto_Renamed + Float_Renamed;
+      char_Renamed = 'A' + Auto_Renamed;
+      This_Renamed = Auto_Renamed * 25;
+   }
 }
 
 // This section tests transforms found in strings.uc
@@ -450,7 +470,8 @@ string StringTest(string& MyString, string OtherString)
    MyText = PB_REMOVE(MyText, "test") + PB_REMOVE_ANY(MyText, ".!?");
    MyText = PB_MAX_STR(ARGCOUNT(6), (string)"This", (string) "That", (string) x, (string) PB_MID(x, 2, 3), (string) y, (string) "!");
    MyText = PB_MIN_STR(ARGCOUNT(3), (string)"xyz", (string) PB_MAX_STR(ARGCOUNT(2), (string)x, (string) y), (string) ".");
-   MyText = "Backslash\\is\\an\\escape\\char in C++.";
+   MyText = " Backslash\\is\\an\\escape\\char in C++.  ";
+   //+++   MyText$ = " Also test for ""nested"" quotes. " + """abc""" + "...\\""..."
    PB_REPLACE(MyText, "abc", "xyz");
    PB_REPLACE_ANY(MyText, "abc", "xyz");
    if (PB_MID(MyText, 3, 5) == y) {
@@ -504,7 +525,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 double DoMath()
 {
    int i;
-   if (x % 2 > (short)(sqrt(pow(x, 2) + pow(y, 2)))) {
+   if (x % 2 > (__int16)(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
       q--;
@@ -513,7 +534,7 @@ double DoMath()
    pow(n == x, 2) + pow(y, 2);
    y = PB_FIX(3.14159);
    n = PB_FRAC(3.14159);
-   n = (__int64)(3.14159) + (short)(3.14159) + PB_EXP10(3+2);
+   n = (__int64)(3.14159) + (__int16)(3.14159) + PB_EXP10(3+2);
    n = PB_MAX(ARGCOUNT(5), (double)5.3, (double) 11/2, (double) 17, (double) 4, (double) PB_MIN(ARGCOUNT(4), (double)5, (double) 3.5, (double) -2, (double) 8/7));
    i = PB_MIN_INT(ARGCOUNT(7), (int)3, (int) -10, (int) 7, (int) -1, (int) PB_MAX_INT(ARGCOUNT(4), (int)3, (int) 1, (int) 7, (int) -5), (int) 23, (int) 11);
    i = PB_MIN_INT(ARGCOUNT(3), (int)1, (int) 2, (int) PB_MAX(ARGCOUNT(3), (double)5, (double) 6, (double) 7.5));
