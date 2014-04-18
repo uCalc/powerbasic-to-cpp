@@ -236,6 +236,9 @@ Sub DoSomething(ByVal Arg1 As Long, ByRef txt$, Number##, Optional ByVal xyz As 
    If Arg1 = 15 Then SetLastError 123
 End Sub
 
+%True = 1
+%False = 0
+
 Function PBMain()
    Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long, dwTest As Dword, Num$
    Dim mArray(10) As Double
@@ -314,6 +317,17 @@ Function PBMain()
    Wend
 
    Name "Temp.Txt" As "Text.Tmp" : Name "Something.Txt" As "Other.Txt"
+
+   ' Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
+   Dim Auto As Long, Break As Long, Float As Double, char As Byte, This As Long
+
+   Break = %False
+   For Auto = 1 To 10
+      If Auto = 5 Then Break = %True
+      Float = 1/Auto + Float
+      char = Asc("A") + Auto
+      This = Auto * 25
+   Next
 End Function
 
 ' This section tests transforms found in strings.uc
@@ -347,7 +361,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    MyText$ = Remove$(MyText$, "test") + Remove$(MyText$, Any ".!?")
    MyText$ = Max$("This", "That", x$, Mid$(x$, 2, 3), y$, "!")
    MyText$ = Min$("xyz", Max$(x$, y$), ".")
-   MyText$ = "Backslash\is\an\escape\char in C++."
+   MyText$ = " Backslash\is\an\escape\char in C++.  "
+'+++   MyText$ = " Also test for ""nested"" quotes. " + """abc""" + "...\""..."
    Replace "abc" With "xyz" In MyText$
    Replace Any "abc" With "xyz" In MyText$
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15) + "  " + Str$(10/7, 4)
