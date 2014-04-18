@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/17/2014 11:18:47 AM
+# This file was saved with uCalc Transform 2.95 on 4/18/2014 5:09:17 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -116,9 +116,10 @@ Find: Sqr
 Replace: sqrt
 
 Criteria: 14
+Selected: True
 BackColor: Pink
 Find: Cint
-Replace: (short)
+Replace: (__int16)
 
 Criteria: 15
 Find: Int({arg})
@@ -200,7 +201,6 @@ Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
 Replace: {@Evaluate: LCase("{func}", "{'.*'}")}
 
 Criteria: 32
-Selected: True
 Find: {func: Exp10 | Fix | Frac | Sgn}
 Replace: PB_{@Evaluate: UCase("{func}", "{'.*'}")}
 
