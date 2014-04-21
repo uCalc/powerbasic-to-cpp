@@ -9,6 +9,8 @@ DefLng a-z
 
 %MyEquate = &h100
 %Other = &h200
+%LongEquate = 12345&&
+%HexLongEquate = &h123&&
 $StrEquate = "Just a test: "
 
 Global ProgStatus As Long
