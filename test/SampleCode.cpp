@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/18/14 using the Open Source 
+// with uCalc Transform 2.95 on 04/21/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -25,6 +25,8 @@ using namespace std;
 
 const int MyEquate = 0x100;
 const int Other = 0x200;
+const int LongEquate = 12345L;
+const int HexLongEquate = 0x123L;
 const string StrEquate = "Just a test: ";
 
 int ProgStatus;
