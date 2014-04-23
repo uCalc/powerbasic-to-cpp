@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/21/2014 6:21:54 PM
+# This file was saved with uCalc Transform 2.95 on 4/23/2014 9:42:29 AM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -163,63 +163,67 @@ Find: <Arg> [Optional] {by: ByVal | ByRef } {name:1}[()] As
 Replace: [Skip over]
 
 Criteria: 15
-BackColor: Tomato
-PassOnce: False
-Find: {decl: Dim | Global | Local | Static }{etc}{spec:"[!?@#$%&]+"}
-Replace: {decl} {etc} As {@Evaluate: ReadStr(Specifier, {spec})}
+Find: Dim {var:1}{comment:" *'.*"}{nl}
+Replace: Dim {var} As {@Evaluate: DefTypeInitial(Asc({var}))}{comment}{nl}
 
 Criteria: 16
+BackColor: Tomato
+PassOnce: False
+Find: {decl: Dim|Global|Local|Static|Register}{etc}{spec:"[!?@#$%&]+"}
+Replace: {decl} {etc} As {@Evaluate: ReadStr(Specifier, {spec})}
+
+Criteria: 17
 Comment: Adds the appropriate type for functions with no explicit type or specifier
 BackColor: CornflowerBlue
 Find: {nl}Function {name:1}([{args%}])
 Replace: {nl}Function {name}({args}) As {@Evaluate: DefTypeInitial(Asc({name}))}
 
-Criteria: 17
+Criteria: 18
 Comment: Changes function type specifier to data type name
 Find: {nl}Function {name:1}{spec:"[!?@#$%&]+"}([{args%}])
 Replace: {nl}Function {name}({args}) As {@Evaluate: ReadStr(Specifier, {spec})}
 
-Criteria: 18
+Criteria: 19
 Comment: Skips functions that already have an explicit type
 BackColor: Gold
 Find: {nl}Function {name}([{args%}]) As {type}
 Replace: {nl}Function {name}({args}) As {type}
 
-Criteria: 19
+Criteria: 20
 Find: As {type:1}([{arraysize}])
 Replace: ({arraysize}) As {type}
 
-Criteria: 20
+Criteria: 21
 Comment: Cleans up; removes <Arg> marker; as well as type specifiers
 Pass: 4
 
-Criteria: 21
+Criteria: 22
 Comment: Removes <Arg> that was inserted in earlier pass
 BackColor: SandyBrown
 Find: <Arg>
 Replace: {Nothing}
 
-Criteria: 22
+Criteria: 23
 Comment: Removes statement specifiers
 BackColor: Violet
 Find: {variable:"[a-z0-9_]+"}{spec:"[!?@#$%&]+"}
 Replace: {variable}
 
-Criteria: 23
-SkipOver: True
-Find: {"(min|max)[\$\&]"}
-Replace: [Skip over]
-
 Criteria: 24
 Selected: True
+SkipOver: True
+Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
+Replace: [Skip over]
+
+Criteria: 25
 Find: [{prefix:"&h"}]{num:"[0-9]+"}&&
 Replace: {prefix}{num}L
 
-Criteria: 25
+Criteria: 26
 Comment: Accommodates array passed as arg
 Pass: 5
 
-Criteria: 26
+Criteria: 27
 Find: As ()
 Replace: ()
 
