@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/18/2014 5:15:23 PM
+# This file was saved with uCalc Transform 2.95 on 4/23/2014 3:17:38 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -130,7 +130,7 @@ Replace: [Skip over]
 Criteria: 13
 Highlight: True
 SkipOver: True
-Find: { {nl}[{ %|$ }]|Then|Else|For|: } {var:" *[a-z\@\.\_]+"}[({index})] =
+Find: { {nl}[{ %|$ }]|Then|Else|For|: } {var:" *[a-z0-9\@\.\_]+"}[({index})] =
 Replace: [Skip over]
 
 Criteria: 14
@@ -305,7 +305,7 @@ Criteria: 44
 Highlight: True
 BackColor: Orange
 PassOnce: False
-Find: { Dim | {member: {nl}}} {var:1} As {type} [{ptr: Ptr}]
+Find: { Dim | {member: {nl}}} {var:1} As {type:1} [{ptr: Ptr}]
 Replace: {member: {nl}}{type} {ptr:*}{var};
 
 Criteria: 45
@@ -486,10 +486,12 @@ Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
 Criteria: 78
+PassOnce: False
 Find: Choose[&]({index}, {choice})
 Replace: IIf({index}, {choice}, 0)
 
 Criteria: 79
+PassOnce: False
 Find: Choose$({index}, {choice})
 Replace: IIf({index}, {choice}, "")
 
@@ -516,82 +518,86 @@ Find: Line Input [{prompt: {q}{str}{q} | ${equate:1}}][,] {StrVariable:1}
 Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
 
 Criteria: 85
-Comment: Adds semi-colons to statements, etc
-Pass: 5
-
-Criteria: 86
-Highlight: True
-SkipOver: True
-Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
-Replace: [Skip over]
-
-Criteria: 87
-Comment: Skips over so that colons in bit fields are not affected
-Highlight: True
-SkipOver: True
-Find: { struct | union } {name:1} "{" {members+} "}"
-Replace: [Skip over]
-
-Criteria: 88
-SkipOver: True
-Find: ({cond} ? {this} :
-Replace: [Skip over]
-
-Criteria: 89
-Highlight: True
-Find: :
-Replace: ;
-
-Criteria: 90
-SkipOver: True
-Find: ::
-Replace: [Skip over]
-
-Criteria: 91
-Highlight: True
 PassOnce: False
-Find: {nl}
-Replace: ;{nl}
-
-Criteria: 92
-PassOnce: False
-Find: IIf[$]({cond%}, {this%}, {that%})
+Find: IIf[$]({cond}, {this}, {that})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 93
+Criteria: 86
+Find: PB_ASC({q}{char}{q}, {n:" *[0-9]+"})
+Replace: '{@Eval:Mid("{char}", {n}, 1, ucChar)}'
+
+Criteria: 87
 Find: _char([{char= }])
 Replace: '{char}'
 
-Criteria: 94
-Find: {" \xFF\xFF\n"}
-Replace: {nl}
-
-Criteria: 95
-Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
-Replace:  /* {comment} */{nl}
-
-Criteria: 96
+Criteria: 88
 Highlight: True
 BackColor: DeepSkyBlue
 PassOnce: False
 Find: Function = {value}
 Replace: return {value}
 
+Criteria: 89
+Comment: Adds semi-colons to statements, etc
+Pass: 5
+
+Criteria: 90
+Highlight: True
+SkipOver: True
+Find: { "{" | "}" | ; | //[{".*"}] | #{".*"} } {nl} [{"[ \n]+"}]
+Replace: [Skip over]
+
+Criteria: 91
+Comment: Skips over so that colons in bit fields are not affected
+Highlight: True
+SkipOver: True
+Find: { struct | union } {name:1} "{" {members+} "}"
+Replace: [Skip over]
+
+Criteria: 92
+Selected: True
+SkipOver: True
+Find: ? {ternaryIF} :
+Replace: [Skip over]
+
+Criteria: 93
+Highlight: True
+Find: :
+Replace: ;
+
+Criteria: 94
+SkipOver: True
+Find: ::
+Replace: [Skip over]
+
+Criteria: 95
+Highlight: True
+PassOnce: False
+Find: {nl}
+Replace: ;{nl}
+
+Criteria: 96
+Comment: Misc
+Pass: 6
+
 Criteria: 97
-Find: PB_ASC({q}{char}{q}, {n:" *[0-9]+"})
-Replace: '{@Eval:Mid("{char}", {n}, 1, ucChar)}'
+Find: {" \xFF\xFF\n"}
+Replace: {nl}
 
 Criteria: 98
+Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
+Replace:  /* {comment} */{nl}
+
+Criteria: 99
 Find: @
 Replace: *
 
-Criteria: 99
-Selected: True
+Criteria: 100
 Highlight: True
 Find: @{pointer:1}.
 Replace: {pointer}->
 
-Criteria: 100
+Criteria: 101
 Find: `{@Comment: removes temp char for type member access}
 Replace: {Nothing}
 
