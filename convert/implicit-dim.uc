@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/22/2014 5:46:02 PM
+# This file was saved with uCalc Transform 2.95 on 4/23/2014 12:00:13 PM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -82,7 +82,8 @@ Comment: Inserts explicitly Dimmed variable names in global or local tables
 Pass: 2
 
 Criteria: 6
-Find: Global {variable:1}
+Selected: True
+Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: Insert(Globals, "{variable}")}
 
 Criteria: 7
@@ -103,9 +104,9 @@ Find: {nl}End { Sub | Function }
 Replace: {Self}{@Eval: SetVar(CurrentRoutine, "")}
 
 Criteria: 10
-Selected: True
 BackColor: Pink
-Find: {declare: Dim [[Optional] { ByVal | ByRef }] | Local | Static | Register | fstream } {variable:1}
+Find: {declare: Dim [[Optional] { ByVal | ByRef }] | Local | Static | Register | fstream }
+      {" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: Insert(~Eval(CurrentRoutine)ExplicitDim, "{variable}")}
 
 Criteria: 11
@@ -120,7 +121,7 @@ Comment: Places non-Dimmed variable names in separate local tables
 Pass: 3
 
 Criteria: 13
-Find: {variable:"[a-z][a-z0-9_]*"}
+Find: {variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: 
             IIf(Handle(Globals, "{variable}")==0 And Handle(~Eval(CurrentRoutine)ExplicitDim, "{variable}")==0,
                 Insert(~Eval(CurrentRoutine)ImplicitDim, "{variable}"); "")
@@ -128,12 +129,12 @@ Replace: {Self}{@Eval:
 
 Criteria: 14
 SkipOver: True
-Find: {"[a-z0-9_]+"} { {UDT:"\.[a-z0-9_\@\.]+"} | {Func:"\("} }
+Find: {"[a-z0-9_]+"} { {UDT:"\.[a-z0-9_\@\.]+"} | {Func:" *\("} }
 Replace: [Skip over]
 
 Criteria: 15
 SkipOver: True
-Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'[a-z0-9_]+'}", Delim("\b|"))+"\b'}"}
+Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
 Replace: [Skip over]
 
 Criteria: 16
