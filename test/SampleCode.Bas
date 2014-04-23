@@ -165,7 +165,7 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
    For x = 1 To 10 ' Just a test {comment}.
       n = y = z ' This works differently in PB than in C++
       MyArray(x) = x*2
-      If x = 5 Then y = x+5 Else y = 23*2
+      If x = 5 Then y = x+5 Else q = 23*2
       y = x = z : MyArray(5) = MyArray(n) = MyArray(n+1)
       If x = y = z Then y = n = 2 Else y = n = 3
       If x = y And x <> 10 Or y = x And x < 25 Then y = x Or y = z
@@ -176,9 +176,9 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
 
       If x = 1 Then Erase MyArray() Else Erase MyArray ' Erase with and without optional () in PB
 
-      If x <> y Then MyPoint.x = y Else MyPoint.x = x
+      If abc <> xyz Then MyPoint.x = y Else MyPoint.x = x
 
-      pp = VarPtr(p)
+      pp = VarPtr(MyPoint)
       MyPoint.x = MyPoint.y+1
       n = MyPoint.x = MyPoint.y
       @pp.x = @pp.y = @pp.x+1
@@ -268,20 +268,20 @@ Function PBMain()
    dwTest = CvDwd(MyString$)
    dwTest = CvDwd(MyString$, 3)
 
-   BinFile = FreeFile
+   BinFile% = FreeFile
    InFile  = FreeFile
 
    ' File handling test
-   Open "MyBin.Txt"    For Binary As #BinFile
+   Open "MyBin.Txt"    For Binary As #BinFile%
    Open "MyInput.Txt"  For Input  As #InFile
    Open "MyOutput.Txt" For Output As #3
    Open "MyAppend.Txt" For Append As #4
 
    i = IsFile("Test.Txt")
-   i = Lof(BinFile)
-   i = Seek(#BinFile)
+   i = Lof(BinFile%)
+   i = Seek(#BinFile%)
    i = eof(1)
-   Seek #BinFile, i+100
+   Seek #BinFile%, i+100
 
    Get$ #1, 500, MyString$
    Put$ #1, MyString$
@@ -297,7 +297,7 @@ Function PBMain()
    Print #3, "Part 1..."; "Part 2";
    Print #3, "Part 1..."; "Part 2"; "Part 3"
    Close #3
-   Close 4, #BinFile, InFile
+   Close 4, #BinFile%, InFile
 
    FileInfo$ = EXE.Extn$
    FileInfo$ = EXE.Full$
@@ -458,3 +458,15 @@ Sub PrintTest()
    Print a; b, c; d, e; f,
    Print a; b; c, : Print d
 End Sub
+
+' Test for implicit variable defs
+Function ImplicitVar(ByVal x As Long)
+   For x = 1 To 10
+      i = x * 10
+      text$ = Str$(i+x)
+   Next
+   LastNum = x-1
+   MyValue! = x/i ' Note: MyValue! was defined already as global
+   OtherValue! = i/x
+   b1&& = b2& + b3% + b4? + b5?? + b6??? + b7! + B8# + B9##
+End Function
