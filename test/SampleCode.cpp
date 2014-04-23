@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/21/14 using the Open Source 
+// with uCalc Transform 2.95 on 04/23/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -126,6 +126,8 @@ int MyFunction(int a, float& b)
 
 void MySub(int x, double dArray[])
 {
+   short i; // Implicit
+   
    int y;
    float *Test;
    std::vector<float> Number[10+1];
@@ -196,7 +198,11 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
                          double& OtherVar, /* Everything after _ is a comment */
                          float *FinalArg)
 {
+   int abc; // Implicit
+   __int64 q; // Implicit
+   float xyz; // Implicit
    // Embedded comments after _ are preserved in their original location
+   
    std::vector<int> MyArray[10+1];
    Point MyPoint;
    Point *pp;
@@ -208,7 +214,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
       if (x == 5) {
          y = x+5;
       } else {
-         y = 23*2;
+         q = 23*2;
       }
       y = x == z;
       MyArray[5] = MyArray[n] == MyArray[n+1];
@@ -239,13 +245,13 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
          MyArray.clear(); // Erase with and without optional () in PB
       }
       
-      if (x != y) {
+      if (abc != xyz) {
          MyPoint.x = y;
       } else {
          MyPoint.x = x;
       }
       
-      pp = &p;
+      pp = &MyPoint;
       MyPoint.x = MyPoint.y+1;
       n = MyPoint.x == MyPoint.y;
       pp->x = pp->y == pp->x+1;
@@ -264,8 +270,10 @@ __int64 qNum;
 std::vector<int> gArray;
 std::vector<float> gArray2;
 
-int TestFunc(int& a, unsigned char& b, int& c, short& i, String& s, float& n)
+int TestFunc(int& a, unsigned char& b, int& c, short& i, string& s, float& n)
 {
+   double PriceB; // Implicit
+   
    cout << PZONE << MyValue << PZONE << Label << PriceB << endl;
    cout << endl;
    cout << endl;
@@ -317,6 +325,10 @@ const int False_Renamed = 0;
 
 int main()
 {
+   short BinFile; // Implicit
+   short i; // Implicit
+   short InFile; // Implicit
+   
    long double x;
    long double pi;
    string MyString;
@@ -462,7 +474,7 @@ string StringTest(string& MyString, string OtherString)
    x = string(25, ' ') + string(10, '*') + string(10, 65);
    x = PB_TRIM_ANY(x, " ")+PB_LTRIM_ANY(x, " ")+PB_RTRIM_ANY(x, " ")+PB_TRIM_ANY(x, ".,! ")+PB_LTRIM_ANY(x, ".,! ")+PB_RTRIM_ANY(x, ".,! ");
    x = PB_REPEAT("Test", i+5);
-   x = (i ? "This" : (i ? "That" : (i ? "Other" : (i ? "Misc" : 0))));
+   x = (i ? "This" : (i ? "That" : (i ? "Other" : (i ? "Misc" : ""))));
    i = ((rand() % (5) + (1)) ? 5 : ((rand() % (5) + (1)) ? 10 : ((rand() % (5) + (1)) ? 15 : ((rand() % (5) + (1)) ? 20 : ((rand() % (5) + (1)) ? 25 : 0)))));
    MyText = PB_LEFT(MyString, 3) + PB_MID(OtherString, 5, 10) + PB_RIGHT(x, i+1);
    MyText = PB_EXTRACT(1, MyText, "::") + PB_EXTRACT(5+2*i, x, "::");
@@ -500,6 +512,8 @@ extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
 }
 
 extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char b) {
+   __int64 q; // Implicit
+   
    DoSomething(1, "xyz", 2, 3);
     {
       auto CASE_VAR = StringTest("abc", q);
@@ -526,6 +540,11 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 // If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
+   float n; // Implicit
+   __int64 q; // Implicit
+   float x; // Implicit
+   float y; // Implicit
+   
    int i;
    if (x % 2 > (__int16)(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
@@ -570,6 +589,13 @@ int PBConsoleTest()
 // Test for the PRINT function
 void PrintTest()
 {
+   int a; // Implicit
+   unsigned char b; // Implicit
+   int c; // Implicit
+   int d; // Implicit
+   int e; // Implicit
+   int f; // Implicit
+   
    cout << endl;
    cout << a << endl;
    cout << PZONE << a;
@@ -589,4 +615,31 @@ void PrintTest()
    cout << PZONE << "" << PZONE << a << PZONE << "" << PZONE << "" << "" << endl;
    cout << a << PZONE << b << c << PZONE << d << e << PZONE << f;
    cout << a << b << PZONE << c << d << endl;
+}
+
+// Test for implicit variable defs
+short ImplicitVar(int x)
+{
+   __int64 b1; // Implicit
+   int b2; // Implicit
+   short b3; // Implicit
+   unsigned char b4; // Implicit
+   unsigned short b5; // Implicit
+   unsigned int b6; // Implicit
+   float b7; // Implicit
+   double B8; // Implicit
+   long double B9; // Implicit
+   short i; // Implicit
+   int LastNum; // Implicit
+   float OtherValue; // Implicit
+   int text; // Implicit
+   
+   for (x=1; x<=10; x += 1) {
+      i = x * 10;
+      text = PB_STR(i+x);
+   }
+   LastNum = x-1;
+   MyValue = x/i // Note: MyValue! was defined already as global
+   OtherValue = i/x;
+   b1 = b2 + b3 + b4 + b5 + b6 + b7 + B8 + B9;
 }
