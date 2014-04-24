@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/23/14 using the Open Source 
+// with uCalc Transform 2.95 on 04/24/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -209,7 +209,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    int n;
    
    for (x=1; x<=10; x += 1) { // Just a test {comment}.
-      n = y == z // This works differently in PB than in C++
+      n = y == z; // This works differently in PB than in C++
       MyArray[x] = x*2;
       if (x == 5) {
          y = x+5;
@@ -339,13 +339,13 @@ int main()
    string Num;
    std::vector<double> mArray[10+1];
    
-   DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4) // Comment
+   DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4); // Comment
    
    DoSomething(10, "abc", 5, 1);
-   DoSomething(1, "x", 5, 0)  // Etc...
+   DoSomething(1, "x", 5, 0); // Etc...
    
    if (x > 1) {
-      DoSomething(1, "x", 5, 0) // Parenthesis already here
+      DoSomething(1, "x", 5, 0); // Parenthesis already here
    }
    
    MyFunc(5);
@@ -402,10 +402,10 @@ int main()
    file_3 << "Part 1..." << "Part 2" << endl;
    file_3 << "Part 1..." << "Part 2";
    file_3 << "Part 1..." << "Part 2" << "Part 3" << endl;
-   file_3.close() // PB: Close #3
-   file_4.close() // PB: Close #4
-   file_BinFile.close() // PB: Close #BinFile
-   file_InFile.close() // PB: Close #InFile
+   file_3.close(); // PB: Close #3
+   file_4.close(); // PB: Close #4
+   file_BinFile.close(); // PB: Close #BinFile
+   file_InFile.close(); // PB: Close #InFile
    
    FileInfo = PB_EXE_EXTN;
    FileInfo = PB_EXE_FULL();
@@ -551,7 +551,7 @@ double DoMath()
    } else {
       q--;
    }
-   n = sqrt(x) * atan(y) + 2 //* x^2 + Tan(x^3-1)^2
+   n = sqrt(x) * atan(y) + 2; //* x^2 + Tan(x^3-1)^2
    pow(n == x, 2) + pow(y, 2);
    y = PB_FIX(3.14159);
    n = PB_FRAC(3.14159);
@@ -600,9 +600,9 @@ void PrintTest()
    cout << a << endl;
    cout << PZONE << a;
    cout << a;
-   cout << a << endl // My comment
+   cout << a << endl; // My comment
    cout << PZONE << a;
-   cout << endl << endl // Print
+   cout << endl << endl; // Print
    cout << endl << endl << endl << endl;
    cout << a << endl << b << endl << c << endl << d << endl;
    cout << PZONE << a << PZONE << b;
@@ -639,7 +639,7 @@ short ImplicitVar(int x)
       text = PB_STR(i+x);
    }
    LastNum = x-1;
-   MyValue = x/i // Note: MyValue! was defined already as global
+   MyValue = x/i; // Note: MyValue! was defined already as global
    OtherValue = i/x;
    b1 = b2 + b3 + b4 + b5 + b6 + b7 + B8 + B9;
 }
