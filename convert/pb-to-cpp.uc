@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/24/2014 2:21:35 PM
+# This file was saved with uCalc Transform 2.95 on 4/24/2014 6:05:36 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -56,6 +56,7 @@ Find:
 Replace: {@Define:
             Var: BitType As String
             Var: Case1
+            VAR: UDT
          }
          {@Define::
             Token: \xFF[^\xFF]*\xFF\n ~~ Properties: ucWhiteSpace
@@ -306,7 +307,6 @@ Find: Type {name:1}
 Replace: struct {name} {
 
 Criteria: 45
-Selected: True
 Find: Union {name:1}
 Replace: union {name} {
 
@@ -333,8 +333,7 @@ Criteria: 49
 Highlight: True
 PassOnce: False
 Find: Dim {array}([{size}]) As {type}
-Replace: std::vector<{type}> {array}{size: ({size}+1)};{@Define::
-             Syntax: {array}([{sz}]) ::= {array}[{sz}]} 
+Replace: std::vector<{type}> {array}{size: ({size}+1)};{@Define:: Pass: 6 ~~ Syntax: {array}([{sz}]) ::= {array}[{sz}]}
 
 Criteria: 50
 Find: Erase {array:1}[()]
@@ -574,27 +573,62 @@ Find: {nl} { # | // } [{".*"}]
 Replace: [Skip over]
 
 Criteria: 97
-Comment: Misc
+Comment: Nested UDTs - 1st pass (gather members)
 Pass: 6
 
 Criteria: 98
+Find: {nl} struct {name} "{" {members+} "}";
+Replace: {Self}{@Eval: Dim {name} As String = {Q}{members}{Q}}
+
+Criteria: 99
+Selected: True
+Find: {nl} union {name} "{" {members+} "}";
+Replace: {Self}{@Eval: Dim {name} As String = {Q}union{{members}};{Q}}
+
+Criteria: 100
+Comment: Nested UDTs - 2nd pass (insert members)
+Pass: 7
+
+Criteria: 101
+Find: {nl} { struct | union }
+Replace: {Self}{@Eval: UDT = True}
+
+Criteria: 102
+PassOnce: False
+Find: {nl}{nested:1}; {@If: UDT}
+Replace: {@Eval: {nested}}
+
+Criteria: 103
+SkipOver: True
+Find: {nl}{type:1} {member};
+Replace: [Skip over]
+
+Criteria: 104
+Find: {nl} "}";
+Replace: {Self}{@Eval: UDT = False}
+
+Criteria: 105
+Comment: Misc
+Pass: 8
+
+Criteria: 106
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 99
+Criteria: 107
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
-Criteria: 100
+Criteria: 108
 Find: @
 Replace: *
 
-Criteria: 101
+Criteria: 109
 Highlight: True
 Find: @{pointer:1}.
 Replace: {pointer}->
 
-Criteria: 102
+Criteria: 110
 Find: `{@Comment: removes temp char for type member access}
 Replace: {Nothing}
 
