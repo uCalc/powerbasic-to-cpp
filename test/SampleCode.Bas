@@ -68,6 +68,19 @@ Union OtherUinion ' A comment goes here
    zz As Single
 End Union
 
+Type NestedTypeA
+   Item1 As Double
+   point
+   MyUnion
+End Type
+
+Type NestedTypeB
+   Something As Long
+   TestType
+   NestedTypeA
+   Other As Double
+End Type
+
 Function MyFunc(ByVal x As Long) As Long
    Function = x * 2
 End Function
