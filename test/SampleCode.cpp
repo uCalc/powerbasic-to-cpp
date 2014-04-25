@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/24/14 using the Open Source 
+// with uCalc Transform 2.95 on 04/25/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -82,6 +82,36 @@ union OtherUinion { // A comment goes here
    int xx;
    unsigned int yy;
    float zz;
+};
+
+struct NestedTypeA {
+   double Item1;
+   int x;
+   int y;
+   union {
+      int x;
+      unsigned int y;
+      float z;
+   };
+};
+
+struct NestedTypeB {
+   int Something;
+   int a;
+   int *b;
+   point c;
+   point *d;
+   
+   double Item1;
+   int x;
+   int y;
+   union {
+      int x;
+      unsigned int y;
+      float z;
+   };
+   
+   double Other;
 };
 
 int MyFunc(int x)
