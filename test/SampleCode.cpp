@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/25/14 using the Open Source 
+// with uCalc Transform 2.95 on 04/28/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -570,6 +570,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 // If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
+   long double MyVar; // Implicit
    float n; // Implicit
    __int64 q; // Implicit
    float x; // Implicit
@@ -607,6 +608,8 @@ double DoMath()
    y = ((x) <> 0);
    y = PB_MAX(ARGCOUNT(5), (double)3, (double) 10, (double) -2, (double) 15+4, (double) 23);
    y = abs(-1)+tan(sin(2.5)+cos(3.5))+exp(1)+exp2(5)+log(5)+log2(5)+log10(5)+ceil(5);
+   
+   MyVar = 1 + (long double)2 + 3L + 4U + 5  + (float)6 + 1.7## + 1.7!;
 }
 
 // Console routines
