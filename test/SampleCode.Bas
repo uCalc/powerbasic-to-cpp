@@ -441,6 +441,8 @@ Function DoMath() As Double
    y = IsTrue x
    y = Max(3, 10, -2, 15+4, 23)
    y = Abs(-1)+Tan(Sin(2.5)+Cos(3.5))+Exp(1)+Exp2(5)+Log(5)+Log2(5)+Log10(5)+Ceil(5)
+
+   MyVar## = 1 + 2## + 3&& + 4??? + 5& + 6! + 1.7## + 1.7!
 End Function
 
 ' Console routines
