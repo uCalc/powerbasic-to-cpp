@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/23/2014 9:42:29 AM
+# This file was saved with uCalc Transform 2.95 on 4/28/2014 6:29:39 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -206,18 +206,19 @@ Replace: {Nothing}
 Criteria: 23
 Comment: Removes statement specifiers
 BackColor: Violet
-Find: {variable:"[a-z0-9_]+"}{spec:"[!?@#$%&]+"}
+Find: {variable:"[a-z][a-z0-9_]*"}{spec:"[!?@#$%&]+"}
 Replace: {variable}
 
 Criteria: 24
-Selected: True
 SkipOver: True
 Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
 Replace: [Skip over]
 
 Criteria: 25
-Find: [{prefix:"&h"}]{num:"[0-9]+"}&&
-Replace: {prefix}{num}L
+Selected: True
+Find: [{prefix:"&h"}]{num:"[0-9]+"}
+      [{quad: &&}][{long: &}][{dword: ???}][{single: !}][{ext: ##}]
+Replace: {single:(single)}{ext:(ext)}{prefix}{num}{long: }{dword:U}{quad:L}
 
 Criteria: 26
 Comment: Accommodates array passed as arg
