@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/23/2014 12:00:13 PM
+# This file was saved with uCalc Transform 2.95 on 4/29/2014 10:03:35 AM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -82,7 +82,6 @@ Comment: Inserts explicitly Dimmed variable names in global or local tables
 Pass: 2
 
 Criteria: 6
-Selected: True
 Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: Insert(Globals, "{variable}")}
 
@@ -133,24 +132,30 @@ Find: {"[a-z0-9_]+"} { {UDT:"\.[a-z0-9_\@\.]+"} | {Func:" *\("} }
 Replace: [Skip over]
 
 Criteria: 15
+Selected: True
+SkipOver: True
+Find: {"&h[0-9a-f]+"}
+Replace: [Skip over]
+
+Criteria: 16
 SkipOver: True
 Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
 Replace: [Skip over]
 
-Criteria: 16
+Criteria: 17
 BackColor: Brown
 Find: {"\n"}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"}
 Replace: {Self}{@Eval: SetVar(CurrentRoutine, "{RoutineName}")}
 
-Criteria: 17
+Criteria: 18
 Find: {"\n"}End { Sub | Function }
 Replace: {Self}{@Eval: SetVar(CurrentRoutine, "")}
 
-Criteria: 18
+Criteria: 19
 Comment: Inserts local Dim statements for variables that were not dimmed
 Pass: 4
 
-Criteria: 19
+Criteria: 20
 BackColor: Purple
 Find: {nl}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"} {etc}
 Replace: {Self}
@@ -164,21 +169,21 @@ Replace: {Self}
             text
          }
 
-Criteria: 20
+Criteria: 21
 Comment: Clean up (temp declaration statements removed)
 Pass: 5
 
-Criteria: 21
+Criteria: 22
 BackColor: Violet
 Find: ::: {declare:1}
 Replace: ,
 
-Criteria: 22
+Criteria: 23
 BackColor: CornflowerBlue
 Find: (Dim {args})
 Replace: ({@Eval: Replace("{args}", "::: Dim", ",")})
 
-Criteria: 23
+Criteria: 24
 Find: Dim {nl}
 Replace: {Nothing}
 
