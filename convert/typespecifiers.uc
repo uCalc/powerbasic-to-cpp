@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/28/2014 6:29:39 PM
+# This file was saved with uCalc Transform 2.95 on 4/29/2014 9:56:49 AM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -86,6 +86,7 @@ Replace: {@Define:
             Var: dType="(INT|LNG|QUD|BYT|WRD|DWD|SNG|DBL|EXT|CUR|CUX|STR)\b"
             Func: LCase(c As String) As String = IIF(Asc(c) > 64 and Asc(c) < 91, Chr(Asc(c)+32), c)
             Func: UCase(c As String) As String = IIF(Asc(c) > 96 and Asc(c) < 123, Chr(Asc(c)-32), c)
+            Func: Round(x) = Sgn(x)*Int(Abs(x)+0.5)
          }{@Define:: Token: \x27.* ~~ Properties: ucWhitespace}
 
 Criteria: 2
@@ -216,15 +217,27 @@ Replace: [Skip over]
 
 Criteria: 25
 Selected: True
-Find: [{prefix:"&h"}]{num:"[0-9]+"}
-      [{quad: &&}][{long: &}][{dword: ???}][{single: !}][{ext: ##}]
-Replace: {single:(single)}{ext:(ext)}{prefix}{num}{long: }{dword:U}{quad:L}
+Find: {num:"([0-9]*\.)?[0-9]+(e[-+]?[0-9]+)?"}
+      { {single: !} | {ext: #[#]} }
+      
+Replace: {num}{@Evaluate:
+            IIf(Val({num})==Int(Val({num})), ".0")   
+         }{single:F}
 
 Criteria: 26
+Find: {num:"([0-9]*\.)?[0-9]+(e[-+]?[0-9]+)?"}
+      { {quad: &&}|{long: &}|{dword: ???} }
+Replace: {@Eval: Round({num})}{long: }{dword:U}{quad:L}
+
+Criteria: 27
+Find: {num:"&h[0-9a-f]+"}{ {quad: &&}|{long: &}|{dword: ???} }
+Replace: {num}{long: }{dword:U}{quad:L}
+
+Criteria: 28
 Comment: Accommodates array passed as arg
 Pass: 5
 
-Criteria: 27
+Criteria: 29
 Find: As ()
 Replace: ()
 
