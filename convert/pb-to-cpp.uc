@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/24/2014 6:05:36 PM
+# This file was saved with uCalc Transform 2.95 on 5/1/2014 7:27:38 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -131,7 +131,7 @@ Replace: [Skip over]
 Criteria: 13
 Highlight: True
 SkipOver: True
-Find: { {nl}[{ %|$ }]|Then|Else|For|: } {var:" *[a-z0-9\@\.\_]+"}[({index})] =
+Find: { {nl}[{ %|$[$] }]|Then|Else|For|: } {var:" *[a-z0-9\@\.\_]+"}[({index})] =
 Replace: [Skip over]
 
 Criteria: 14
@@ -205,16 +205,17 @@ Find: ' [{comment:".*"}]
 Replace: //{comment}
 
 Criteria: 26
+Selected: True
 Highlight: True
 BackColor: Green
 PassOnce: False
-Find: {nl}{ {num: %} | {str: $} }{equate} = {value}
-Replace: {nl}const{num: int}{str: string} {equate} = {value};
+Find: {nl}{ {num: %}|{wstr: $$}|{str: $} }{equate} = {value}
+Replace: {nl}const{num: int}{str: string}{wstr: wstring} {equate} = {value};
 
 Criteria: 27
 Highlight: True
 BackColor: Green
-Find: { % | $ }{equate:"[a-z]+"}
+Find: { % | $[$] }{equate:"[a-z]+"}
 Replace: {equate}
 
 Criteria: 28
@@ -581,7 +582,6 @@ Find: {nl} struct {name} "{" {members+} "}";
 Replace: {Self}{@Eval: Dim {name} As String = {Q}{members}{Q}}
 
 Criteria: 99
-Selected: True
 Find: {nl} union {name} "{" {members+} "}";
 Replace: {Self}{@Eval: Dim {name} As String = {Q}union{{members}};{Q}}
 
