@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/29/14 using the Open Source 
+// with uCalc Transform 2.95 on 04/30/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -649,6 +649,7 @@ void PrintTest()
    cout << PZONE << "" << PZONE << a << PZONE << "" << PZONE << "" << "" << endl;
    cout << a << PZONE << b << c << PZONE << d << e << PZONE << f;
    cout << a << b << PZONE << c << d << endl;
+   cout << L"Wide String" << endl;
 }
 
 // Test for implicit variable defs
