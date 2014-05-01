@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/29/2014 9:56:49 AM
+# This file was saved with uCalc Transform 2.95 on 4/30/2014 8:52:37 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -216,7 +216,6 @@ Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\
 Replace: [Skip over]
 
 Criteria: 25
-Selected: True
 Find: {num:"([0-9]*\.)?[0-9]+(e[-+]?[0-9]+)?"}
       { {single: !} | {ext: #[#]} }
       
@@ -234,10 +233,15 @@ Find: {num:"&h[0-9a-f]+"}{ {quad: &&}|{long: &}|{dword: ???} }
 Replace: {num}{long: }{dword:U}{quad:L}
 
 Criteria: 28
+Selected: True
+Find: {text:"\q[^\q]*\q"}$$
+Replace: L{text}
+
+Criteria: 29
 Comment: Accommodates array passed as arg
 Pass: 5
 
-Criteria: 29
+Criteria: 30
 Find: As ()
 Replace: ()
 
