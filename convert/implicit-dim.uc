@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/29/2014 10:03:35 AM
+# This file was saved with uCalc Transform 2.95 on 5/1/2014 7:29:08 PM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -86,8 +86,9 @@ Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: Insert(Globals, "{variable}")}
 
 Criteria: 7
+Selected: True
 BackColor: Silver
-Find: {nl}{ Macro | Type | Union | % | $ | Declare {func:1} }  {name:1}
+Find: {nl}{ Macro | Type | Union | % | $[$] | Declare {func:1} }  {name:1}
 Replace: {Self}{@Eval: Insert(Globals, "{name}")}
 
 Criteria: 8
@@ -132,7 +133,6 @@ Find: {"[a-z0-9_]+"} { {UDT:"\.[a-z0-9_\@\.]+"} | {Func:" *\("} }
 Replace: [Skip over]
 
 Criteria: 15
-Selected: True
 SkipOver: True
 Find: {"&h[0-9a-f]+"}
 Replace: [Skip over]
