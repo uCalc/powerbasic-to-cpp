@@ -473,6 +473,7 @@ Sub PrintTest()
    Print ,a,,,""
    Print a; b, c; d, e; f,
    Print a; b; c, : Print d
+   Print "Wide String"$$
 End Sub
 
 ' Test for implicit variable defs
