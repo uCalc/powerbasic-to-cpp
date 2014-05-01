@@ -12,6 +12,7 @@ DefLng a-z
 %LongEquate = 12345&&
 %HexLongEquate = &h123&&
 $StrEquate = "Just a test: "
+$$WideEquate = "This is a wide string equate"$$
 
 Global ProgStatus As Long
 
@@ -350,6 +351,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    Dim MyText$, i As Long, MyWideStr As WString
    Dim Txt As String, x$, y$, z$$
 
+   z$ = $$WideEquate + "Test"
+
    i = InStr(MyString$, "abc")
    i = InStr(i+10, MyString$, "xyz")*2
    i = InStr(MyString$, ANY "aeiou")
@@ -473,7 +476,6 @@ Sub PrintTest()
    Print ,a,,,""
    Print a; b, c; d, e; f,
    Print a; b; c, : Print d
-   Print "Wide String"$$
 End Sub
 
 ' Test for implicit variable defs
