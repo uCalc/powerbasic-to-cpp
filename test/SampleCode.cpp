@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 04/30/14 using the Open Source 
+// with uCalc Transform 2.95 on 05/01/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "pbOS.h"
@@ -28,6 +28,7 @@ const int Other = 0x200;
 const int LongEquate = 12345L;
 const int HexLongEquate = 0x123L;
 const string StrEquate = "Just a test: ";
+const wstring WideEquate = L"This is a wide string equate";
 
 int ProgStatus;
 
@@ -488,6 +489,8 @@ string StringTest(string& MyString, string OtherString)
    string y;
    wstring z;
    
+   z = WideEquate + "Test";
+   
    i = PB_INSTR(1, MyString, "abc");
    i = PB_INSTR(i+10, MyString, "xyz")*2;
    i = PB_INSTR_ANY(1, MyString, "aeiou");
@@ -649,7 +652,6 @@ void PrintTest()
    cout << PZONE << "" << PZONE << a << PZONE << "" << PZONE << "" << "" << endl;
    cout << a << PZONE << b << c << PZONE << d << e << PZONE << f;
    cout << a << b << PZONE << c << d << endl;
-   cout << L"Wide String" << endl;
 }
 
 // Test for implicit variable defs
