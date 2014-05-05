@@ -1,13 +1,16 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.95 on 05/01/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/05/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
+#include "stdafx.h"
 #include "pbOS.h"
 #include "pbMisc.h"
+#include <vector>
 #include <cstdarg>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <algorithm>
 #include <string>
@@ -62,26 +65,26 @@ struct OtherType {
 };
 
 struct MyBits { // A comment goes here
-   unsigned int Year : 7;
-   unsigned int Month : 5;
-   unsigned int DayOfMonth : 4;
-   unsigned int DayOfWeek : 3;
-   unsigned char Red : 1; // A comment here
-   unsigned char Blue : 1; // A comment there
-   unsigned char Green : 1;
+   unsigned Year : 7;
+   unsigned Month : 5;
+   unsigned DayOfMonth : 4;
+   unsigned DayOfWeek : 3;
+   UCHAR Red : 1; // A comment here
+   UCHAR Blue : 1; // A comment there
+   UCHAR Green : 1;
    double Other;
-   long double xyz;
+   EXTENDED xyz;
 };
 
 union MyUnion {
    int x;
-   unsigned int y;
+   unsigned y;
    float z;
 };
 
 union OtherUinion { // A comment goes here 
    int xx;
-   unsigned int yy;
+   unsigned yy;
    float zz;
 };
 
@@ -91,7 +94,7 @@ struct NestedTypeA {
    int y;
    union {
       int x;
-      unsigned int y;
+      unsigned y;
       float z;
    };
 };
@@ -108,7 +111,7 @@ struct NestedTypeB {
    int y;
    union {
       int x;
-      unsigned int y;
+      unsigned y;
       float z;
    };
    
@@ -155,7 +158,7 @@ int MyFunction(int a, float& b)
    }
 }
 
-void MySub(int x, double dArray[])
+void MySub(int x, std::vector<double>& dArray)
 {
    short i; // Implicit
    
@@ -296,12 +299,12 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
 float MyValue;
 string Label;
 Currency Price;
-long double ExtVal;
+EXTENDED ExtVal;
 __int64 qNum;
 std::vector<int> gArray;
 std::vector<float> gArray2;
 
-int TestFunc(int& a, unsigned char& b, int& c, short& i, string& s, float& n)
+int TestFunc(int& a, UCHAR& b, int& c, short& i, string& s, float& n)
 {
    double PriceB; // Implicit
    
@@ -316,7 +319,7 @@ int TestFunc(int& a, unsigned char& b, int& c, short& i, string& s, float& n)
 string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, __int64& qValue)
 {
    string FirstName;
-   unsigned char Age;
+   UCHAR Age;
    double Total;
    static int Index;
    
@@ -330,7 +333,8 @@ string Hello(string& txt)
    return txt + " friend!";
 }
 
-unsigned char  Bye() {
+UCHAR Bye()
+{
    cout << "Bye" << endl;
 }
 
@@ -339,11 +343,11 @@ unsigned char  Bye() {
 // without parentheses.  The converter adds them.
 
 //#Include "Win32API.inc"
-extern __declspec(dllimport) unsigned int ShellExecute(unsigned int hwnd, lpOperation As LPCSTR, lpFile As LPCSTR, lpParameters As LPCSTR, lpDirectory As LPCSTR, int nShowCmd);
+extern __declspec(dllimport) unsigned ShellExecute(unsigned hwnd, lpOperation As LPCSTR, lpFile As LPCSTR, lpParameters As LPCSTR, lpDirectory As LPCSTR, int nShowCmd);
 extern __declspec(dllimport) int SetCursorPos(int x, int y);
-extern __declspec(dllimport) void SetLastError(unsigned int dwErrCode);
+extern __declspec(dllimport) void SetLastError(unsigned dwErrCode);
 
-void DoSomething(int Arg1, string& txt, long double& Number, Optional unsigned int *xyz)
+void DoSomething(int Arg1, string& txt, EXTENDED& Number, Optional unsigned *xyz)
 {
    SetCursorPos(10, Arg1 + 5);
    if (Arg1 == 15) {
@@ -360,13 +364,13 @@ int main()
    short i; // Implicit
    short InFile; // Implicit
    
-   long double x;
-   long double pi;
+   EXTENDED x;
+   EXTENDED pi;
    string MyString;
    string FileInfo;
    std::vector<string> MyFile[50+1];
    int n;
-   unsigned int dwTest;
+   unsigned dwTest;
    string Num;
    std::vector<double> mArray[10+1];
    
@@ -464,7 +468,7 @@ int main()
    int Auto_Renamed;
    int Break_Renamed;
    double Float_Renamed;
-   unsigned char char_Renamed;
+   UCHAR char_Renamed;
    int This_Renamed;
    
    Break_Renamed = False_Renamed;
@@ -544,7 +548,7 @@ extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
    StringTest("abc", "xyz");
 }
 
-extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char b) {
+extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
    __int64 q; // Implicit
    
    DoSomething(1, "xyz", 2, 3);
@@ -573,7 +577,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, unsigned char
 // If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
-   long double MyVar; // Implicit
+   EXTENDED MyVar; // Implicit
    float n; // Implicit
    __int64 q; // Implicit
    float x; // Implicit
@@ -627,7 +631,7 @@ int PBConsoleTest()
 void PrintTest()
 {
    int a; // Implicit
-   unsigned char b; // Implicit
+   UCHAR b; // Implicit
    int c; // Implicit
    int d; // Implicit
    int e; // Implicit
@@ -660,12 +664,12 @@ short ImplicitVar(int x)
    __int64 b1; // Implicit
    int b2; // Implicit
    short b3; // Implicit
-   unsigned char b4; // Implicit
-   unsigned short b5; // Implicit
-   unsigned int b6; // Implicit
+   UCHAR b4; // Implicit
+   USHORT b5; // Implicit
+   unsigned b6; // Implicit
    float b7; // Implicit
    double B8; // Implicit
-   long double B9; // Implicit
+   EXTENDED B9; // Implicit
    short i; // Implicit
    int LastNum; // Implicit
    float OtherValue; // Implicit
