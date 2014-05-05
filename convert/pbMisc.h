@@ -1,6 +1,6 @@
 // Miscellaneous
-// Actual patterns that convert to these are in *.uc
 
+typedef long doulbe EXTENDED;
 
 // PB string equates
 
@@ -19,6 +19,8 @@ const string PB_SPC  = " ";
 const string PB_DQ   = "\"";
 const string PB_SQ   = "\'";
 const string PB_QCQ  = "\q,\q";
+
+// Actual patterns that convert to the following are found in *.uc
 
 #define PB_CV(keyword, type) inline type keyword(const string& Str, int Offset=1) \
         { type *ret; ret = (type*)(Str.data()+Offset-1); return *ret; }
