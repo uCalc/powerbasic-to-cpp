@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/30/2014 8:52:37 PM
+# This file was saved with uCalc Transform 2.96 on 5/5/2014 3:32:15 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,6 +52,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
 Find: {@Note:
          This transform does the following:
       
@@ -84,8 +85,6 @@ Replace: {@Define:
                  "SNG", "Single", "DBL", "Double", "EXT", "Extended", _
                  "CUR", "Currency", "CUX", "CurrencyX", "STR", "String"}
             Var: dType="(INT|LNG|QUD|BYT|WRD|DWD|SNG|DBL|EXT|CUR|CUX|STR)\b"
-            Func: LCase(c As String) As String = IIF(Asc(c) > 64 and Asc(c) < 91, Chr(Asc(c)+32), c)
-            Func: UCase(c As String) As String = IIF(Asc(c) > 96 and Asc(c) < 123, Chr(Asc(c)-32), c)
             Func: Round(x) = Sgn(x)*Int(Abs(x)+0.5)
          }{@Define:: Token: \x27.* ~~ Properties: ucWhitespace}
 
@@ -233,7 +232,6 @@ Find: {num:"&h[0-9a-f]+"}{ {quad: &&}|{long: &}|{dword: ???} }
 Replace: {num}{long: }{dword:U}{quad:L}
 
 Criteria: 28
-Selected: True
 Find: {text:"\q[^\q]*\q"}$$
 Replace: L{text}
 
