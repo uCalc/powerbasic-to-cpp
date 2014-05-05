@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/22/2014 9:34:09 AM
+# This file was saved with uCalc Transform 2.96 on 5/5/2014 5:25:59 PM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -66,9 +66,11 @@ Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 4
+Selected: True
 BackColor: DeepSkyBlue
 Find: {@Start}
 Replace: #include <iostream>
+         #include <iomanip>
          #include <fstream>
          {@Var: FreeFileNum}
 
@@ -195,7 +197,6 @@ Comment:
 Pass: 2
 
 Criteria: 29
-Selected: True
 BackColor: Yellow
 Find: fstream {file} ({args+})
 Replace: {@Evaluate: Replace({@Self}, '{"[ \r\n]+"}', ' ')}
