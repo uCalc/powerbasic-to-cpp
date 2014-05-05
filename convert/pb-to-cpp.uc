@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 5/1/2014 7:27:38 PM
+# This file was saved with uCalc Transform 2.96 on 5/5/2014 6:05:13 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -69,8 +69,10 @@ Replace: ' This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was conve
          ' with {@Eval: AppName} on {@Eval: TimeStamp("MM/dd/yy")} using the Open Source 
          ' PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
          
+         #include "stdafx.h"
          #include "pbOS.h"
          #include "pbMisc.h"
+         #include <vector>
          #include <cstdarg>
          
 
@@ -205,7 +207,6 @@ Find: ' [{comment:".*"}]
 Replace: //{comment}
 
 Criteria: 26
-Selected: True
 Highlight: True
 BackColor: Green
 PassOnce: False
@@ -412,7 +413,7 @@ Replace: double
 Criteria: 64
 Highlight: True
 Find: Byte
-Replace: unsigned char
+Replace: UCHAR
 
 Criteria: 65
 Highlight: True
@@ -422,12 +423,12 @@ Replace: short
 Criteria: 66
 Highlight: True
 Find: Word
-Replace: unsigned short
+Replace: USHORT
 
 Criteria: 67
 Highlight: True
 Find: Dword
-Replace: unsigned int
+Replace: unsigned
 
 Criteria: 68
 Find: AsciiZ
@@ -440,13 +441,14 @@ Replace: __int64
 
 Criteria: 70
 SkipOver: True
-Find: long double
+Find: EXTENDED
 Replace: [Skip over]
 
 Criteria: 71
+Selected: True
 Highlight: True
 Find: { Extended | Ext }
-Replace: long double
+Replace: EXTENDED
 
 Criteria: 72
 Highlight: True
@@ -458,7 +460,7 @@ Replace: {type}& {arg}
 Criteria: 73
 PassOnce: False
 Find: ByRef {array}() As {type:1}
-Replace: {type} {array}[]{@Define::
+Replace: std::vector<{type}>& {array}{@Define::
             Syntax: {array}([{index}]) ::= {array}[{index}]
          }
 
@@ -631,5 +633,9 @@ Replace: {pointer}->
 Criteria: 110
 Find: `{@Comment: removes temp char for type member access}
 Replace: {Nothing}
+
+Criteria: 111
+Find: std::vector<{type}>({size})
+Replace: std::vector<{type}>[{size}]
 
 # End Search
