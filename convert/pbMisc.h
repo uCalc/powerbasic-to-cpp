@@ -1,6 +1,6 @@
 // Miscellaneous
 
-typedef long doulbe EXTENDED;
+typedef long double EXTENDED;
 
 // PB string equates
 
@@ -13,12 +13,12 @@ const string PB_VT   = "\v";
 const string PB_FF   = "\f";
 const string PB_CR   = "\r";
 const string PB_CRLF = "\r\n";
-const string PB_EOF  = "\x1A;
+const string PB_EOF  = "\x1A";
 const string PB_ESC  = "\x1B";
 const string PB_SPC  = " ";
 const string PB_DQ   = "\"";
 const string PB_SQ   = "\'";
-const string PB_QCQ  = "\q,\q";
+const string PB_QCQ  = "\",\"";
 
 // Actual patterns that convert to the following are found in *.uc
 
@@ -26,7 +26,7 @@ const string PB_QCQ  = "\q,\q";
         { type *ret; ret = (type*)(Str.data()+Offset-1); return *ret; }
 PB_CV(PB_CVBYT, unsigned char)
 PB_CV(PB_CVD,   double)
-PB_CV(PB_DWD,   unsigned int)
+PB_CV(PB_CVDWD, unsigned int)
 PB_CV(PB_CVE,   long double)
 PB_CV(PB_CVI,   short)
 PB_CV(PB_CVL,   int)
