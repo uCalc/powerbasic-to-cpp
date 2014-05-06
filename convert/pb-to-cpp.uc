@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/5/2014 6:05:13 PM
+# This file was saved with uCalc Transform 2.96 on 5/6/2014 1:12:51 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,6 +52,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+PassOnce: False
 Find: 
 Replace: {@Define:
             Var: BitType As String
@@ -70,10 +71,22 @@ Replace: ' This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was conve
          ' PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
          
          #include "stdafx.h"
-         #include "pbOS.h"
-         #include "pbMisc.h"
+         #include <cmath>
+         #include <cstdlib>
          #include <vector>
          #include <cstdarg>
+         #include <algorithm>
+         #include <string>
+         #include <sstream>
+         #include <iostream>
+         #include <iomanip>
+         #include <fstream>
+         
+         using namespace std;{nl}{nl}
+         
+         #include "pbOS.h"
+         #include "pbMisc.h"
+         #include "pbstrings.h"
          
 
 Criteria: 3
@@ -332,10 +345,11 @@ Replace: {nl}{@Eval:
          } {bitfield} : {size};
 
 Criteria: 49
+Selected: True
 Highlight: True
 PassOnce: False
 Find: Dim {array}([{size}]) As {type}
-Replace: std::vector<{type}> {array}{size: ({size}+1)};{@Define:: Pass: 6 ~~ Syntax: {array}([{sz}]) ::= {array}[{sz}]}
+Replace: std::vector<{type}> {array}{size: ({size}+1)};{@Define::Pass: 6 ~~ Syntax: {array}({sz}) ::= {array}[{sz}]}{@Define::Pass: 6 ~~ Syntax: {array}() ::= {array}}
 
 Criteria: 50
 Find: Erase {array:1}[()]
@@ -445,7 +459,6 @@ Find: EXTENDED
 Replace: [Skip over]
 
 Criteria: 71
-Selected: True
 Highlight: True
 Find: { Extended | Ext }
 Replace: EXTENDED
@@ -461,7 +474,8 @@ Criteria: 73
 PassOnce: False
 Find: ByRef {array}() As {type:1}
 Replace: std::vector<{type}>& {array}{@Define::
-            Syntax: {array}([{index}]) ::= {array}[{index}]
+            Syntax: {array}({index}) ::= {array}[{index}]
+            Syntax: {array}() ::= {array}
          }
 
 Criteria: 74
@@ -557,9 +571,8 @@ Comment: Adds semi-colons to statements, etc
 Pass: 5
 
 Criteria: 93
-StopAfter: 1
-Find: //{".*"}
-Replace: {Self}{@Define:: Token: [\x7b\x7d\;]}
+Find: {@Start}
+Replace: {@Define:: Token: [\x7b\x7d\;]}
 
 Criteria: 94
 Find: {nl} {code} [{comment:" *//.*"}] {delim-: {nl}}
@@ -614,28 +627,43 @@ Comment: Misc
 Pass: 8
 
 Criteria: 106
+SkipOver: True
+Find: { // {comment:".*"} | /* {commentB~} */ }
+Replace: [Skip over]
+
+Criteria: 107
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 107
+Criteria: 108
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
-Criteria: 108
+Criteria: 109
 Find: @
 Replace: *
 
-Criteria: 109
+Criteria: 110
 Highlight: True
 Find: @{pointer:1}.
 Replace: {pointer}->
 
-Criteria: 110
+Criteria: 111
 Find: `{@Comment: removes temp char for type member access}
 Replace: {Nothing}
 
-Criteria: 111
-Find: std::vector<{type}>({size})
-Replace: std::vector<{type}>[{size}]
+Criteria: 112
+Find: std::vector<{type}> {name:1} "["{size}"]"
+Replace: std::vector<{type}>{name}({size})
+
+Criteria: 113
+PassOnce: False
+Find: Optional {type:1}[{ptr: *}]{arg:1} [{more: , [Optional] {etc}}]
+Replace: {type} {ptr}{arg} = {@Eval:
+            IIf("{ptr}" <> "", "NULL",
+            IIf(InStr("{type}", "{ float|double|EXTENDED }"), "0.0",
+            IIf(InStr("{type}", "{ UCHAR|short|USHORT|int|unsigned }"), "0", 
+            Chr(34, 34))))
+         }{more: , Optional {etc}}
 
 # End Search
