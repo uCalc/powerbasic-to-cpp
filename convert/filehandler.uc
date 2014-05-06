@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/5/2014 5:25:59 PM
+# This file was saved with uCalc Transform 2.96 on 5/6/2014 5:03:11 PM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -53,7 +53,8 @@ RightToLeft: False
 
 Criteria: 1
 Find: 
-Replace: {@Token:: : ~~ Properties: ucStatementSep }
+Replace: {@Var: FreeFileNum}
+         {@Token:: : ~~ Properties: ucStatementSep }
 
 Criteria: 2
 Comment: 
@@ -66,15 +67,6 @@ Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 4
-Selected: True
-BackColor: DeepSkyBlue
-Find: {@Start}
-Replace: #include <iostream>
-         #include <iomanip>
-         #include <fstream>
-         {@Var: FreeFileNum}
-
-Criteria: 5
 BackColor: DeepSkyBlue
 Find: Open {filespec}
       { For {{Input: Input}|{Output: Output}|{Append: Append}|{Binary: Binary}|{Random: Random}}|{Default: } }
@@ -90,113 +82,114 @@ Replace: fstream file_{filenum} (string({filespec}).c_str(),
             {Default: ios::binary | ios::in | ios::out}
          );
 
-Criteria: 6
+Criteria: 5
 BackColor: Lime
 Find: Close [#]{filenum}
 Replace: file_{filenum}.close() ' PB: Close #{filenum}
 
-Criteria: 7
+Criteria: 6
 BackColor: RoyalBlue
 PassOnce: False
 Find: Close [#]{file1}, {more}
 Replace: Close {file1}
          Close {more}
 
-Criteria: 8
+Criteria: 7
 BackColor: Pink
 Find: Seek [#] {filenum}, {position}
 Replace: file_{filenum}.seekg({position}-1)
          file_{filenum}.seekp({position}-1)
 
-Criteria: 9
+Criteria: 8
+Selected: True
 Find: Seek([#] {filenum})
-Replace: file_{filenum}.tellg()+1
+Replace: (int)file_{filenum}.tellg()+1
 
-Criteria: 10
+Criteria: 9
 BackColor: SlateBlue
 Find: LOF({filenum})
-Replace: PB_LOF({filenum})
+Replace: PB_LOF(file_{filenum})
 
-Criteria: 11
+Criteria: 10
 Find: EOF({filenum})
 Replace: file_{filenum}.eof()
 
-Criteria: 12
+Criteria: 11
 Find: FreeFile
 Replace: {@Eval: FreeFileNum += 1; FreeFileNum}
 
-Criteria: 13
+Criteria: 12
 BackColor: Green
 Find: Get$ [#] {filenum}, {count}, {StringVar}
 Replace: {StringVar}.resize({count})
          file_{filenum}.read(&{StringVar}[0], {count})
 
-Criteria: 14
+Criteria: 13
 BackColor: SandyBrown
 Find: Put$ [#] {filenum}, {text}
 Replace: file_{filenum}.write(&{text}[0], {text}.size())
 
-Criteria: 15
+Criteria: 14
 Find: IsFile({file})
 Replace: PB_ISFILE({file})
 
-Criteria: 16
+Criteria: 15
 Find: Name {oldname} As {newname}
 Replace: PB_NAME({oldname}, {newname})
 
-Criteria: 17
+Criteria: 16
 BackColor: Gold
 Find: EXE.Extn$
 Replace: PB_EXE_EXTN
 
-Criteria: 18
+Criteria: 17
 BackColor: Silver
 Find: EXE.Full$
 Replace: PB_EXE_FULL()
 
-Criteria: 19
+Criteria: 18
 Find: EXE.Name$
 Replace: PB_EXE_NAME
 
-Criteria: 20
+Criteria: 19
 BackColor: CornflowerBlue
 Find: EXE.Namex$
 Replace: PB_EXE_NAMEX
 
-Criteria: 21
+Criteria: 20
 Find: EXE.Path$
 Replace: PB_EXE_PATH
 
-Criteria: 22
+Criteria: 21
 Find: Dir$({mask})
 Replace: PB_DIR({mask})
 
-Criteria: 23
+Criteria: 22
 Find: Dir$([Next])
 Replace: PB_DIR_NEXT()
 
-Criteria: 24
+Criteria: 23
 Find: Print #{filenum}
 Replace: file_{filenum} << endl
 
-Criteria: 25
+Criteria: 24
 Find: Print #{filenum}, {text}
 Replace: file_{filenum} << {text} << endl
 
-Criteria: 26
+Criteria: 25
 Find: Print #{filenum}, {text};
 Replace: file_{filenum} << {text}
 
-Criteria: 27
+Criteria: 26
 PassOnce: False
 Find: Print #{filenum}, {text}; {MoreText}
 Replace: Print #{filenum}, {text} << {MoreText}
 
-Criteria: 28
+Criteria: 27
 Comment: 
 Pass: 2
 
-Criteria: 29
+Criteria: 28
 BackColor: Yellow
 Find: fstream {file} ({args+})
 Replace: {@Evaluate: Replace({@Self}, '{"[ \r\n]+"}', ' ')}
