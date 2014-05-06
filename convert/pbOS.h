@@ -24,10 +24,10 @@ inline BOOL PB_ISFILE(const string& FileName) {
    return (attr != INVALID_FILE_ATTRIBUTES && !(attr & FILE_ATTRIBUTE_DIRECTORY));
 }
 
-inline string PB_EXE_FULL() { TCHAR fName[MAX_PATH]; GetModuleFileNameW(NULL, fName, MAX_PATH); return fName; }
+inline string PB_EXE_FULL() { TCHAR fName[MAX_PATH]; GetModuleFileName(NULL, fName, MAX_PATH); return fName; }
 #define PB_EXE_NAME  PB_EXE_NAMEX.substr(0, PB_EXE_NAMEX.rfind("."))
-#define PB_EXE_NAMEX PB_EXE_FULL().substr(PB_EXE_FULL().rfind("\")+1)
-#define PB_EXE_PATH  PB_EXE_FULL().substr(PB_EXE_FULL().rfind("\"))
+#define PB_EXE_NAMEX PB_EXE_FULL().substr(PB_EXE_FULL().rfind("\\")+1)
+#define PB_EXE_PATH  PB_EXE_FULL().substr(PB_EXE_FULL().rfind("\\"))
 #define PB_EXE_EXTN  PB_EXE_FULL().substr(PB_EXE_FULL().rfind("."))
 
 #define PB_SLEEP(milliseconds) Sleep(milliseconds)
