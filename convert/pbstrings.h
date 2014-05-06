@@ -10,7 +10,7 @@
 
 #define PB_MID(MainStr, Start, Length) string(MainStr).substr(Start-1, Length)
 
-#define PB_MID_REPLACE(MainStr, Start, Length) string(MainStr).replace((Start)-1, Length, MainStr)
+inline void PB_MID_REPLACE(string& MainStr, const string& Txt, int Start, int Length) { MainStr = MainStr.replace((Start)-1, Length, Txt); }
 
 #define PB_INSTR(n, MainStr, MatchStr) ((n) == 0 ? 0 :  \
    (n)>0 ? string(MainStr).find(MatchStr, (n)-1)+1      \
@@ -26,7 +26,7 @@ inline string PB_LCASE(const string& Str) { std::transform(Str.begin(), Str.end(
 
 // +++ For now only [L|R]Trim$ with one arg, or with with "ANY" for 2nd arg is impelemented
 
-#define PB_TRIM_ANY(Str, chars) PB_LTRIM_ANY(PB_RTRIM_ANY(Str, chars))
+#define PB_TRIM_ANY(Str, chars) PB_LTRIM_ANY(PB_RTRIM_ANY(Str, chars), chars)
 
 inline string PB_LTRIM_ANY(const string& Str, const string& chars) { return Str.substr(Str, Str.find_first_not_of(chars)); }
 
