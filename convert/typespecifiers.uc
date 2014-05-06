@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/5/2014 3:32:15 PM
+# This file was saved with uCalc Transform 2.96 on 5/6/2014 4:14:32 PM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,7 +52,6 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Selected: True
 Find: {@Note:
          This transform does the following:
       
@@ -118,9 +117,10 @@ Replace: Def{type} {etc}
 
 Criteria: 6
 Comment: Inserts <arg> marker for easier parsing
+Selected: True
 BackColor: Red
-Find: {nl}{decl: Sub | Function } {etc} ({args})
-Replace: {nl}{decl} {etc}(<Arg>{@Evaluate: Replace({args}, ",", ", <Arg>")})
+Find: {nl} [ {d: Declare} ] {decl: Sub | Function } {etc} ({args})
+Replace: {nl}{d} {decl} {etc}(<Arg>{@Evaluate: Replace({args}, ",", ", <Arg>")})
 
 Criteria: 7
 SkipOver: True
