@@ -1,23 +1,26 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/05/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/06/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "stdafx.h"
-#include "pbOS.h"
-#include "pbMisc.h"
-#include <vector>
-#include <cstdarg>
 #include <cmath>
 #include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
+#include <vector>
+#include <cstdarg>
 #include <algorithm>
 #include <string>
 #include <sstream>
-#include "pbstrings.h"
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+
 using namespace std;
 
+
+
+#include "pbOS.h"
+#include "pbMisc.h"
+#include "pbstrings.h"
 // File name: SampleCode.Bas
 // To convert this file to C++ make sure you have uCalc Transform on your PC
 // and *.uc from github.com/uCalc/powerbasic-to-cpp/tree/master/convert
@@ -46,7 +49,7 @@ int ProgStatus;
 #define MyMacroNum 12345
 #define MyMacro(a, b, c) (a + b * (c))
 
-struct point {
+struct pointType {
    int x;
    int y;
 };
@@ -54,8 +57,8 @@ struct point {
 struct TestType {
    int a;
    int *b;
-   point c;
-   point *d;
+   PointType c;
+   PointType *d;
 };
 
 struct OtherType {
@@ -77,9 +80,9 @@ struct MyBits { // A comment goes here
 };
 
 union MyUnion {
-   int x;
-   unsigned y;
-   float z;
+   int x1;
+   unsigned y1;
+   float z1;
 };
 
 union OtherUinion { // A comment goes here 
@@ -93,9 +96,9 @@ struct NestedTypeA {
    int x;
    int y;
    union {
-      int x;
-      unsigned y;
-      float z;
+      int x1;
+      unsigned y1;
+      float z1;
    };
 };
 
@@ -103,16 +106,16 @@ struct NestedTypeB {
    int Something;
    int a;
    int *b;
-   point c;
-   point *d;
+   PointType c;
+   PointType *d;
    
    double Item1;
    int x;
    int y;
    union {
-      int x;
-      unsigned y;
-      float z;
+      int x1;
+      unsigned y1;
+      float z1;
    };
    
    double Other;
@@ -127,7 +130,7 @@ int MyFunction(int a, float& b)
 {
    int x;
    int y;
-   std::vector<int> Test[a+25+1];
+   std::vector<int>Test(a+25+1);
    int yVar;
    int MyValue;
    // Dim q As Long
@@ -164,12 +167,13 @@ void MySub(int x, std::vector<double>& dArray)
    
    int y;
    float *Test;
-   std::vector<float> Number[10+1];
-   std::vector<int> Other[x+1];
+   std::vector<float>Number(10+1);
+   std::vector<int>Other(x+1);
    int z;
    
    z = (dArray.size()-1);
    z = (Number.size()-1);
+   Test = &Number[0];
    
    if (x == 0) { // If Then
       ProgStatus = 10;
@@ -179,17 +183,17 @@ void MySub(int x, std::vector<double>& dArray)
    } else if (x == -1) { // Test for ElseIf
       while (x < 10) {
          y = MyFunction(x, *Test);
-         Test = &x;
+         Test = &MyValue;
          Number[z] = *Test + Other[5+x];
          dArray[x] = Number[x];
          x = x+1;
-         if (Test < 0) {
+         if (*Test < 0) {
             continue;
          }
-         if (Test == y) {
+         if (*Test == y) {
             return;
          }
-         if (Test == z) {
+         if (*Test == z) {
             break;
          }
       }
@@ -214,7 +218,7 @@ void MySub(int x, std::vector<double>& dArray)
    i = t1.Third->a;
    i = t1.Third->b;
    i = *t1.Third->b;
-   i = t1.Third->x->x;
+   i = t1.Third->d->x;
    
    i = t2->First;
    i = *t2->Second;
@@ -222,8 +226,21 @@ void MySub(int x, std::vector<double>& dArray)
    i = t2->Third->a;
    i = t2->Third->b;
    i = *t2->Third->b;
-   i = t2->Third->x->x;
-   i = *t1.Second + t1.Third->b + t2->First + *t2->Second + t2->Third->a + *t2->Third->b + t2->Third->x->x;
+   i = t2->Third->d->x;
+   i = *t1.Second + t1.Third->b + t2->First + *t2->Second + t2->Third->a + *t2->Third->b + t2->Third->d->x;
+   
+   NestedTypeA NstA;
+   NestedTypeB NstB;
+   
+   NstA.Item1 = 123;
+   NstA.x = 10;
+   NstA.x1 = 10;
+   NstB.Something = 123;
+   NstB.a = NstB.Something +1;
+   NstB.Item1 = 123.456;
+   NstB.x = NstB.a + NstB.Something;
+   NstB.x1 = 123;
+   NstB.Other = NstB.Item1*2;
 }
 
 void TestCertainOperators(int x, /* ' This line is broken up using a _ (underscore) */
@@ -237,9 +254,9 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    float xyz; // Implicit
    // Embedded comments after _ are preserved in their original location
    
-   std::vector<int> MyArray[10+1];
-   Point MyPoint;
-   Point *pp;
+   std::vector<int>MyArray(10+1);
+   PointType MyPoint;
+   PointType *pp;
    int n;
    
    for (x=1; x<=10; x += 1) { // Just a test {comment}.
@@ -298,7 +315,6 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
 
 float MyValue;
 string Label;
-Currency Price;
 EXTENDED ExtVal;
 __int64 qNum;
 std::vector<int> gArray;
@@ -327,7 +343,7 @@ string Report(string& LastName, int x, double& NewPrice, float& n, short i, floa
    return FirstName + LastName;
 }
 
-string Hello(string& txt)
+string Hello(string& Txt)
 {
    cout << txt << endl;
    return txt + " friend!";
@@ -343,11 +359,11 @@ UCHAR Bye()
 // without parentheses.  The converter adds them.
 
 //#Include "Win32API.inc"
-extern __declspec(dllimport) unsigned ShellExecute(unsigned hwnd, lpOperation As LPCSTR, lpFile As LPCSTR, lpParameters As LPCSTR, lpDirectory As LPCSTR, int nShowCmd);
+extern __declspec(dllimport) unsigned ShellExecute(unsigned hwnd, LPCSTR& lpOperation, LPCSTR& lpFile, LPCSTR& lpParameters, LPCSTR& lpDirectory, int nShowCmd);
 extern __declspec(dllimport) int SetCursorPos(int x, int y);
 extern __declspec(dllimport) void SetLastError(unsigned dwErrCode);
 
-void DoSomething(int Arg1, string& txt, EXTENDED& Number, Optional unsigned *xyz)
+void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz = NULL)
 {
    SetCursorPos(10, Arg1 + 5);
    if (Arg1 == 15) {
@@ -368,11 +384,11 @@ int main()
    EXTENDED pi;
    string MyString;
    string FileInfo;
-   std::vector<string> MyFile[50+1];
+   std::vector<string>MyFile(50+1);
    int n;
    unsigned dwTest;
    string Num;
-   std::vector<double> mArray[10+1];
+   std::vector<double>mArray(10+1);
    
    DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4); // Comment
    
@@ -384,7 +400,7 @@ int main()
    }
    
    MyFunc(5);
-   MySub(10, mArray[]);
+   MySub(10, mArray);
    
    gArray.clear();
    gArray.resize(15+1);
@@ -417,15 +433,15 @@ int main()
    fstream file_4 (string("MyAppend.Txt").c_str(), ios::out | ios::app);
    
    i = PB_ISFILE("Test.Txt");
-   i = PB_LOF(BinFile);
-   i = file_BinFile.tellg()+1;
-   i = file_1.eof();
+   i = PB_LOF(file_BinFile);
+   i = (int)file_BinFile.tellg()+1;
+   i = file_4.eof();
    file_BinFile.seekg(i+100-1);
    file_BinFile.seekp(i+100-1);
    
    MyString.resize(500);
-   file_1.read(&MyString[0], 500);
-   file_1.write(&MyString[0], MyString.size());
+   file_BinFile.read(&MyString[0], 500);
+   file_BinFile.write(&MyString[0], MyString.size());
    
    file_3 << PB_CVBYT(Num, n) << endl;
    file_3 << PB_CVD(Num, 1) << endl;
@@ -451,9 +467,9 @@ int main()
    i = (x > 1 ? sin(x)+1 : cos(x)-1) * 2;
    MyString = (x>50 ? PB_LEFT(MyString, 10) : PB_MID(MyString, 25, FULL_STRING));
    
-   MyFile = PB_DIR("*.Bas");
-   MyFile = PB_DIR_NEXT();
-   MyFile = PB_DIR_NEXT();
+   MyFile[0] = PB_DIR("*.Bas");
+   MyFile[1] = PB_DIR_NEXT();
+   MyFile[2] = PB_DIR_NEXT();
    
    MyFile[0] = PB_DIR("*.Bas");
    while (MyFile[n] != "" && n < 50) {
@@ -533,8 +549,8 @@ string StringTest(string& MyString, string OtherString)
    PB_MID_REPLACE(x, y, 25, FULL_STRING);
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), FULL_STRING), 25, FULL_STRING);
    
-   PB_POKE(&i, "ABCD");
-   MyText = PB_PEEK(&i, 2);
+   PB_POKE_STR((unsigned)&i, "ABCD");
+   MyText = PB_PEEK_STR((unsigned)&i, 2);
    
    if (x == PB_CR || x == PB_LF || x == PB_NUL) {
       MyText = "Line 1" + PB_CRLF + "Line 2" + PB_QCQ + "quote"+PB_DQ +PB_TAB;
@@ -606,13 +622,13 @@ double DoMath()
    y = PB_SGN(-1) + PB_SGN(5) + PB_SGN(y);
    //   If IsTrue y = x Or IsFalse y > x + 1 Then y = y^2         +++ The ^ operator doesn't convert properly
    //   If IsTrue y = x Or IsFalse y > x + 1 And x < 10 Then y = y^2
-   if (((y == x) <> 0) || !(y > x + 1)) {
+   if (((y == x) != 0) || !(y > x + 1)) {
       y = y+2;
    }
-   if (((y == x) <> 0) || !(y > x + 1) && x < 10) {
+   if (((y == x) != 0) || !(y > x + 1) && x < 10) {
       y = y+2;
    }
-   y = ((x) <> 0);
+   y = ((x) != 0);
    y = PB_MAX(ARGCOUNT(5), (double)3, (double) 10, (double) -2, (double) 15+4, (double) 23);
    y = abs(-1)+tan(sin(2.5)+cos(3.5))+exp(1)+exp2(5)+log(5)+log2(5)+log10(5)+ceil(5);
    
@@ -683,4 +699,22 @@ short ImplicitVar(int x)
    MyValue = x/i; // Note: MyValue! was defined already as global
    OtherValue = i/x;
    b1 = b2 + b3 + b4 + b5 + b6 + b7 + B8 + B9;
+}
+
+// Test for optional args
+void OptionalArgs(int a = 0, string b = "", double c = 0.0, int *d = NULL, string text = "")
+{
+   // Do things
+}
+
+// Test for optional args
+float OptionalArgs2(int a, string b = "", double c = 0.0, int *d = NULL)
+{
+   // Do things
+}
+
+// Test for optional args
+float OptionalArgs3(int a, string b = "", double c = 0.0, int d = 0)
+{
+   // Do things
 }
