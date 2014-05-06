@@ -27,7 +27,7 @@ Global ProgStatus As Long
 Macro MyMacroNum = 12345
 Macro MyMacro(a, b, c) = (a + b * (c))
 
-Type point
+Type pointType
    x As Long
    y As Long
 End Type
@@ -35,8 +35,8 @@ End Type
 Type TestType
    a As Long
    b As Long Ptr
-   c As point
-   d As point ptr
+   c As PointType
+   d As PointType Ptr
 End Type
 
 Type OtherType
@@ -58,9 +58,9 @@ Type MyBits ' A comment goes here
 End Type
 
 Union MyUnion
-   x As Long
-   y As Dword
-   z As Single
+   x1 As Long
+   y1 As Dword
+   z1 As Single
 End Union
 
 Union OtherUinion ' A comment goes here
@@ -71,7 +71,7 @@ End Union
 
 Type NestedTypeA
    Item1 As Double
-   point
+   PointType
    MyUnion
 End Type
 
@@ -120,6 +120,7 @@ Sub MySub(ByVal x As Long, dArray() As Double)
 
    z = UBound(dArray)
    z = UBound(Number)
+   Test = VarPtr(Number(0))
 
    If x = 0 Then ' If Then
       ProgStatus = 10
@@ -127,13 +128,13 @@ Sub MySub(ByVal x As Long, dArray() As Double)
    ElseIf x = -1 Then ' Test for ElseIf
       While x < 10
          y = MyFunction(x, @Test)
-         Test = VarPtr(x)
+         Test = VarPtr(MyValue!)
          Number(z) = @Test + Other(5+x)
          dArray(x) = Number(x)
          x = x+1
-         If Test < 0 Then Iterate
-         If Test = y Then Exit Sub
-         If Test = z Then Exit
+         If @Test < 0 Then Iterate
+         If @Test = y Then Exit Sub
+         If @Test = z Then Exit
       Wend
    ElseIf x = 1 Then
       Sleep 2+y
@@ -155,7 +156,7 @@ Sub MySub(ByVal x As Long, dArray() As Double)
    i = t1.@Third.a
    i = t1.@Third.b
    i = t1.@Third.@b
-   i = t1.@Third.@x.x
+   i = t1.@Third.@d.x
 
    i = @t2.First
    i = @t2.@Second
@@ -163,8 +164,20 @@ Sub MySub(ByVal x As Long, dArray() As Double)
    i = @t2.@Third.a
    i = @t2.@Third.b
    i = @t2.@Third.@b
-   i = @t2.@Third.@x.x
-   i = t1.@Second + t1.@Third.b + @t2.First + @t2.@Second + @t2.@Third.a + @t2.@Third.@b + @t2.@Third.@x.x
+   i = @t2.@Third.@d.x
+   i = t1.@Second + t1.@Third.b + @t2.First + @t2.@Second + @t2.@Third.a + @t2.@Third.@b + @t2.@Third.@d.x
+
+   Dim NstA As NestedTypeA, NstB As NestedTypeB
+
+   NstA.Item1 = 123
+   NstA.x = 10
+   NstA.x1 = 10
+   NstB.Something = 123
+   NstB.a = NstB.Something +1
+   NstB.Item1 = 123.456
+   NstB.x = NstB.a + NstB.Something
+   NstB.x1 = 123
+   NstB.Other = NstB.Item1*2
 End Sub
 
 Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (underscore)
@@ -174,7 +187,7 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
                          ByVal FinalArg As Single Ptr _
                         ) ' Embedded comments after _ are preserved in their original location
 
-   Dim MyArray(10) As Long, MyPoint As Point, pp As Point Ptr, n As Long
+   Dim MyArray(10) As Long, MyPoint As PointType, pp As PointType Ptr, n As Long
 
    For x = 1 To 10 ' Just a test {comment}.
       n = y = z ' This works differently in PB than in C++
@@ -209,7 +222,7 @@ DefQud q
 DefSng n-p, x-z
 ' Note: DefLng a-z was already defined at the beginning of the code
 
-Global MyValue!, Label$, Price@, ExtVal##, qNum&&
+Global MyValue!, Label$, ExtVal##, qNum&&
 Global gArray() As Long, gArray2!()
 
 Function TestFunc(a, b, c, i, s, n)
@@ -229,7 +242,7 @@ Function Report$(LastName$, ByVal x&, ByRef NewPrice#, n, ByVal i, nValue, qValu
    Report$ = FirstName$ + LastName$
 End Function
 
-Function Hello(txt$) As String
+Function Hello(Txt$) As String
    Print txt$
    Function = txt$ + " friend!"
 End Function
@@ -269,8 +282,8 @@ Function PBMain()
    MySub 10, mArray()
 
    ReDim gArray(15), gArray2(35)
-   Redim Preserve mArray(200) As Double
-   
+   ReDim Preserve mArray(200) As Double
+
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
 
    Line Input MyString$ ' No prompt
@@ -294,11 +307,11 @@ Function PBMain()
    i = IsFile("Test.Txt")
    i = Lof(BinFile%)
    i = Seek(#BinFile%)
-   i = eof(1)
+   i = Eof(4)
    Seek #BinFile%, i+100
 
-   Get$ #1, 500, MyString$
-   Put$ #1, MyString$
+   Get$ #BinFile%, 500, MyString$
+   Put$ #BinFile%, MyString$
 
    Print #3, CvByt(Num$, n)
    Print #3, Cvd(Num$)
@@ -322,9 +335,9 @@ Function PBMain()
    i = IIf(x > 1, Sin(x)+1, Cos(x)-1) * 2
    MyString$ = IIf$(x>50, Left$(MyString$, 10), Mid$(MyString$, 25))
 
-   MyFile$ = Dir$("*.Bas")
-   MyFile$ = Dir$()
-   MyFile$ = Dir$(Next)
+   MyFile$(0) = Dir$("*.Bas")
+   MyFile$(1) = Dir$()
+   MyFile$(2) = Dir$(Next)
 
    MyFile$(0) = Dir$("*.Bas")
    While MyFile$(n) <> "" And n < 50
@@ -351,13 +364,13 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    Dim MyText$, i As Long, MyWideStr As WString
    Dim Txt As String, x$, y$, z$$
 
-   z$ = $$WideEquate + "Test"
+   z$$ = $$WideEquate + "Test"
 
    i = InStr(MyString$, "abc")
    i = InStr(i+10, MyString$, "xyz")*2
-   i = InStr(MyString$, ANY "aeiou")
+   i = InStr(MyString$, Any "aeiou")
    i = InStr(i+10, "This is a test", "is")
-   i = InStr("This is a test", ANY "aeiou")
+   i = InStr("This is a test", Any "aeiou")
    i = Asc(MyText$)
    i = Asc(MyText$, 5)
    i = Asc("This is a test")
@@ -367,7 +380,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    i = Asc("Test", 3)
    y$ = UCase$(MyString$) + LCase$(MyString$)
    x$ = Space$(25) + String$(10, "*") + String$(10, 65)
-   x$ = Trim$(x$)+LTrim$(x$)+RTrim$(x$)+Trim$(x$, ANY ".,! ")+LTrim$(x$, ANY ".,! ")+RTrim$(x$, ANY ".,! ")
+   x$ = Trim$(x$)+LTrim$(x$)+RTrim$(x$)+Trim$(x$, Any ".,! ")+LTrim$(x$, Any ".,! ")+RTrim$(x$, Any ".,! ")
    x$ = Repeat$(i+5, "Test")
    x$ = Choose$(i, "This", "That", "Other", "Misc")
    i = Choose(Rnd(1, 5), 5, 10, 15, 20, 25)
@@ -389,7 +402,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
 
    Poke$ VarPtr(i), "ABCD" : MyText$ = Peek$(VarPtr(i), 2)
 
-   If x$ = $Cr or x$ = $Lf or x$ = $Nul Then MyText$ = "Line 1" + $CrLf + "Line 2" + $Qcq + "quote"+$Dq +$Tab
+   If x$ = $Cr Or x$ = $Lf Or x$ = $Nul Then MyText$ = "Line 1" + $CrLf + "Line 2" + $Qcq + "quote"+$Dq +$Tab
    MyText$ = Hex$(123) + "   " + Oct$(1+2+3)
    ' +++ C++ doesn't seem to have a built-in string stream flag for Binary
 End Function
@@ -421,12 +434,12 @@ End Sub
 ' If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 Function DoMath() As Double
    Dim i As Long
-   If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
+   If x Mod 2 > CInt(Sqr(x^2 + y^2)) Then Incr q Else Decr q
    n = Sqr(x) * Atn(y) + 2 '* x^2 + Tan(x^3-1)^2
    n = x^2 + y^2
    y = Fix(3.14159)
    n = Frac(3.14159)
-   n = Int(3.14159) + CInt(3.14159) + EXP10(3+2)
+   n = Int(3.14159) + CInt(3.14159) + Exp10(3+2)
    n = Max(5.3, 11/2, 17, 4, Min(5, 3.5, -2, 8/7))
    i = Min&(3, -10, 7, -1, Max&(3, 1, 7, -5), 23, 11)
    i = Min&(1, 2, Max(5, 6, 7.5))
@@ -488,4 +501,19 @@ Function ImplicitVar(ByVal x As Long)
    MyValue! = x/i ' Note: MyValue! was defined already as global
    OtherValue! = i/x
    b1&& = b2& + b3% + b4? + b5?? + b6??? + b7! + B8# + B9##
+End Function
+
+' Test for optional args
+Sub OptionalArgs(Optional ByVal a As Long, ByVal b As String, ByVal c#, ByVal d As Long Ptr, ByVal text$)
+   ' Do things
+End Sub
+
+' Test for optional args
+Function OptionalArgs2(ByVal a As Long, Opt ByVal b As String, ByVal c#, ByVal d As Long Ptr)
+   ' Do things
+End Function
+
+' Test for optional args
+Function OptionalArgs3(ByVal a As Long, Opt ByVal b As String, Opt ByVal c#, ByVal d)
+   ' Do things
 End Function
