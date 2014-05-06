@@ -1,5 +1,5 @@
 # refactor.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 4/17/2014 10:42:45 AM
+# This file was saved with uCalc Transform 2.96 on 5/6/2014 11:42:21 AM
 # Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -60,8 +60,25 @@ Replace: {@Define::
          }{@Define: Var: Args As String}
 
 Criteria: 2
-Comment: Adds parenthesis around args in function/sub calls that do not have it
+Comment: Uniform syntax for optional args
+Pass: 1
+
+Criteria: 3
+Find: Opt
+Replace: Optional
+
+Criteria: 4
 Selected: True
+BackColor: Lime
+Find: "[", {arg} "]"
+Replace: Optional {arg}
+
+Criteria: 5
+Comment: Misc
+Pass: 2
+
+Criteria: 6
+Comment: Adds parenthesis around args in function/sub calls that do not have it
 BackColor: Lime
 Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
 Replace: {@Evaluate:
@@ -72,13 +89,13 @@ Replace: {@Evaluate:
             {@Eval: "SkipOver ~~ Syntax: {name} ({etc})"}
          }{Self}
 
-Criteria: 3
+Criteria: 7
 Comment: Adds closing quote for quoted text with missing closing quote
 BackColor: DarkKhaki
 Find: {QuotedText:"\q[^\q\n]*"}{nl}
 Replace: {QuotedText}"{nl}
 
-Criteria: 4
+Criteria: 8
 Comment: Adds () As Long to PBMain if missing
 Find: Function PBMain [()] [As Long]
 Replace: Function PBMain() As Long
