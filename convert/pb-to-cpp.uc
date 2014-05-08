@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/6/2014 1:12:51 PM
+# This file was saved with uCalc Transform 2.96 on 5/8/2014 11:25:11 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -64,23 +64,15 @@ Replace: {@Define:
          }
 
 Criteria: 2
+Selected: True
 Highlight: True
 Find: {@Start}
 Replace: ' This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was converted from {@Eval: Extract(ShortName(InputFile), ".")}.Bas
          ' with {@Eval: AppName} on {@Eval: TimeStamp("MM/dd/yy")} using the Open Source 
          ' PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
          
+         ' Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
          #include "stdafx.h"
-         #include <cmath>
-         #include <cstdlib>
-         #include <vector>
-         #include <cstdarg>
-         #include <algorithm>
-         #include <string>
-         #include <sstream>
-         #include <iostream>
-         #include <iomanip>
-         #include <fstream>
          
          using namespace std;{nl}{nl}
          
@@ -345,7 +337,6 @@ Replace: {nl}{@Eval:
          } {bitfield} : {size};
 
 Criteria: 49
-Selected: True
 Highlight: True
 PassOnce: False
 Find: Dim {array}([{size}]) As {type}
