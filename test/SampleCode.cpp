@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/06/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/07/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 #include "stdafx.h"
@@ -716,5 +716,15 @@ float OptionalArgs2(int a, string b = "", double c = 0.0, int *d = NULL)
 // Test for optional args
 float OptionalArgs3(int a, string b = "", double c = 0.0, int d = 0)
 {
+   // Do things
+}
+
+// +++ Global g1, g2, g3, g4 As Dword
+
+void MultiDim()
+{
+   int a;
+   int b;
+   int c;
    // Do things
 }
