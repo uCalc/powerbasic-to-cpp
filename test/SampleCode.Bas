@@ -518,9 +518,11 @@ Function OptionalArgs3(ByVal a As Long, Opt ByVal b As String, Opt ByVal c#, ByV
    ' Do things
 End Function
 
-' +++ Global g1, g2, g3, g4 As Dword
+Global g1(), g2, g3, g4 As Dword
 
 Sub MultiDim()
-   Local a, b, c As Long
+   Local a, b, c, d As Long Ptr
+   Static s1, s2(), s3, s4 As String
+'+++   Static s1, s2(10), s3, s4 As String
    ' Do things
 End Sub
