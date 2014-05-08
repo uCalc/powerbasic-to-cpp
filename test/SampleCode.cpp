@@ -1,18 +1,9 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/07/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/08/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
+// Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
 #include "stdafx.h"
-#include <cmath>
-#include <cstdlib>
-#include <vector>
-#include <cstdarg>
-#include <algorithm>
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <iomanip>
-#include <fstream>
 
 using namespace std;
 
@@ -719,12 +710,21 @@ float OptionalArgs3(int a, string b = "", double c = 0.0, int d = 0)
    // Do things
 }
 
-// +++ Global g1, g2, g3, g4 As Dword
+std::vector<unsigned> g1;
+unsigned g2;
+unsigned g3;
+unsigned g4;
 
 void MultiDim()
 {
-   int a;
-   int b;
-   int c;
+   int *a;
+   int *b;
+   int *c;
+   int *d;
+   static string s1;
+   static std::vector<string> s2;
+   static string s3;
+   static string s4;
+   //+++   Static s1, s2[10], s3, s4 As String
    // Do things
 }
