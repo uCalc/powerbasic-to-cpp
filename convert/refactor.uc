@@ -1,5 +1,5 @@
 # refactor.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/7/2014 10:50:22 PM
+# This file was saved with uCalc Transform 2.96 on 5/8/2014 10:36:21 AM
 # Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -102,8 +102,9 @@ Replace: Function PBMain() As Long
 Criteria: 9
 Selected: True
 PassOnce: False
-Find: Local [{etc},] {item:1}, {last:1} As {type}
-Replace: Local {etc: {etc},} {item} As {type}
-         Local {last} As {type}
+Find: {dim: Local|Global|Static}
+      [{etc},] {item:1}[{array1: ()}], {last:1}[{array2: ()}] As {type}
+Replace: {dim} {etc: {etc},} {item}{array1} As {type}
+         {dim} {last}{array2} As {type}
 
 # End Search
