@@ -28,9 +28,9 @@ inline string PB_LCASE(const string& Str) { std::transform(Str.begin(), Str.end(
 
 #define PB_TRIM_ANY(Str, chars) PB_LTRIM_ANY(PB_RTRIM_ANY(Str, chars), chars)
 
-inline string PB_LTRIM_ANY(const string& Str, const string& chars) { return Str.substr(Str, Str.find_first_not_of(chars)); }
+inline string PB_LTRIM_ANY(const string& Str, const string& chars) { return Str.substr(Str.find_first_not_of(chars)); }
 
-inline string PB_RTRIM_ANY(const string& Str, const string& chars) { Str.erase(Str.find_last_not_of(chars)+1); return Str; }
+inline string PB_RTRIM_ANY(string Str, const string& chars) { Str.erase(Str.find_last_not_of(chars)+1); return Str; }
 
 inline string PB_EXTRACT(long start, const string& Str, const string& Match) { return Str.substr(0, Str.find(Match, start-1)-1); }
 
@@ -41,11 +41,11 @@ inline string PB_REMAIN(long start, const string& Str, const string& Match) { re
 inline string PB_REMAIN_ANY(long start, const string& Str, const string& Match) { return Str.substr(Str.find_first_of(Match, start-1)+1); }
 
 // +++ PB_REMOVE and PB_REPLACE here are incomplete; removes/replaces just one occurence for now
-inline string PB_REMOVE(const string& Str, const string& Match) { PB_EXTRACT(1, Str, Match) + PB_REMAIN(1, Str, MATCH); }
+inline string PB_REMOVE(const string& Str, const string& Match) { PB_EXTRACT(1, Str, Match) + PB_REMAIN(1, Str, Match); }
 
-inline string PB_REMOVE_ANY(const string& Str, const string& Match) { PB_EXTRACT_ANY(1, Str, Match) + PB_REMAIN_ANY(1, Str, MATCH); }
+inline string PB_REMOVE_ANY(const string& Str, const string& Match) { PB_EXTRACT_ANY(1, Str, Match) + PB_REMAIN_ANY(1, Str, Match); }
 
-inline void PB_REPLACE(const string& Str, const string& Match, const string& NewStr) { PB_EXTRACT(1, Str, Match) + NewStr + PB_REMAIN(1, Str, MATCH); }
+inline void PB_REPLACE(const string& Str, const string& Match, const string& NewStr) { PB_EXTRACT(1, Str, Match) + NewStr + PB_REMAIN(1, Str, Match); }
 
 inline string PB_REPEAT(const string& Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr; } // +++ must optimize this
 
