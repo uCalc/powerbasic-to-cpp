@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.95 on 5/1/2014 7:29:08 PM
+# This file was saved with uCalc Transform 2.96 on 5/9/2014 10:15:18 AM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -62,6 +62,9 @@ Replace: {@Define::
             Var: ImplicitDim As Table
             Var: ExplicitDim As Table
             Var: CurrentRoutine As String
+            Var: ExpIndex As Long
+            Var: ImpIndex As Long
+            Var: GlobalIndex As Long
          }
 
 Criteria: 2
@@ -86,7 +89,6 @@ Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: Insert(Globals, "{variable}")}
 
 Criteria: 7
-Selected: True
 BackColor: Silver
 Find: {nl}{ Macro | Type | Union | % | $[$] | Declare {func:1} }  {name:1}
 Replace: {Self}{@Eval: Insert(Globals, "{name}")}
@@ -121,15 +123,26 @@ Comment: Places non-Dimmed variable names in separate local tables
 Pass: 3
 
 Criteria: 13
+Selected: True
 Find: {variable:"[a-z][a-z0-9_]*[#!?%&]*"}
-Replace: {Self}{@Eval: 
-            IIf(Handle(Globals, "{variable}")==0 And Handle(~Eval(CurrentRoutine)ExplicitDim, "{variable}")==0,
-                Insert(~Eval(CurrentRoutine)ImplicitDim, "{variable}"); "")
+      [{IsFunc:" *\("}]
+Replace: {@Eval:
+            ExpIndex    = Index(~Eval(CurrentRoutine)ExplicitDim, "{variable}")
+            ImpIndex    = Index(~Eval(CurrentRoutine)ImplicitDim, "{variable}")
+            GlobalIndex = Index(Globals, "{variable}")
+            IIf(ExpIndex+ImpIndex+GlobalIndex == 0 And "{IsFunc}" == "",
+                Insert(~Eval(CurrentRoutine)ImplicitDim, "{variable}"))
+            
+            text = "{variable}"
+            IIf(GlobalIndex, text = ReadKey(Globals, GlobalIndex))
+            IIf(ExpIndex, text = ReadKey(~Eval(CurrentRoutine)ExplicitDim, ExpIndex))
+            IIf(ImpIndex, text = ReadKey(~Eval(CurrentRoutine)ImplicitDim, ImpIndex))
+            text + "{IsFunc}"
          }
 
 Criteria: 14
 SkipOver: True
-Find: {"[a-z0-9_]+"} { {UDT:"\.[a-z0-9_\@\.]+"} | {Func:" *\("} }
+Find: {"[a-z0-9_]+"}  {UDT:"\.[a-z0-9_\@\.]+"}
 Replace: [Skip over]
 
 Criteria: 15
@@ -160,13 +173,8 @@ BackColor: Purple
 Find: {nl}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"} {etc}
 Replace: {Self}
          {@Eval: 
-            text = ""
-            uc_For(x, 1, Count({RoutineName}ImplicitDim), 1,
-               text += "   Dim "
-               text += ReadKey({RoutineName}ImplicitDim, x)
-               text += " ' Implicit"+Chr(10)
-            );
-            text
+            Range(1, Count({RoutineName}ImplicitDim),
+            {Q}"   Dim "+ReadKey({RoutineName}ImplicitDim, x)+" ' Implicit"+Chr(10){Q})
          }
 
 Criteria: 21
