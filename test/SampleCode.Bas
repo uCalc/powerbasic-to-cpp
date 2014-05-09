@@ -11,10 +11,13 @@ DefLng a-z
 %Other = &h200
 %LongEquate = 12345&&
 %HexLongEquate = &h123&&
+%EquateWithComment = 123 ' This is a comment
 $StrEquate = "Just a test: "
 $$WideEquate = "This is a wide string equate"$$
 
 Global ProgStatus As Long
+Global MyValue!, Label$, ExtVal##, qNum&&
+Global gArray() As Long, gArray2!()
 
 #If %Def(%Other)
 ' Something
@@ -222,8 +225,9 @@ DefQud q
 DefSng n-p, x-z
 ' Note: DefLng a-z was already defined at the beginning of the code
 
-Global MyValue!, Label$, ExtVal##, qNum&&
-Global gArray() As Long, gArray2!()
+' These globals defined at the top
+' Global MyValue!, Label$, ExtVal##, qNum&&
+' Global gArray() As Long, gArray2!()
 
 Function TestFunc(a, b, c, i, s, n)
    Print MyValue!, Label$, PriceB#
@@ -357,6 +361,17 @@ Function PBMain()
       char = Asc("A") + Auto
       This = Auto * 25
    Next
+
+   ' The following should change casing to match that of original def, since C++ is case sensitive
+   ' For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
+
+   Dim UnionTest As MYUNION, OtherItem As POINTType, MixedCasing As Long
+   I = %myequate + myfunc(123) + MYMACRONUM + Progstatus + IMPLICITVAR(MIXEDcasing)
+   Call MultiDIM() : Call myexportSUB(10, 20)
+   CALL PRINTtest
+   call myfunc(123) to I
+   BYE()
+   bye
 End Function
 
 ' This section tests transforms found in strings.uc
