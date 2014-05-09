@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/8/2014 11:25:11 AM
+# This file was saved with uCalc Transform 2.96 on 5/9/2014 1:46:17 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -64,7 +64,6 @@ Replace: {@Define:
          }
 
 Criteria: 2
-Selected: True
 Highlight: True
 Find: {@Start}
 Replace: ' This file ({@Eval: Extract(ShortName(InputFile), ".")}.cpp) was converted from {@Eval: Extract(ShortName(InputFile), ".")}.Bas
@@ -207,6 +206,7 @@ Find: // [{comment:".*"}]
 Replace: [Skip over]
 
 Criteria: 25
+Selected: True
 Highlight: True
 Find: ' [{comment:".*"}]
 Replace: //{comment}
@@ -216,7 +216,7 @@ Highlight: True
 BackColor: Green
 PassOnce: False
 Find: {nl}{ {num: %}|{wstr: $$}|{str: $} }{equate} = {value}
-Replace: {nl}const{num: int}{str: string}{wstr: wstring} {equate} = {value};
+Replace: {nl}const{num: int}{str: string}{wstr: wstring} {equate} = {value}
 
 Criteria: 27
 Highlight: True
