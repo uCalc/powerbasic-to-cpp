@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/08/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/09/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -24,10 +24,17 @@ const int MyEquate = 0x100;
 const int Other = 0x200;
 const int LongEquate = 12345L;
 const int HexLongEquate = 0x123L;
+const int EquateWithComment = 123; // This is a comment
 const string StrEquate = "Just a test: ";
 const wstring WideEquate = L"This is a wide string equate";
 
 int ProgStatus;
+float MyValue;
+string Label;
+EXTENDED ExtVal;
+__int64 qNum;
+std::vector<int> gArray;
+std::vector<float> gArray2;
 
 #if defined Other
 // Something
@@ -48,8 +55,8 @@ struct pointType {
 struct TestType {
    int a;
    int *b;
-   PointType c;
-   PointType *d;
+   pointType c;
+   pointType *d;
 };
 
 struct OtherType {
@@ -97,8 +104,8 @@ struct NestedTypeB {
    int Something;
    int a;
    int *b;
-   PointType c;
-   PointType *d;
+   pointType c;
+   pointType *d;
    
    double Item1;
    int x;
@@ -246,8 +253,8 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    // Embedded comments after _ are preserved in their original location
    
    std::vector<int>MyArray(10+1);
-   PointType MyPoint;
-   PointType *pp;
+   pointType MyPoint;
+   pointType *pp;
    int n;
    
    for (x=1; x<=10; x += 1) { // Just a test {comment}.
@@ -304,12 +311,9 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
 // based on Def[Type] declarations or on type specifiers.
 
 
-float MyValue;
-string Label;
-EXTENDED ExtVal;
-__int64 qNum;
-std::vector<int> gArray;
-std::vector<float> gArray2;
+// These globals defined at the top
+// Global MyValue!, Label$, ExtVal##, qNum&&
+// Global gArray As Long, gArray2!()
 
 int TestFunc(int& a, UCHAR& b, int& c, short& i, string& s, float& n)
 {
@@ -336,8 +340,8 @@ string Report(string& LastName, int x, double& NewPrice, float& n, short i, floa
 
 string Hello(string& Txt)
 {
-   cout << txt << endl;
-   return txt + " friend!";
+   cout << Txt << endl;
+   return Txt + " friend!";
 }
 
 UCHAR Bye()
@@ -487,6 +491,20 @@ int main()
       char_Renamed = 'A' + Auto_Renamed;
       This_Renamed = Auto_Renamed * 25;
    }
+   
+   // The following should change casing to match that of original def, since C++ is case sensitive
+   // For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
+   
+   MyUnion UnionTest;
+   pointType OtherItem;
+   int MixedCasing;
+   i = MyEquate + MyFunc(123) + MyMacroNum + ProgStatus + ImplicitVar(MixedCasing);
+   MultiDim();
+   MyExportSub(10, 20);
+   PrintTest;
+   i = MyFunc(123);
+   Bye();
+   Bye;
 }
 
 // This section tests transforms found in strings.uc
