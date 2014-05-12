@@ -21,7 +21,7 @@ Global gArray() As Long, gArray2!()
 
 #If %Def(%Other)
 ' Something
-#ElseIf Not %Def(%abcd)
+#ElseIf Not %Def(%abcde)
 ' Something else
 #Else
 ' Etc
@@ -206,7 +206,7 @@ Sub TestCertainOperators(ByVal x As Long, _ ' This line is broken up using a _ (
 
       If x = 1 Then Erase MyArray() Else Erase MyArray ' Erase with and without optional () in PB
 
-      If abc <> xyz Then MyPoint.x = y Else MyPoint.x = x
+      If abcd <> xyz Then MyPoint.x = y Else MyPoint.x = x
 
       pp = VarPtr(MyPoint)
       MyPoint.x = MyPoint.y+1
@@ -260,6 +260,7 @@ End Function
 ' without parentheses.  The converter adds them.
 
 '#Include "Win32API.inc"
+%SW_SHOWMINIMIZED   = 2
 Declare Function ShellExecute Lib "SHELL32.DLL" Alias "ShellExecuteA" (ByVal hwnd As Dword, lpOperation As Asciiz, lpFile As Asciiz, lpParameters As Asciiz, lpDirectory As Asciiz, ByVal nShowCmd As Long) As Dword
 Declare Function SetCursorPos Lib "USER32.DLL" Alias "SetCursorPos" (ByVal x As Long, ByVal y As Long) As Long
 Declare Sub      SetLastError Lib "KERNEL32.DLL" Alias "SetLastError" (ByVal dwErrCode As Dword)
@@ -289,6 +290,7 @@ Function PBMain()
    ReDim Preserve mArray(200) As Double
 
    ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowNormal
+   ShellExecute 0, "Open", "ReadMe.Txt", $Nul, $Nul, %SW_ShowMinimized
 
    Line Input MyString$ ' No prompt
    Line Input "Please enter some text: " MyString$ ' quoted prompt - no comma
@@ -351,17 +353,6 @@ Function PBMain()
 
    Name "Temp.Txt" As "Text.Tmp" : Name "Something.Txt" As "Other.Txt"
 
-   ' Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
-   Dim Auto As Long, Break As Long, Float As Double, char As Byte, This As Long
-
-   Break = %False
-   For Auto = 1 To 10
-      If Auto = 5 Then Break = %True
-      Float = 1/Auto + Float
-      char = Asc("A") + Auto
-      This = Auto * 25
-   Next
-
    ' The following should change casing to match that of original def, since C++ is case sensitive
    ' For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
 
@@ -373,6 +364,34 @@ Function PBMain()
    BYE()
    bye
 End Function
+
+Sub Rename1()
+   ' Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
+   ' Note: Items are renamed only if they are lowercase; otherwise there's no conflict
+   Dim auto As Long, Break As Long, float As Double, char As Byte, This As Long
+
+   Break = %False
+   For Auto = 1 To 10
+      If Auto = 5 Then Break = %True
+      Float = 1/Auto + Float
+      char = Asc("A") + Auto
+      This = Auto * 25 + unsigned + Throw
+   Next
+End Sub
+
+Sub Rename2()
+   ' Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
+   ' Note: Items are renamed only if they are lowercase; otherwise there's no conflict
+   Dim auto As Long, break As Long, Float As Double, Char As Byte, This As Long
+
+   Break = %False
+   For Auto = 1 To 10
+      If Auto = 5 Then break = %True
+      Float = 1/Auto + Float
+      char = Asc("A") + Auto
+      This = Auto * 25 + Unsigned + throw
+   Next
+End Sub
 
 ' This section tests transforms found in strings.uc
 Function StringTest(MyString$, ByVal OtherString As String) As String
