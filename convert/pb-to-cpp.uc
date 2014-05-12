@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/9/2014 1:46:17 PM
+# This file was saved with uCalc Transform 2.96 on 5/12/2014 3:36:23 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -85,16 +85,18 @@ Comment: Renames words that conflict w/ C++ keywords
 Pass: 1
 
 Criteria: 4
+Selected: True
 Find: { auto|bitand|bitor|bool|break|char|compl|constexpr|
       continue|default|delete|explicit|extern|false|float|
       friend|inline|mutable|new|nullptr|operator|private|
       protected|public|short|signed|struct|template|this|
       throw|true|typename|unsigned|virtual|void|volatile }
+      {@If: {@Self} == LCase({@Self})}
 Replace: {Self}_Renamed
 
 Criteria: 5
 SkipOver: True
-Find: { ' | _ } {Comment:".*"}
+Find: { { ' | _ } {Comment:".*"} | %TRUE | %FALSE }
 Replace: [Skip over]
 
 Criteria: 6
@@ -206,7 +208,6 @@ Find: // [{comment:".*"}]
 Replace: [Skip over]
 
 Criteria: 25
-Selected: True
 Highlight: True
 Find: ' [{comment:".*"}]
 Replace: //{comment}
