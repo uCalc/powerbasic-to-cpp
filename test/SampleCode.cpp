@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/09/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/12/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -38,7 +38,7 @@ std::vector<float> gArray2;
 
 #if defined Other
 // Something
-#elif !defined abcd
+#elif !defined abcde
 // Something else
 #else
 // Etc
@@ -247,7 +247,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
                          double& OtherVar, /* Everything after _ is a comment */
                          float *FinalArg)
 {
-   int abc; // Implicit
+   int abcd; // Implicit
    __int64 q; // Implicit
    float xyz; // Implicit
    // Embedded comments after _ are preserved in their original location
@@ -294,7 +294,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
          MyArray.clear(); // Erase with and without optional () in PB
       }
       
-      if (abc != xyz) {
+      if (abcd != xyz) {
          MyPoint.x = y;
       } else {
          MyPoint.x = x;
@@ -354,9 +354,10 @@ UCHAR Bye()
 // without parentheses.  The converter adds them.
 
 //#Include "Win32API.inc"
-extern __declspec(dllimport) unsigned ShellExecute(unsigned hwnd, LPCSTR& lpOperation, LPCSTR& lpFile, LPCSTR& lpParameters, LPCSTR& lpDirectory, int nShowCmd);
-extern __declspec(dllimport) int SetCursorPos(int x, int y);
-extern __declspec(dllimport) void SetLastError(unsigned dwErrCode);
+// <WinAPI> SW_SHOWMINIMIZED = 2
+// <WinAPI> Declare Function ShellExecute Lib "SHELL32.DLL" Alias "ShellExecuteA" (ByVal hwnd As Dword, lpOperation As Asciiz, lpFile As Asciiz, lpParameters As Asciiz, lpDirectory As Asciiz, ByVal nShowCmd As Long) As Dword
+// <WinAPI> Declare Function SetCursorPos Lib "USER32.DLL" Alias "SetCursorPos" (ByVal x As Long, ByVal y As Long) As Long
+// <WinAPI> Declare Sub SetLastError Lib "KERNEL32.DLL" Alias "SetLastError" (ByVal dwErrCode As Dword)
 
 void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz = NULL)
 {
@@ -366,8 +367,8 @@ void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz = NULL)
    }
 }
 
-const int True_Renamed = 1;
-const int False_Renamed = 0;
+// <WinAPI> True = 1
+// <WinAPI> False = 0
 
 int main()
 {
@@ -403,7 +404,8 @@ int main()
    gArray2.resize(35+1);
    mArray.resize(200+1);
    
-   ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_ShowNormal);
+   ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_SHOWNORMAL);
+   ShellExecute(0, "Open", "ReadMe.Txt", PB_NUL, PB_NUL, SW_SHOWMINIMIZED);
    
    getline(cin, MyString); // No prompt
    cout << "Please enter some text:";
@@ -475,23 +477,6 @@ int main()
    PB_NAME("Temp.Txt", "Text.Tmp");
    PB_NAME("Something.Txt", "Other.Txt");
    
-   // Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
-   int Auto_Renamed;
-   int Break_Renamed;
-   double Float_Renamed;
-   UCHAR char_Renamed;
-   int This_Renamed;
-   
-   Break_Renamed = False_Renamed;
-   for (Auto_Renamed=1; Auto_Renamed<=10; Auto_Renamed += 1) {
-      if (Auto_Renamed == 5) {
-         Break_Renamed = True_Renamed;
-      }
-      Float_Renamed = 1/Auto_Renamed + Float_Renamed;
-      char_Renamed = 'A' + Auto_Renamed;
-      This_Renamed = Auto_Renamed * 25;
-   }
-   
    // The following should change casing to match that of original def, since C++ is case sensitive
    // For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
    
@@ -505,6 +490,54 @@ int main()
    i = MyFunc(123);
    Bye();
    Bye;
+}
+
+void Rename1()
+{
+   int Throw; // Implicit
+   int unsigned_Renamed; // Implicit
+   
+   // Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
+   // Note: Items are renamed only if they are lowercase; otherwise there's no conflict
+   int auto_Renamed;
+   int Break;
+   double float_Renamed;
+   UCHAR char_Renamed;
+   int This;
+   
+   Break = FALSE;
+   for (auto_Renamed=1; auto_Renamed<=10; auto_Renamed += 1) {
+      if (auto_Renamed == 5) {
+         Break = TRUE;
+      }
+      float_Renamed = 1/auto_Renamed + float_Renamed;
+      char_Renamed = 'A' + auto_Renamed;
+      This = auto_Renamed * 25 + unsigned_Renamed + Throw;
+   }
+}
+
+void Rename2()
+{
+   int throw_Renamed; // Implicit
+   int Unsigned; // Implicit
+   
+   // Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
+   // Note: Items are renamed only if they are lowercase; otherwise there's no conflict
+   int auto_Renamed;
+   int break_Renamed;
+   double Float;
+   UCHAR Char;
+   int This;
+   
+   Break = FALSE;
+   for (auto_Renamed=1; auto_Renamed<=10; auto_Renamed += 1) {
+      if (auto_Renamed == 5) {
+         break_Renamed = TRUE;
+      }
+      Float = 1/auto_Renamed + Float;
+      Char = 'A' + auto_Renamed;
+      This = auto_Renamed * 25 + Unsigned + throw_Renamed;
+   }
 }
 
 // This section tests transforms found in strings.uc
