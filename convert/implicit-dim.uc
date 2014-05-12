@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/9/2014 10:15:18 AM
+# This file was saved with uCalc Transform 2.96 on 5/12/2014 10:33:51 AM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,7 +52,14 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Find: 
+Find: {@Note:
+         In addition to declaring variables that were not previously declared
+         explicitely, this transform also comments out user declarations that
+         are from the Windows API, since Windows.h already takes care of it,
+         and the PB mixed casing of an API equate might not correspond with
+         the exact API case-sensitive C++ orthograph.
+      }
+      
 Replace: {@Define:: 
             Token: \x27.* ~~ Properties: ucWhitespace
             Token: _[^\n]*\n ~~ Properties: ucWhitespace
@@ -65,6 +72,10 @@ Replace: {@Define::
             Var: ExpIndex As Long
             Var: ImpIndex As Long
             Var: GlobalIndex As Long
+         }
+         {@Exec:
+            Split(File("WinAPIKeywords.txt"))   
+            uc_For(x, 1, StringItemCount, 2, Insert(Globals, StringItem(x)))
          }
 
 Criteria: 2
@@ -119,56 +130,63 @@ Find: {declare: Global|Dim|Local|Static|Register} {variable},
 Replace: {declare} {variable} ::: {declare}
 
 Criteria: 12
+Selected: True
+Find: {nl}%{equate:1} = {@If: Index(Globals, {equate})}
+Replace: {nl} ' <WinAPI> {equate} =
+
+Criteria: 13
+Find: {nl}Declare {method: Sub | Function } {name:1}  {@If: Index(Globals, {name})}
+Replace: {nl} ' <WinAPI> Declare {method} {name}
+
+Criteria: 14
 Comment: Places non-Dimmed variable names in separate local tables
 Pass: 3
 
-Criteria: 13
-Selected: True
-Find: {variable:"[a-z][a-z0-9_]*[#!?%&]*"}
-      [{IsFunc:" *\("}]
-Replace: {@Eval:
-            ExpIndex    = Index(~Eval(CurrentRoutine)ExplicitDim, "{variable}")
-            ImpIndex    = Index(~Eval(CurrentRoutine)ImplicitDim, "{variable}")
-            GlobalIndex = Index(Globals, "{variable}")
+Criteria: 15
+Find: [{eq: %}]{name:"[a-z][a-z0-9_]*[#!?%&]*"} [{IsFunc:" *\("}]
+Replace: {eq}{@Eval:
+            ExpIndex    = Index(~Eval(CurrentRoutine)ExplicitDim, "{name}")
+            ImpIndex    = Index(~Eval(CurrentRoutine)ImplicitDim, "{name}")
+            GlobalIndex = Index(Globals, "{name}")
             IIf(ExpIndex+ImpIndex+GlobalIndex == 0 And "{IsFunc}" == "",
-                Insert(~Eval(CurrentRoutine)ImplicitDim, "{variable}"))
+                Insert(~Eval(CurrentRoutine)ImplicitDim, "{name}"))
             
-            text = "{variable}"
+            text = "{name}"
             IIf(GlobalIndex, text = ReadKey(Globals, GlobalIndex))
             IIf(ExpIndex, text = ReadKey(~Eval(CurrentRoutine)ExplicitDim, ExpIndex))
             IIf(ImpIndex, text = ReadKey(~Eval(CurrentRoutine)ImplicitDim, ImpIndex))
             text + "{IsFunc}"
          }
 
-Criteria: 14
+Criteria: 16
 SkipOver: True
 Find: {"[a-z0-9_]+"}  {UDT:"\.[a-z0-9_\@\.]+"}
 Replace: [Skip over]
 
-Criteria: 15
+Criteria: 17
 SkipOver: True
 Find: {"&h[0-9a-f]+"}
 Replace: [Skip over]
 
-Criteria: 16
+Criteria: 18
 SkipOver: True
 Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
 Replace: [Skip over]
 
-Criteria: 17
+Criteria: 19
 BackColor: Brown
 Find: {"\n"}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"}
 Replace: {Self}{@Eval: SetVar(CurrentRoutine, "{RoutineName}")}
 
-Criteria: 18
+Criteria: 20
 Find: {"\n"}End { Sub | Function }
 Replace: {Self}{@Eval: SetVar(CurrentRoutine, "")}
 
-Criteria: 19
+Criteria: 21
 Comment: Inserts local Dim statements for variables that were not dimmed
 Pass: 4
 
-Criteria: 20
+Criteria: 22
 BackColor: Purple
 Find: {nl}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"} {etc}
 Replace: {Self}
@@ -177,21 +195,21 @@ Replace: {Self}
             {Q}"   Dim "+ReadKey({RoutineName}ImplicitDim, x)+" ' Implicit"+Chr(10){Q})
          }
 
-Criteria: 21
+Criteria: 23
 Comment: Clean up (temp declaration statements removed)
 Pass: 5
 
-Criteria: 22
+Criteria: 24
 BackColor: Violet
 Find: ::: {declare:1}
 Replace: ,
 
-Criteria: 23
+Criteria: 25
 BackColor: CornflowerBlue
 Find: (Dim {args})
 Replace: ({@Eval: Replace("{args}", "::: Dim", ",")})
 
-Criteria: 24
+Criteria: 26
 Find: Dim {nl}
 Replace: {Nothing}
 
