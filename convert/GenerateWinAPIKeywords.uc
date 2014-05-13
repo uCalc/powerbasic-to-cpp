@@ -1,5 +1,5 @@
 # GenerateWinAPIKeywords.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/12/2014 9:52:37 AM
+# This file was saved with uCalc Transform 2.96 on 5/13/2014 9:42:24 AM
 # Comment: Parses Win32API.inc to generate keword list (equates, Subs, Functions)
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,6 +52,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
 Find: 
 Replace: {@Var: Includes As Table}
          {@Exec: Insert(Includes, "Win32API.inc")}
@@ -78,10 +79,9 @@ Comment: Filter out keywords
 Pass: 2
 
 Criteria: 5
-Selected: True
 Highlight: True
 BackColor: Orange
-Find: {nl}{ Union | Type | % } {name:1}
+Find: {nl}{ Union | Type | % | $[$] } {name:1}
 Replace: {name}
 
 Criteria: 6
