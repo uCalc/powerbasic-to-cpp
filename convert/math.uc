@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/6/2014 3:05:35 PM
+# This file was saved with uCalc Transform 2.96 on 5/13/2014 9:34:53 AM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -113,11 +113,12 @@ Replace: sqrt
 Criteria: 13
 BackColor: Pink
 Find: Cint
-Replace: (__int16)
+Replace: Integer
 
 Criteria: 14
-Find: Int({arg%})
-Replace: (__int64)({arg})
+Selected: True
+Find: Int(
+Replace: __int64(
 
 Criteria: 15
 BackColor: Red
@@ -156,7 +157,6 @@ Find: #{metastatement:1} Not
 Replace: [Skip over]
 
 Criteria: 22
-Selected: True
 BackColor: Silver
 Find: IsTrue {x%}  [{stop-: And | Or | Then | : }]
 Replace: (({x}) != 0)
