@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/12/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/13/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -430,8 +430,10 @@ int main()
    fstream file_4 (string("MyAppend.Txt").c_str(), ios::out | ios::app);
    
    i = PB_ISFILE("Test.Txt");
+   i = PB_LOF(file_3);
    i = PB_LOF(file_BinFile);
    i = (int)file_BinFile.tellg()+1;
+   i = file_3.eof();
    i = file_4.eof();
    file_BinFile.seekg(i+100-1);
    file_BinFile.seekp(i+100-1);
@@ -642,7 +644,7 @@ double DoMath()
    float y; // Implicit
    
    int i;
-   if (x % 2 > (__int16)(sqrt(pow(x, 2) + pow(y, 2)))) {
+   if (x % 2 > short(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
       q--;
@@ -651,7 +653,7 @@ double DoMath()
    pow(n == x, 2) + pow(y, 2);
    y = PB_FIX(3.14159);
    n = PB_FRAC(3.14159);
-   n = (__int64)(3.14159) + (__int16)(3.14159) + PB_EXP10(3+2);
+   n = __int64(3.14159) + short(3.14159) + PB_EXP10(3+2);
    n = PB_MAX(ARGCOUNT(5), (double)5.3, (double) 11/2, (double) 17, (double) 4, (double) PB_MIN(ARGCOUNT(4), (double)5, (double) 3.5, (double) -2, (double) 8/7));
    i = PB_MIN_INT(ARGCOUNT(7), (int)3, (int) -10, (int) 7, (int) -1, (int) PB_MAX_INT(ARGCOUNT(4), (int)3, (int) 1, (int) 7, (int) -5), (int) 23, (int) 11);
    i = PB_MIN_INT(ARGCOUNT(3), (int)1, (int) 2, (int) PB_MAX(ARGCOUNT(3), (double)5, (double) 6, (double) 7.5));
