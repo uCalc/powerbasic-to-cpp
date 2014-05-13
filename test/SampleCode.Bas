@@ -311,8 +311,10 @@ Function PBMain()
    Open "MyAppend.Txt" For Append As #4
 
    i = IsFile("Test.Txt")
+   i = Lof(#3)
    i = Lof(BinFile%)
    i = Seek(#BinFile%)
+   i = Eof(#3)
    i = Eof(4)
    Seek #BinFile%, i+100
 
