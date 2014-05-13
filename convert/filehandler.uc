@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/6/2014 5:03:11 PM
+# This file was saved with uCalc Transform 2.96 on 5/13/2014 7:53:23 AM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -67,6 +67,7 @@ Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 4
+Selected: True
 BackColor: DeepSkyBlue
 Find: Open {filespec}
       { For {{Input: Input}|{Output: Output}|{Append: Append}|{Binary: Binary}|{Random: Random}}|{Default: } }
@@ -80,7 +81,7 @@ Replace: fstream file_{filenum} (string({filespec}).c_str(),
             {Binary:  ios::binary | ios::in | ios::out}
             {Random:  ios::binary | ios::in | ios::out}
             {Default: ios::binary | ios::in | ios::out}
-         );
+         )
 
 Criteria: 5
 BackColor: Lime
@@ -101,17 +102,16 @@ Replace: file_{filenum}.seekg({position}-1)
          file_{filenum}.seekp({position}-1)
 
 Criteria: 8
-Selected: True
 Find: Seek([#] {filenum})
 Replace: (int)file_{filenum}.tellg()+1
 
 Criteria: 9
 BackColor: SlateBlue
-Find: LOF({filenum})
+Find: LOF([#] {filenum})
 Replace: PB_LOF(file_{filenum})
 
 Criteria: 10
-Find: EOF({filenum})
+Find: EOF([#] {filenum})
 Replace: file_{filenum}.eof()
 
 Criteria: 11
