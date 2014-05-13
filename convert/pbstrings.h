@@ -40,12 +40,18 @@ inline string PB_REMAIN(long start, const string& Str, const string& Match) { re
 
 inline string PB_REMAIN_ANY(long start, const string& Str, const string& Match) { return Str.substr(Str.find_first_of(Match, start-1)+1); }
 
-// +++ PB_REMOVE and PB_REPLACE here are incomplete; removes/replaces just one occurence for now
-inline string PB_REMOVE(const string& Str, const string& Match) { PB_EXTRACT(1, Str, Match) + PB_REMAIN(1, Str, Match); }
+inline void PB_REPLACE(string& Str, const string& Match, const string& NewStr) { 
+   int pos=1; int newpos=0;
+   while (pos<=Str.length()) { newpos=PB_INSTR(pos, Str, Match)+NewStr.length(); PB_EXTRACT(pos, Str, Match) + NewStr + PB_REMAIN(pos, Str, Match); pos=newpos;}
+}
 
-inline string PB_REMOVE_ANY(const string& Str, const string& Match) { PB_EXTRACT_ANY(1, Str, Match) + PB_REMAIN_ANY(1, Str, Match); }
+inline void PB_REPLACE_ANY(string& Str, const string& Match, const string& NewStr) { for(int x=0; x < Match.length(); x++) replace(Str.begin(), Str.end(), Match[x], NewStr[x]); }
 
-inline void PB_REPLACE(const string& Str, const string& Match, const string& NewStr) { PB_EXTRACT(1, Str, Match) + NewStr + PB_REMAIN(1, Str, Match); }
+inline string PB_REMOVE(const string& Str, const string& Match) { string Ret = Str; PB_REPLACE(Ret, Match, ""); return Ret; }
+
+inline string PB_REMOVE_ANY(const string& Str, const string& Match) {
+   string Ret=Str; for(int x=0; x<Match.length(); x++) Ret.erase(remove(Ret.begin(), Ret.end(), Match[x]), Ret.end()); return Ret;
+}
 
 inline string PB_REPEAT(const string& Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr; } // +++ must optimize this
 
