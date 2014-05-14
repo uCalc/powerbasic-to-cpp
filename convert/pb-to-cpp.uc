@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/12/2014 3:36:23 PM
+# This file was saved with uCalc Transform 2.96 on 5/14/2014 8:42:10 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -54,14 +54,8 @@ RightToLeft: False
 Criteria: 1
 PassOnce: False
 Find: 
-Replace: {@Define:
-            Var: BitType As String
-            Var: Case1
-            VAR: UDT
-         }
-         {@Define::
-            Token: \xFF[^\xFF]*\xFF\n ~~ Properties: ucWhiteSpace
-         }
+Replace: {@Exec: Dim IsPrototype = 1, Case1, UDT, BitType As String }
+         {@Define:: Token: \xFF[^\xFF]*\xFF\n ~~ Properties: ucWhiteSpace }
 
 Criteria: 2
 Highlight: True
@@ -85,7 +79,6 @@ Comment: Renames words that conflict w/ C++ keywords
 Pass: 1
 
 Criteria: 4
-Selected: True
 Find: { auto|bitand|bitor|bool|break|char|compl|constexpr|
       continue|default|delete|explicit|extern|false|float|
       friend|inline|mutable|new|nullptr|operator|private|
@@ -178,7 +171,7 @@ Criteria: 19
 Highlight: True
 PassOnce: False
 Find: Declare Function {name:1} [Lib {lib}] [Alias {alias}]
-      [([{args}])] As {type}
+      [([{args}])] [Export] As {type}
 Replace: {lib: extern __declspec(dllimport)} {type} {name}({args})
 
 Criteria: 20
@@ -277,7 +270,7 @@ Find: { End { Sub|Function|If } | Wend | Next | Loop }
 Replace: }
 
 Criteria: 37
-Find: do{nl}
+Find: Do{nl}
 Replace: do {
 
 Criteria: 38
@@ -615,40 +608,10 @@ Find: {nl} "}";
 Replace: {Self}{@Eval: UDT = False}
 
 Criteria: 105
-Comment: Misc
+Comment: Adds default values in function prototypes for optional parameters
 Pass: 8
 
 Criteria: 106
-SkipOver: True
-Find: { // {comment:".*"} | /* {commentB~} */ }
-Replace: [Skip over]
-
-Criteria: 107
-Find: {" \xFF\xFF\n"}
-Replace: {nl}
-
-Criteria: 108
-Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
-Replace:  /* {comment} */{nl}
-
-Criteria: 109
-Find: @
-Replace: *
-
-Criteria: 110
-Highlight: True
-Find: @{pointer:1}.
-Replace: {pointer}->
-
-Criteria: 111
-Find: `{@Comment: removes temp char for type member access}
-Replace: {Nothing}
-
-Criteria: 112
-Find: std::vector<{type}> {name:1} "["{size}"]"
-Replace: std::vector<{type}>{name}({size})
-
-Criteria: 113
 PassOnce: False
 Find: Optional {type:1}[{ptr: *}]{arg:1} [{more: , [Optional] {etc}}]
 Replace: {type} {ptr}{arg} = {@Eval:
@@ -657,5 +620,53 @@ Replace: {type} {ptr}{arg} = {@Eval:
             IIf(InStr("{type}", "{ UCHAR|short|USHORT|int|unsigned }"), "0", 
             Chr(34, 34))))
          }{more: , Optional {etc}}
+
+Criteria: 107
+Find: Optional {@If: IsPrototype==0}
+Replace: {Nothing}
+
+Criteria: 108
+Selected: True
+SkipOver: True
+Find: // {Comment:".*"}
+Replace: [Skip over]
+
+Criteria: 109
+Find: {nl}// End of prototypes
+Replace: {Self}{@Exec: IsPrototype = 0}
+
+Criteria: 110
+Comment: Misc
+Pass: 9
+
+Criteria: 111
+SkipOver: True
+Find: { // {comment:".*"} | /* {commentB~} */ }
+Replace: [Skip over]
+
+Criteria: 112
+Find: {" \xFF\xFF\n"}
+Replace: {nl}
+
+Criteria: 113
+Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
+Replace:  /* {comment} */{nl}
+
+Criteria: 114
+Find: @
+Replace: *
+
+Criteria: 115
+Highlight: True
+Find: @{pointer:1}.
+Replace: {pointer}->
+
+Criteria: 116
+Find: `{@Comment: removes temp char for type member access}
+Replace: {Nothing}
+
+Criteria: 117
+Find: std::vector<{type}> {name:1} "["{size}"]"
+Replace: std::vector<{type}>{name}({size})
 
 # End Search
