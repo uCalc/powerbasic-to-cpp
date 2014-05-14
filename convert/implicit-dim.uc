@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/12/2014 10:33:51 AM
+# This file was saved with uCalc Transform 2.96 on 5/14/2014 9:09:03 AM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -53,11 +53,14 @@ RightToLeft: False
 
 Criteria: 1
 Find: {@Note:
-         In addition to declaring variables that were not previously declared
-         explicitely, this transform also comments out user declarations that
-         are from the Windows API, since Windows.h already takes care of it,
-         and the PB mixed casing of an API equate might not correspond with
-         the exact API case-sensitive C++ orthograph.
+      
+         This transform does the following:
+      
+         * Declares variables that were not previously declared explicitely
+         * Comments out user declarations that are from the Windows API
+         * Ensures that the casing of variables/functions is consistent
+           with their declarations since C++ is case-sensitive
+      
       }
       
 Replace: {@Define:: 
@@ -69,6 +72,8 @@ Replace: {@Define::
             Var: ImplicitDim As Table
             Var: ExplicitDim As Table
             Var: CurrentRoutine As String
+            Var: Prototype As String
+            Var: Prototypes As String
             Var: ExpIndex As Long
             Var: ImpIndex As Long
             Var: GlobalIndex As Long
@@ -83,8 +88,13 @@ Comment: Teporarily adds Dim keyword in front of args for further parsing
 Pass: 1
 
 Criteria: 3
-Find: {nl}{routine: Sub | Function } {etc}({args})
-Replace: {nl}{routine} {etc}(Dim {args})
+Selected: True
+Find: {nl}{routine: Sub | Function } {etc}([{args}]) [[{exp: Export}] As {type:1}]
+Replace: {@Eval:
+            Prototype = {Q}{routine} {etc}({args:Dim {args}}){type: {exp} As {type}}{Q}
+            Prototypes += "{nl}Declare " + Prototype
+            "{nl}" + Prototype
+         }
 
 Criteria: 4
 SkipOver: True
@@ -96,15 +106,22 @@ Comment: Inserts explicitly Dimmed variable names in global or local tables
 Pass: 2
 
 Criteria: 6
-Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
-Replace: {Self}{@Eval: Insert(Globals, "{variable}")}
+PassOnce: False
+Find: {@Start}
+Replace: ' Prototypes
+         {@Eval: Prototypes}
+         ' End of prototypes{nl}
 
 Criteria: 7
-BackColor: Silver
-Find: {nl}{ Macro | Type | Union | % | $[$] | Declare {func:1} }  {name:1}
-Replace: {Self}{@Eval: Insert(Globals, "{name}")}
+Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
+Replace: {Self}{@Evaluate: Insert(Globals, {variable})}
 
 Criteria: 8
+BackColor: Silver
+Find: {nl}{ Macro | Type | Union | % | $[$] | Declare {func:1} }  {name:1}
+Replace: {Self}{@Evaluate: Insert(Globals, {name})}
+
+Criteria: 9
 BackColor: Lime
 Find: {nl}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"}
 Replace: {Self}{@Define:
@@ -112,37 +129,36 @@ Replace: {Self}{@Define:
             Var: {RoutineName}ImplicitDim As Table
          }{@Eval: SetVar(CurrentRoutine, "{RoutineName}"); Insert(Globals,"{RoutineName}")}
 
-Criteria: 9
-Find: {nl}End { Sub | Function }
-Replace: {Self}{@Eval: SetVar(CurrentRoutine, "")}
-
 Criteria: 10
+Find: {nl}End { Sub | Function }
+Replace: {Self}{@Evaluate: SetVar(CurrentRoutine, "")}
+
+Criteria: 11
 BackColor: Pink
 Find: {declare: Dim [[Optional] { ByVal | ByRef }] | Local | Static | Register | fstream }
       {" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
 Replace: {Self}{@Eval: Insert(~Eval(CurrentRoutine)ExplicitDim, "{variable}")}
 
-Criteria: 11
+Criteria: 12
 Comment: Temporarily inserts declaration for each individual variable a lines with a list of multiple vars, for easier parsing
 BackColor: SlateBlue
 PassOnce: False
 Find: {declare: Global|Dim|Local|Static|Register} {variable},
 Replace: {declare} {variable} ::: {declare}
 
-Criteria: 12
-Selected: True
+Criteria: 13
 Find: {nl}%{equate:1} = {@If: Index(Globals, {equate})}
 Replace: {nl} ' <WinAPI> {equate} =
 
-Criteria: 13
+Criteria: 14
 Find: {nl}Declare {method: Sub | Function } {name:1}  {@If: Index(Globals, {name})}
 Replace: {nl} ' <WinAPI> Declare {method} {name}
 
-Criteria: 14
+Criteria: 15
 Comment: Places non-Dimmed variable names in separate local tables
 Pass: 3
 
-Criteria: 15
+Criteria: 16
 Find: [{eq: %}]{name:"[a-z][a-z0-9_]*[#!?%&]*"} [{IsFunc:" *\("}]
 Replace: {eq}{@Eval:
             ExpIndex    = Index(~Eval(CurrentRoutine)ExplicitDim, "{name}")
@@ -158,35 +174,35 @@ Replace: {eq}{@Eval:
             text + "{IsFunc}"
          }
 
-Criteria: 16
+Criteria: 17
 SkipOver: True
 Find: {"[a-z0-9_]+"}  {UDT:"\.[a-z0-9_\@\.]+"}
 Replace: [Skip over]
 
-Criteria: 17
+Criteria: 18
 SkipOver: True
 Find: {"&h[0-9a-f]+"}
 Replace: [Skip over]
 
-Criteria: 18
+Criteria: 19
 SkipOver: True
 Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
 Replace: [Skip over]
 
-Criteria: 19
+Criteria: 20
 BackColor: Brown
 Find: {"\n"}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"}
-Replace: {Self}{@Eval: SetVar(CurrentRoutine, "{RoutineName}")}
-
-Criteria: 20
-Find: {"\n"}End { Sub | Function }
-Replace: {Self}{@Eval: SetVar(CurrentRoutine, "")}
+Replace: {Self}{@Evaluate: SetVar(CurrentRoutine, {RoutineName})}
 
 Criteria: 21
+Find: {"\n"}End { Sub | Function }
+Replace: {Self}{@Evaluate: SetVar(CurrentRoutine, "")}
+
+Criteria: 22
 Comment: Inserts local Dim statements for variables that were not dimmed
 Pass: 4
 
-Criteria: 22
+Criteria: 23
 BackColor: Purple
 Find: {nl}{ Sub | Function }{" +"}{RoutineName:"[a-z0-9_]+"} {etc}
 Replace: {Self}
@@ -195,21 +211,21 @@ Replace: {Self}
             {Q}"   Dim "+ReadKey({RoutineName}ImplicitDim, x)+" ' Implicit"+Chr(10){Q})
          }
 
-Criteria: 23
+Criteria: 24
 Comment: Clean up (temp declaration statements removed)
 Pass: 5
 
-Criteria: 24
+Criteria: 25
 BackColor: Violet
 Find: ::: {declare:1}
 Replace: ,
 
-Criteria: 25
+Criteria: 26
 BackColor: CornflowerBlue
 Find: (Dim {args})
 Replace: ({@Eval: Replace("{args}", "::: Dim", ",")})
 
-Criteria: 26
+Criteria: 27
 Find: Dim {nl}
 Replace: {Nothing}
 
