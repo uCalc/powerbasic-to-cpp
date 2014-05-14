@@ -539,17 +539,17 @@ Function ImplicitVar(ByVal x As Long)
    b1&& = b2& + b3% + b4? + b5?? + b6??? + b7! + B8# + B9##
 End Function
 
-' Test for optional args
+' Test for optional args (default parameters are set in the prototype section at the top)
 Sub OptionalArgs(Optional ByVal a As Long, ByVal b As String, ByVal c#, ByVal d As Long Ptr, ByVal text$)
    ' Do things
 End Sub
 
-' Test for optional args
+' Test for optional args (default parameters are set in the prototype section at the top)
 Function OptionalArgs2(ByVal a As Long, Opt ByVal b As String, ByVal c#, ByVal d As Long Ptr)
    ' Do things
 End Function
 
-' Test for optional args
+' Test for optional args (default parameters are set in the prototype section at the top)
 Function OptionalArgs3(ByVal a As Long, Opt ByVal b As String, Opt ByVal c#, ByVal d)
    ' Do things
 End Function
