@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/13/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/14/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -12,6 +12,37 @@ using namespace std;
 #include "pbOS.h"
 #include "pbMisc.h"
 #include "pbstrings.h"
+// Prototypes
+
+int MyFunc(int x);
+int MyFunction(int a, float& b);
+void MySub(int x, std::vector<double>& dArray);
+void TestCertainOperators(int x, /* ' This line is broken up using a _ (underscore) */
+                         int y, /* This is a commment (even without ') */
+                         int z, 
+                         double& OtherVar, /* Everything after _ is a comment */
+                         float *FinalArg);
+int TestFunc(int& a, UCHAR& b, int& c, short& i, string& s, float& n);
+string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, __int64& qValue);
+string Hello(string& txt);
+UCHAR Bye();
+void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz = NULL);
+int PBMain();
+void Rename1();
+void Rename2();
+string StringTest(string& MyString, string OtherString);
+int MyExport(int n);
+void MyExportSub(int a, UCHAR b);
+double DoMath();
+int PBConsoleTest();
+void PrintTest();
+short ImplicitVar(int x);
+void OptionalArgs(int a = 0, string b = "", double c = 0.0, int *d = NULL, string text = "");
+float OptionalArgs2(int a, string b = "", double c = 0.0, int *d = NULL);
+float OptionalArgs3(int a, string b = "", double c = 0.0, int d = 0);
+void MultiDim();
+// End of prototypes
+
 // File name: SampleCode.Bas
 // To convert this file to C++ make sure you have uCalc Transform on your PC
 // and *.uc from github.com/uCalc/powerbasic-to-cpp/tree/master/convert
@@ -359,7 +390,7 @@ UCHAR Bye()
 // <WinAPI> Declare Function SetCursorPos Lib "USER32.DLL" Alias "SetCursorPos" (ByVal x As Long, ByVal y As Long) As Long
 // <WinAPI> Declare Sub SetLastError Lib "KERNEL32.DLL" Alias "SetLastError" (ByVal dwErrCode As Dword)
 
-void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz = NULL)
+void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz)
 {
    SetCursorPos(10, Arg1 + 5);
    if (Arg1 == 15) {
@@ -745,20 +776,20 @@ short ImplicitVar(int x)
    b1 = b2 + b3 + b4 + b5 + b6 + b7 + B8 + B9;
 }
 
-// Test for optional args
-void OptionalArgs(int a = 0, string b = "", double c = 0.0, int *d = NULL, string text = "")
+// Test for optional args (default parameters are set in the prototype section at the top)
+void OptionalArgs(int a, string b, double c, int *d, string text)
 {
    // Do things
 }
 
-// Test for optional args
-float OptionalArgs2(int a, string b = "", double c = 0.0, int *d = NULL)
+// Test for optional args (default parameters are set in the prototype section at the top)
+float OptionalArgs2(int a, string b, double c, int *d)
 {
    // Do things
 }
 
-// Test for optional args
-float OptionalArgs3(int a, string b = "", double c = 0.0, int d = 0)
+// Test for optional args (default parameters are set in the prototype section at the top)
+float OptionalArgs3(int a, string b, double c, int d)
 {
    // Do things
 }
