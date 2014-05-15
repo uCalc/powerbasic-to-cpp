@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/14/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/15/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -31,7 +31,7 @@ int PBMain();
 void Rename1();
 void Rename2();
 string StringTest(string& MyString, string OtherString);
-int MyExport(int n);
+extern "C" __declspec(dllexport) int __stdcall MyExport(int n);
 void MyExportSub(int a, UCHAR b);
 double DoMath();
 int PBConsoleTest();
@@ -152,11 +152,17 @@ struct NestedTypeB {
 
 int MyFunc(int x)
 {
-   return x * 2;
+   int _ReturnValue = int();
+   
+   _ReturnValue = x * 2;
+   
+   return _ReturnValue;
 }
 
 int MyFunction(int a, float& b)
 {
+   int _ReturnValue = int();
+   
    int x;
    int y;
    std::vector<int>Test(a+25+1);
@@ -172,12 +178,12 @@ int MyFunction(int a, float& b)
       for (x=1; x<=10; x += 1) {
          for (yVar=10; yVar>=1; yVar += -1) {
             if (x > y) {
-               return a+y;
+               _ReturnValue = a+y;
             }
             while (Test[a+5] == yVar) {
                while (!(a+1 == 1234)) {
                   if (y < MyEquate) {
-                     return Test[x-y]*10;
+                     _ReturnValue = Test[x-y]*10;
                   }
                   a = a + 1;
                   do {
@@ -188,6 +194,8 @@ int MyFunction(int a, float& b)
          }
       }
    }
+   
+   return _ReturnValue;
 }
 
 void MySub(int x, std::vector<double>& dArray)
@@ -348,36 +356,55 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
 
 int TestFunc(int& a, UCHAR& b, int& c, short& i, string& s, float& n)
 {
+   int _ReturnValue = int();
    double PriceB; // Implicit
    
    cout << PZONE << MyValue << PZONE << Label << PriceB << endl;
    cout << endl;
    cout << endl;
    
+   if (c == 123) {
+      return _ReturnValue;
+   }
+   
    Label = "Missing quote at the end of this line is added by Refactor.uc";
-   return b + c;
+   _ReturnValue = b + c;
+   
+   return _ReturnValue;
 }
 
 string Report(string& LastName, int x, double& NewPrice, float& n, short i, float& nValue, __int64& qValue)
 {
+   string _ReturnValue = string();
+   
    string FirstName;
    UCHAR Age;
    double Total;
    static int Index;
    
    cout << PZONE << LastName << PZONE << x << PZONE << NewPrice << PZONE << n << PZONE << i << PZONE << nValue << qValue << endl;
-   return FirstName + LastName;
+   _ReturnValue = FirstName + LastName;
+   
+   return _ReturnValue;
 }
 
 string Hello(string& Txt)
 {
+   string _ReturnValue = string();
+   
    cout << Txt << endl;
-   return Txt + " friend!";
+   _ReturnValue = Txt + " friend!";
+   
+   return _ReturnValue;
 }
 
 UCHAR Bye()
 {
+   UCHAR _ReturnValue = UCHAR();
+   
    cout << "Bye" << endl;
+   
+   return _ReturnValue;
 }
 
 
@@ -403,6 +430,7 @@ void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz)
 
 int main()
 {
+   int _ReturnValue = int();
    short BinFile; // Implicit
    short i; // Implicit
    short InFile; // Implicit
@@ -523,6 +551,8 @@ int main()
    i = MyFunc(123);
    Bye();
    Bye;
+   
+   return _ReturnValue;
 }
 
 void Rename1()
@@ -576,6 +606,8 @@ void Rename2()
 // This section tests transforms found in strings.uc
 string StringTest(string& MyString, string OtherString)
 {
+   string _ReturnValue = string();
+   
    string MyText;
    int i;
    wstring MyWideStr;
@@ -626,21 +658,30 @@ string StringTest(string& MyString, string OtherString)
    
    PB_POKE_STR((unsigned)&i, "ABCD");
    MyText = PB_PEEK_STR((unsigned)&i, 2);
+   if (i == 1) {
+      return _ReturnValue;
+   }
    
    if (x == PB_CR || x == PB_LF || x == PB_NUL) {
       MyText = "Line 1" + PB_CRLF + "Line 2" + PB_QCQ + "quote"+PB_DQ +PB_TAB;
    }
    MyText = PB_HEX(123) + "   " + PB_OCT(1+2+3);
    // +++ C++ doesn't seem to have a built-in string stream flag for Binary
+   
+   return _ReturnValue;
 }
 
 // This tests exported subs/functions
 extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
+   int _ReturnValue = int();
+   
    StringTest("abc", "xyz");
+   
+   return _ReturnValue;
 }
 
 extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
-   __int64 q; // Implicit
+   string q; // Implicit
    
    DoSomething(1, "xyz", 2, 3);
     {
@@ -668,6 +709,7 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
 // If x Mod 2 > Cint(Sqr(x^2 + y^2)) Then Incr q Else Decr q
 double DoMath()
 {
+   double _ReturnValue = double();
    EXTENDED MyVar; // Implicit
    float n; // Implicit
    __int64 q; // Implicit
@@ -709,13 +751,19 @@ double DoMath()
    
    MyVar = -1 + 0 + 1.0F + 1.2F + 1.5 + 2.0 + 2.5 + 3  + 3  + 4  + 4L + 4L + 5U;
    i = 0x1A + 0x1B  + 0x1CL;
+   
+   return _ReturnValue;
 }
 
 // Console routines
 int PBConsoleTest()
 {
+   int _ReturnValue = int();
+   
    cout << "PB Semicolon at the end = No new line.  ";
    cout << "No semicolon = New Line at the end."  << endl;
+   
+   return _ReturnValue;
 }
 
 // Test for the PRINT function
@@ -752,6 +800,7 @@ void PrintTest()
 // Test for implicit variable defs
 short ImplicitVar(int x)
 {
+   short _ReturnValue = short();
    __int64 b1; // Implicit
    int b2; // Implicit
    short b3; // Implicit
@@ -764,7 +813,7 @@ short ImplicitVar(int x)
    short i; // Implicit
    int LastNum; // Implicit
    float OtherValue; // Implicit
-   int text; // Implicit
+   string text; // Implicit
    
    for (x=1; x<=10; x += 1) {
       i = x * 10;
@@ -774,6 +823,8 @@ short ImplicitVar(int x)
    MyValue = x/i; // Note: MyValue! was defined already as global
    OtherValue = i/x;
    b1 = b2 + b3 + b4 + b5 + b6 + b7 + B8 + B9;
+   
+   return _ReturnValue;
 }
 
 // Test for optional args (default parameters are set in the prototype section at the top)
@@ -785,13 +836,21 @@ void OptionalArgs(int a, string b, double c, int *d, string text)
 // Test for optional args (default parameters are set in the prototype section at the top)
 float OptionalArgs2(int a, string b, double c, int *d)
 {
+   float _ReturnValue = float();
+   
    // Do things
+   
+   return _ReturnValue;
 }
 
 // Test for optional args (default parameters are set in the prototype section at the top)
 float OptionalArgs3(int a, string b, double c, int d)
 {
+   float _ReturnValue = float();
+   
    // Do things
+   
+   return _ReturnValue;
 }
 
 std::vector<unsigned> g1;
