@@ -234,6 +234,8 @@ Function TestFunc(a, b, c, i, s, n)
    Print
    Print
 
+   If c = 123 Then Exit Function
+
    Label$ = "Missing quote at the end of this line is added by Refactor.uc
    Function = b + c
 End Function
@@ -437,6 +439,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
 
    Poke$ VarPtr(i), "ABCD" : MyText$ = Peek$(VarPtr(i), 2)
+   If i = 1 Then Exit Function
 
    If x$ = $Cr Or x$ = $Lf Or x$ = $Nul Then MyText$ = "Line 1" + $CrLf + "Line 2" + $Qcq + "quote"+$Dq +$Tab
    MyText$ = Hex$(123) + "   " + Oct$(1+2+3)
