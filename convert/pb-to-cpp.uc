@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/14/2014 8:42:10 AM
+# This file was saved with uCalc Transform 2.96 on 5/15/2014 11:07:43 AM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -126,13 +126,13 @@ Replace: ==
 
 Criteria: 12
 SkipOver: True
-Find: { + | - | * | / | % | & | ^ | ! }=
+Find: { + | - | * | / | % | & | ^ | ! | _ReturnValue }=
 Replace: [Skip over]
 
 Criteria: 13
 Highlight: True
 SkipOver: True
-Find: { {nl}[{ %|$[$] }]|Then|Else|For|: } {var:" *[a-z0-9\@\.\_]+"}[({index})] =
+Find: { {nl} [{ %|$[$] }]|Then|Else|For|: }{var:" *[a-z0-9\@\.\_]+"}[({index})] =
 Replace: [Skip over]
 
 Criteria: 14
@@ -151,15 +151,16 @@ Criteria: 16
 Highlight: True
 PassOnce: False
 Find: Sub {name:1} [Alias {alias}]([{args}])[{exp: Export}] [{comment:" *'.*"}] {nl}
-Replace: {exp:extern "C" __declspec(dllexport)} void {exp:__stdcall} {name}({args}) { {comment}
+Replace: {exp:extern "C" __declspec(dllexport)} void {exp:__stdcall }{name}({args}) { {comment}
 
 Criteria: 17
 Highlight: True
 BackColor: DarkKhaki
 PassOnce: False
 Find: Function {name:1} [Alias {alias}]([{args}])[{exp: Export}] As {type}[{comment:" *'.*"}]{nl}
-Replace: {exp:extern "C" __declspec(dllexport)} {type} {exp:__stdcall} {name}({args}) { {comment}
-         {@Define:: Syntax: {name} = ::= return{#32}}
+Replace: {exp:extern "C" __declspec(dllexport)} {type} {exp:__stdcall }{name}({args}) { {comment}
+         {type} _ReturnValue = {type}()
+         {@Define:: Syntax: {name} = ::= _ReturnValue =}
 
 Criteria: 18
 Highlight: True
@@ -171,60 +172,65 @@ Criteria: 19
 Highlight: True
 PassOnce: False
 Find: Declare Function {name:1} [Lib {lib}] [Alias {alias}]
-      [([{args}])] [Export] As {type}
-Replace: {lib: extern __declspec(dllimport)} {type} {name}({args})
+      [([{args}])] [{exp: Export}] As {type}
+Replace: {exp:extern "C" __declspec(dllexport)}{lib: extern __declspec(dllimport)} {type} {exp:__stdcall }{name}({args})
 
 Criteria: 20
 Highlight: True
 Find: Declare Sub {name:1} [Lib {lib}] [Alias {alias}]
-      [([{args}])] 
-Replace: {lib: extern __declspec(dllimport)} void {name}({args})
+      [([{args}])] [{exp: Export}]
+Replace: {exp:extern "C" __declspec(dllexport)}{lib: extern __declspec(dllimport)} void {exp:__stdcall }{name}({args})
 
 Criteria: 21
+Find: {nl}End Function
+Replace: {nl}{nl}return _ReturnValue
+         End Function
+
+Criteria: 22
 Highlight: True
 Find: Static
 Replace: static dim
 
-Criteria: 22
+Criteria: 23
 Comment: For type member access (temp stage)
 Find: {typevar:"@*[a-z_][a-z_0-9@]+\.[a-z_0-9@\.]+"}
 Replace: `{typevar}`
 
-Criteria: 23
+Criteria: 24
 Comment: Misc
 Pass: 4
 
-Criteria: 24
+Criteria: 25
 Highlight: True
 SkipOver: True
 Find: // [{comment:".*"}]
 Replace: [Skip over]
 
-Criteria: 25
+Criteria: 26
 Highlight: True
 Find: ' [{comment:".*"}]
 Replace: //{comment}
 
-Criteria: 26
+Criteria: 27
 Highlight: True
 BackColor: Green
 PassOnce: False
 Find: {nl}{ {num: %}|{wstr: $$}|{str: $} }{equate} = {value}
 Replace: {nl}const{num: int}{str: string}{wstr: wstring} {equate} = {value}
 
-Criteria: 27
+Criteria: 28
 Highlight: True
 BackColor: Green
 Find: { % | $[$] }{equate:"[a-z]+"}
 Replace: {equate}
 
-Criteria: 28
+Criteria: 29
 Highlight: True
 BackColor: SandyBrown
 Find: {"&h"}
 Replace: 0x
 
-Criteria: 29
+Criteria: 30
 Comment: Single-line IF
 Highlight: True
 BackColor: Green
@@ -232,97 +238,97 @@ PassOnce: False
 Find: If {cond} Then {statement} [Else {else}]{nl}
 Replace: if ({cond}) {{statement}{nl}}{else: else {{else}{nl}}}{nl}
 
-Criteria: 30
+Criteria: 31
 Comment: Multi-line IF
 Highlight: True
 PassOnce: False
 Find: If {cond} Then [{comment:" *'.*"}] {nl}
 Replace: if ({cond}) { {comment}{nl}
 
-Criteria: 31
+Criteria: 32
 Find: {nl}Else
 Replace: {nl} } else {
 
-Criteria: 32
+Criteria: 33
 Find: {nl}ElseIf {cond} Then
 Replace: {nl} } else if ({cond}) {
 
-Criteria: 33
+Criteria: 34
 Highlight: True
 PassOnce: False
 Find: For {x} = {start} To {stop} [Step {inc=1}][{comment:" *'.*"}]
 Replace: for ({x}={start}; {x}{@Eval: IIF(sgn({inc})>0, '<', '>')}={stop}; {x} += {inc}) { {comment}
 
-Criteria: 34
+Criteria: 35
 Highlight: True
 PassOnce: False
 Find: {nl}While {cond} [{comment:" *'.*"}] {nl}
 Replace: {nl}while ({cond}) { {comment} {nl}
 
-Criteria: 35
+Criteria: 36
 Highlight: True
 PassOnce: False
 Find: Do { {while: While} | {until: Until} } {cond} [{comment:" *'.*"}]{nl}
 Replace: while ({while: {cond}}{until:!({cond})}) { {comment}
 
-Criteria: 36
+Criteria: 37
 Find: { End { Sub|Function|If } | Wend | Next | Loop }
 Replace: }
 
-Criteria: 37
+Criteria: 38
 Find: Do{nl}
 Replace: do {
 
-Criteria: 38
+Criteria: 39
 Highlight: True
 PassOnce: False
 Find: Loop { {while: While} | {until: Until} } {cond} [{comment:" *'.*"}]
 Replace: } while ({while: {cond}}{until:!({cond})}) {comment}
 
-Criteria: 39
+Criteria: 40
 Find: Select Case [As] [Long | Const | Const$] {expr} {nl}
 Replace: { auto CASE_VAR = {expr}
          {@Execute: Case1 = 1}
 
-Criteria: 40
+Criteria: 41
 Find: Case [IS] {test%} [:] [' {comment:".*"}]
 Replace: {@Evaluate:
             IIf(Case1==1, Case1=0; "", "} else")
          } if (CASE_VAR == {test}) {{comment: // {comment}}
 
-Criteria: 41
+Criteria: 42
 PassOnce: False
 Find: Case [IS] {item}, {more}
 Replace: Case {item} || CASE_VAR = {more}
 
-Criteria: 42
+Criteria: 43
 Find: Case Else
 Replace: } else {
 
-Criteria: 43
+Criteria: 44
 Find: End Select
 Replace: }}
 
-Criteria: 44
+Criteria: 45
 Find: Type {name:1}
 Replace: struct {name} {
 
-Criteria: 45
+Criteria: 46
 Find: Union {name:1}
 Replace: union {name} {
 
-Criteria: 46
+Criteria: 47
 Find: End { Type | Union }
 Replace: };
 
-Criteria: 47
+Criteria: 48
 Highlight: True
 BackColor: Orange
 PassOnce: False
 Find: { Dim | {member: {nl}}} {var:1} As {type:1} [{ptr: Ptr}]
 Replace: {member: {nl}}{type} {ptr:*}{var};
 
-Criteria: 48
+Criteria: 49
 Highlight: True
 Find: {nl} {bitfield:1} As Bit * {size:1} [In {type%:1}]
 Replace: {nl}{@Eval:
@@ -330,32 +336,32 @@ Replace: {nl}{@Eval:
             BitType
          } {bitfield} : {size};
 
-Criteria: 49
+Criteria: 50
 Highlight: True
 PassOnce: False
 Find: Dim {array}([{size}]) As {type}
 Replace: std::vector<{type}> {array}{size: ({size}+1)};{@Define::Pass: 6 ~~ Syntax: {array}({sz}) ::= {array}[{sz}]}{@Define::Pass: 6 ~~ Syntax: {array}() ::= {array}}
 
-Criteria: 50
+Criteria: 51
 Find: Erase {array:1}[()]
 Replace: {array}.clear();
 
-Criteria: 51
+Criteria: 52
 PassOnce: False
 Find: ReDim {array}({size}) [As {type}] [{more: , {etc}}]
 Replace: {array}.clear();
          {array}.resize({size}+1); {more: {nl} ReDim {etc}}
 
-Criteria: 52
+Criteria: 53
 PassOnce: False
 Find: ReDim Preserve {array}({size}) [As {type}] [{more: , {etc}}]
 Replace: {array}.resize({size}+1); {more: {nl} ReDim Preserve {etc}}
 
-Criteria: 53
+Criteria: 54
 Find: UBound({array})
 Replace: ({array}.size()-1)
 
-Criteria: 54
+Criteria: 55
 Highlight: True
 BackColor: SandyBrown
 PassOnce: False
@@ -363,99 +369,111 @@ Find: Dim {var1}, {more}
 Replace: Dim {var1}
          Dim {more}
 
-Criteria: 55
+Criteria: 56
 Highlight: True
 BackColor: Gold
 PassOnce: False
 Find: { Local | Global | Register }
 Replace: Dim
 
-Criteria: 56
+Criteria: 57
 Find: `{typevar}.@{last:1}`
 Replace: *`{typevar}.{last}`
 
-Criteria: 57
+Criteria: 58
 Highlight: True
 BackColor: Silver
 Find: VarPtr({var})
 Replace: &{var}
 
-Criteria: 58
+Criteria: 59
 Find: Iterate
 Replace: continue
 
-Criteria: 59
+Criteria: 60
 Find: Exit
 Replace: break
 
-Criteria: 60
+Criteria: 61
 Highlight: True
 Find: Exit Sub
 Replace: return
 
-Criteria: 61
+Criteria: 62
+Selected: True
+Find: Exit Function
+Replace: return _ReturnValue
+
+Criteria: 63
+Highlight: True
+BackColor: DeepSkyBlue
+PassOnce: False
+Find: Function =
+Replace: _ReturnValue =
+
+Criteria: 64
 Highlight: True
 BackColor: Lime
 Find: Long
 Replace: int
 
-Criteria: 62
+Criteria: 65
 Highlight: True
 BackColor: Red
 Find: Single
 Replace: float
 
-Criteria: 63
+Criteria: 66
 Find: Double
 Replace: double
 
-Criteria: 64
+Criteria: 67
 Highlight: True
 Find: Byte
 Replace: UCHAR
 
-Criteria: 65
+Criteria: 68
 Highlight: True
 Find: Integer
 Replace: short
 
-Criteria: 66
+Criteria: 69
 Highlight: True
 Find: Word
 Replace: USHORT
 
-Criteria: 67
+Criteria: 70
 Highlight: True
 Find: Dword
 Replace: unsigned
 
-Criteria: 68
+Criteria: 71
 Find: AsciiZ
 Replace: LPCSTR
 
-Criteria: 69
+Criteria: 72
 Highlight: True
 Find: Quad
 Replace: __int64
 
-Criteria: 70
+Criteria: 73
 SkipOver: True
 Find: EXTENDED
 Replace: [Skip over]
 
-Criteria: 71
+Criteria: 74
 Highlight: True
 Find: { Extended | Ext }
 Replace: EXTENDED
 
-Criteria: 72
+Criteria: 75
 Highlight: True
 BackColor: SlateBlue
 PassOnce: False
 Find: ByRef {arg} As {type:1}
 Replace: {type}& {arg}
 
-Criteria: 73
+Criteria: 76
 PassOnce: False
 Find: ByRef {array}() As {type:1}
 Replace: std::vector<{type}>& {array}{@Define::
@@ -463,155 +481,148 @@ Replace: std::vector<{type}>& {array}{@Define::
             Syntax: {array}() ::= {array}
          }
 
-Criteria: 74
+Criteria: 77
 Highlight: True
 BackColor: Pink
 PassOnce: False
 Find: ByVal {arg} As {type:1} [{ptr: Ptr}]
 Replace: {type} {ptr:*}{arg}
 
-Criteria: 75
+Criteria: 78
 Highlight: True
 Find: Macro {name} [{params: ({paramlist})}] = {replacement%}
 Replace: #define {name}{params} {replacement}
 
-Criteria: 76
+Criteria: 79
 Highlight: True
 Find: #ElseIf
 Replace: #elif
 
-Criteria: 77
+Criteria: 80
 Find: #{directive: If | Else | EndIf }
 Replace: #{@Eval: LCase("{directive}", "{'.*'}")}
 
-Criteria: 78
+Criteria: 81
 Highlight: True
 PassOnce: False
 Find: [{NOT: Not }] %Def({const})
 Replace: {NOT:!}defined {const}
 
-Criteria: 79
+Criteria: 82
 PassOnce: False
 Find: Choose[&]({index}, {choice})
 Replace: IIf({index}, {choice}, 0)
 
-Criteria: 80
+Criteria: 83
 PassOnce: False
 Find: Choose$({index}, {choice})
 Replace: IIf({index}, {choice}, "")
 
-Criteria: 81
+Criteria: 84
 PassOnce: False
 Find: Choose[{type: $ | & }]({index}, {choice1}, {more})
 Replace: IIf({index}, {choice1}, Choose{type}({index}, {more}))
 
-Criteria: 82
+Criteria: 85
 Find: StdOut {text} { {sameline: ;} | {NewLine: } }
 Replace: cout << {text} {NewLine: << endl;}
 
-Criteria: 83
+Criteria: 86
 Find: Sleep {milliseconds}
 Replace: PB_SLEEP({milliseconds})
 
-Criteria: 84
+Criteria: 87
 Find: {keyword:"CV(BYT|DWD|D|E|I|L|Q|S|WRD)"}({string} [, {offset=1}])
 Replace: PB_{@Eval:UCase("{keyword}", "{'.*'}")}({string}, {offset})
 
-Criteria: 85
+Criteria: 88
 PassOnce: False
 Find: Line Input [{prompt: {q}{str}{q} | ${equate:1}}][,] {StrVariable:1}
 Replace: {prompt: cout << {prompt};}getline(cin, {StrVariable});
 
-Criteria: 86
+Criteria: 89
 Find: IIf[$]({cond%}, {this%}, {that%})
 Replace: ({cond} ? {this} : {that})
 
-Criteria: 87
+Criteria: 90
 Find: PB_ASC({q}{char}{q}, {n:" *[0-9]+"})
 Replace: '{@Eval:Mid("{char}", {n}, 1, ucChar)}'
 
-Criteria: 88
+Criteria: 91
 Find: _char([{char= }])
 Replace: '{char}'
 
-Criteria: 89
-Highlight: True
-BackColor: DeepSkyBlue
-PassOnce: False
-Find: Function = {value}
-Replace: return {value}
-
-Criteria: 90
+Criteria: 92
 Highlight: True
 Find: :
 Replace: ;{nl}
 
-Criteria: 91
+Criteria: 93
 SkipOver: True
 Find: ::
 Replace: [Skip over]
 
-Criteria: 92
+Criteria: 94
 Comment: Adds semi-colons to statements, etc
 Pass: 5
 
-Criteria: 93
+Criteria: 95
 Find: {@Start}
 Replace: {@Define:: Token: [\x7b\x7d\;]}
 
-Criteria: 94
+Criteria: 96
 Find: {nl} {code} [{comment:" *//.*"}] {delim-: {nl}}
 Replace: {nl}{code};{comment}
 
-Criteria: 95
+Criteria: 97
 SkipOver: True
 Find: {nl} [{code}] { ; | "{" | "}" } [// {".*"}] {delim-: {nl}}
 Replace: [Skip over]
 
-Criteria: 96
+Criteria: 98
 SkipOver: True
 Find: {nl} { # | // } [{".*"}]
 Replace: [Skip over]
 
-Criteria: 97
+Criteria: 99
 Comment: Nested UDTs - 1st pass (gather members)
 Pass: 6
 
-Criteria: 98
+Criteria: 100
 Find: {nl} struct {name} "{" {members+} "}";
 Replace: {Self}{@Eval: Dim {name} As String = {Q}{members}{Q}}
 
-Criteria: 99
+Criteria: 101
 Find: {nl} union {name} "{" {members+} "}";
 Replace: {Self}{@Eval: Dim {name} As String = {Q}union{{members}};{Q}}
 
-Criteria: 100
+Criteria: 102
 Comment: Nested UDTs - 2nd pass (insert members)
 Pass: 7
 
-Criteria: 101
+Criteria: 103
 Find: {nl} { struct | union }
 Replace: {Self}{@Eval: UDT = True}
 
-Criteria: 102
+Criteria: 104
 PassOnce: False
 Find: {nl}{nested:1}; {@If: UDT}
 Replace: {@Eval: {nested}}
 
-Criteria: 103
+Criteria: 105
 SkipOver: True
 Find: {nl}{type:1} {member};
 Replace: [Skip over]
 
-Criteria: 104
+Criteria: 106
 Find: {nl} "}";
 Replace: {Self}{@Eval: UDT = False}
 
-Criteria: 105
+Criteria: 107
 Comment: Adds default values in function prototypes for optional parameters
 Pass: 8
 
-Criteria: 106
+Criteria: 108
 PassOnce: False
 Find: Optional {type:1}[{ptr: *}]{arg:1} [{more: , [Optional] {etc}}]
 Replace: {type} {ptr}{arg} = {@Eval:
@@ -621,51 +632,50 @@ Replace: {type} {ptr}{arg} = {@Eval:
             Chr(34, 34))))
          }{more: , Optional {etc}}
 
-Criteria: 107
+Criteria: 109
 Find: Optional {@If: IsPrototype==0}
 Replace: {Nothing}
 
-Criteria: 108
-Selected: True
+Criteria: 110
 SkipOver: True
 Find: // {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 109
+Criteria: 111
 Find: {nl}// End of prototypes
 Replace: {Self}{@Exec: IsPrototype = 0}
 
-Criteria: 110
+Criteria: 112
 Comment: Misc
 Pass: 9
 
-Criteria: 111
+Criteria: 113
 SkipOver: True
 Find: { // {comment:".*"} | /* {commentB~} */ }
 Replace: [Skip over]
 
-Criteria: 112
+Criteria: 114
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 113
+Criteria: 115
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
-Criteria: 114
+Criteria: 116
 Find: @
 Replace: *
 
-Criteria: 115
+Criteria: 117
 Highlight: True
 Find: @{pointer:1}.
 Replace: {pointer}->
 
-Criteria: 116
+Criteria: 118
 Find: `{@Comment: removes temp char for type member access}
 Replace: {Nothing}
 
-Criteria: 117
+Criteria: 119
 Find: std::vector<{type}> {name:1} "["{size}"]"
 Replace: std::vector<{type}>{name}({size})
 
