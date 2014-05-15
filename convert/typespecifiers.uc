@@ -1,5 +1,5 @@
 # typespecifiers.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/13/2014 5:08:40 PM
+# This file was saved with uCalc Transform 2.96 on 5/14/2014 11:27:28 AM
 # Comment: Replaces data type specifiers with explicit type names
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -174,19 +174,19 @@ Replace: {decl} {etc} As {@Evaluate: ReadStr(Specifier, {spec})}
 Criteria: 17
 Comment: Adds the appropriate type for functions with no explicit type or specifier
 BackColor: CornflowerBlue
-Find: {nl} [{decl: Declare}] Function {name:1} [As {alias}] ([{args%}])
+Find: {nl} [{decl: Declare}] Function {name:1} ([{args%}])
 Replace: {nl}{decl} Function {name}({args}) As {@Evaluate: DefTypeInitial(Asc({name}))}
 
 Criteria: 18
 Comment: Changes function type specifier to data type name
-Find: {nl} [{decl: Declare}] Function {name:1}{spec:"[!?@#$%&]+"} [As {alias}] ([{args%}])
+Find: {nl} [{decl: Declare}] Function {name:1}{spec:"[!?@#$%&]+"} ([{args%}])
 Replace: {nl}{decl} Function {name}({args}) As {@Evaluate: ReadStr(Specifier, {spec})}
 
 Criteria: 19
 Comment: Skips functions that already have an explicit type
 Selected: True
 BackColor: Gold
-Find: {nl} [{decl: Declare}] Function {name} [As {alias}] ([{args%}]) As {type}
+Find: {nl} [{decl: Declare}] Function {name:1} ([{args%}]) As {type}
 Replace: {nl}{decl} Function {name}({args}) As {type}
 
 Criteria: 20
