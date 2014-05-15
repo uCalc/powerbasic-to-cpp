@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/14/2014 9:09:03 AM
+# This file was saved with uCalc Transform 2.96 on 5/15/2014 3:33:12 PM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -76,7 +76,9 @@ Replace: {@Define::
             Var: Prototypes As String
             Var: ExpIndex As Long
             Var: ImpIndex As Long
+            Var: FuncIndex As Long
             Var: GlobalIndex As Long
+            SyntaxArg: NameAndSpecifier = "[a-z][a-z0-9_]*[$#!?%&]*"
          }
          {@Exec:
             Split(File("WinAPIKeywords.txt"))   
@@ -88,10 +90,9 @@ Comment: Teporarily adds Dim keyword in front of args for further parsing
 Pass: 1
 
 Criteria: 3
-Selected: True
 Find: {nl}{routine: Sub | Function } {etc}([{args}]) [[{exp: Export}] As {type:1}]
 Replace: {@Eval:
-            Prototype = {Q}{routine} {etc}({args:Dim {args}}){type: {exp} As {type}}{Q}
+            Prototype = {Q}{routine} {etc}({args:Dim {args}}){exp}{type: As {type}}{Q}
             Prototypes += "{nl}Declare " + Prototype
             "{nl}" + Prototype
          }
@@ -113,7 +114,7 @@ Replace: ' Prototypes
          ' End of prototypes{nl}
 
 Criteria: 7
-Find: Global{" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
+Find: Global{" +"}{variable:NameAndSpecifier}
 Replace: {Self}{@Evaluate: Insert(Globals, {variable})}
 
 Criteria: 8
@@ -136,7 +137,7 @@ Replace: {Self}{@Evaluate: SetVar(CurrentRoutine, "")}
 Criteria: 11
 BackColor: Pink
 Find: {declare: Dim [[Optional] { ByVal | ByRef }] | Local | Static | Register | fstream }
-      {" +"}{variable:"[a-z][a-z0-9_]*[#!?%&]*"}
+      {" +"}{variable:NameAndSpecifier}
 Replace: {Self}{@Eval: Insert(~Eval(CurrentRoutine)ExplicitDim, "{variable}")}
 
 Criteria: 12
@@ -159,12 +160,13 @@ Comment: Places non-Dimmed variable names in separate local tables
 Pass: 3
 
 Criteria: 16
-Find: [{eq: %}]{name:"[a-z][a-z0-9_]*[#!?%&]*"} [{IsFunc:" *\("}]
+Find: [{eq: %}]{name:NameAndSpecifier} [{IsFunc:" *\("}]
 Replace: {eq}{@Eval:
             ExpIndex    = Index(~Eval(CurrentRoutine)ExplicitDim, "{name}")
             ImpIndex    = Index(~Eval(CurrentRoutine)ImplicitDim, "{name}")
+            FuncIndex   = Index(Globals, Remove("{name}", "{'[$#!?%&]+'}"))
             GlobalIndex = Index(Globals, "{name}")
-            IIf(ExpIndex+ImpIndex+GlobalIndex == 0 And "{IsFunc}" == "",
+            IIf(ExpIndex+ImpIndex+FuncIndex+GlobalIndex == 0 And "{IsFunc}" == "",
                 Insert(~Eval(CurrentRoutine)ImplicitDim, "{name}"))
             
             text = "{name}"
