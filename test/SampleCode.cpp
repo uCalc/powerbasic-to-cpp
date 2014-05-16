@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/15/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/16/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -27,7 +27,7 @@ string Report(string& LastName, int x, double& NewPrice, float& n, short i, floa
 string Hello(string& txt);
 UCHAR Bye();
 void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz = NULL);
-int PBMain();
+// <WinAPI> Declare Function PBMain() As Long
 void Rename1();
 void Rename2();
 string StringTest(string& MyString, string OtherString);
@@ -592,7 +592,7 @@ void Rename2()
    UCHAR Char;
    int This;
    
-   Break = FALSE;
+   break_Renamed = FALSE;
    for (auto_Renamed=1; auto_Renamed<=10; auto_Renamed += 1) {
       if (auto_Renamed == 5) {
          break_Renamed = TRUE;
