@@ -1,5 +1,5 @@
 # filehandler.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/13/2014 7:53:23 AM
+# This file was saved with uCalc Transform 2.96 on 5/16/2014 11:49:59 AM
 # Comment: File handler
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -67,7 +67,6 @@ Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 4
-Selected: True
 BackColor: DeepSkyBlue
 Find: Open {filespec}
       { For {{Input: Input}|{Output: Output}|{Append: Append}|{Binary: Binary}|{Random: Random}}|{Default: } }
@@ -139,25 +138,26 @@ Replace: PB_NAME({oldname}, {newname})
 
 Criteria: 16
 BackColor: Gold
-Find: EXE.Extn$
+Find: EXE.Extn[$]
 Replace: PB_EXE_EXTN
 
 Criteria: 17
+Selected: True
 BackColor: Silver
-Find: EXE.Full$
+Find: EXE.Full[$]
 Replace: PB_EXE_FULL()
 
 Criteria: 18
-Find: EXE.Name$
+Find: EXE.Name[$]
 Replace: PB_EXE_NAME
 
 Criteria: 19
 BackColor: CornflowerBlue
-Find: EXE.Namex$
+Find: EXE.Namex[$]
 Replace: PB_EXE_NAMEX
 
 Criteria: 20
-Find: EXE.Path$
+Find: EXE.Path[$]
 Replace: PB_EXE_PATH
 
 Criteria: 21
