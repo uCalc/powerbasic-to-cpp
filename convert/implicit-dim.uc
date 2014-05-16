@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/15/2014 3:33:12 PM
+# This file was saved with uCalc Transform 2.96 on 5/16/2014 12:01:23 PM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -81,7 +81,7 @@ Replace: {@Define::
             SyntaxArg: NameAndSpecifier = "[a-z][a-z0-9_]*[$#!?%&]*"
          }
          {@Exec:
-            Split(File("WinAPIKeywords.txt"))   
+            Split(File("PBKeywords.txt")+Chr(13,10)+File("WinAPIKeywords.txt"))   
             uc_For(x, 1, StringItemCount, 2, Insert(Globals, StringItem(x)))
          }
 
@@ -90,6 +90,7 @@ Comment: Teporarily adds Dim keyword in front of args for further parsing
 Pass: 1
 
 Criteria: 3
+Selected: True
 Find: {nl}{routine: Sub | Function } {etc}([{args}]) [[{exp: Export}] As {type:1}]
 Replace: {@Eval:
             Prototype = {Q}{routine} {etc}({args:Dim {args}}){exp}{type: As {type}}{Q}
@@ -187,9 +188,8 @@ Find: {"&h[0-9a-f]+"}
 Replace: [Skip over]
 
 Criteria: 19
-SkipOver: True
-Find: {@Eval: "{'"+Retain(FileText("PBKeywords.txt"), "{keyword:'.*'}", Delim("\b|"))+"\b'}"}
-Replace: [Skip over]
+Find: {"Exe"}.{suffix:1}$
+Replace: Exe.{suffix}
 
 Criteria: 20
 BackColor: Brown
