@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/15/2014 3:40:01 PM
+# This file was saved with uCalc Transform 2.96 on 5/15/2014 6:21:43 PM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -25,8 +25,8 @@ FontName:
 FontSize: 
 FontStyle: 
 CaseSensitive: False
-QuoteSensitive: True
-CodeBlockSensitive: True
+QuoteSensitive: False
+CodeBlockSensitive: False
 FilterEndText: 
 FilterSeparator: {#10}
 FilterSort: False
@@ -54,8 +54,12 @@ RightToLeft: False
 Criteria: 1
 Highlight: False
 Find: 
-Replace: {@Define: Var: Args As String}
+Replace: {@Define: 
+            Var: Args As String
+            SyntaxArgL: {number} = {number:"([0-9]*\.)?[0-9]+(e[-+]?[0-9]+)?"}
+         }
          {@Define::
+         
             Token: \x27.* ~~ Properties: ucWhitespace
             Token: _[^\n]*\n ~~ Properties: ucWhitespace
             LineContinue: " _"
@@ -68,33 +72,71 @@ Pass: 1
 Criteria: 3
 Selected: True
 Highlight: False
-Find: {nl}[Declare]{ Function | Sub } {name:1} [{etc}] ({args%}) [ As {ftype:1}]
+Find: {nl}[Declare]{ Function | Sub } {name:1} [{etc}] ([{args%}]) [ As {ftype:1}]
 Replace: {@Define::  Pass: 1 ~~ Syntax: {name}({@Eval:                      _
              Args = Remove("{args}", "{ Optional | ByVal | ByRef | Ptr }"); _
-             Replace(Args, "{arg:1} As {type:1}", "{"+"{arg}"+"}")          _
-           }) ::= <{ftype}>{name}({@Eval:                                   _
+             Replace(Args, "{arg:1} As {type:1}", "{"+"{arg}"+"%}")          _
+           }) ::= `{ftype}({name}({@Eval:                                   _
              Args = Remove("{args}", "{ Optional | ByVal | ByRef | Ptr }"); _
-             Replace(Args, "{arg:1} As {type:1}", "<{type}>{arg}")          _
-           })
+             Replace(Args, "{arg:1} As {type:1}", "##{type}({arg})")        _
+           }))
          }{Self}
 
 Criteria: 4
 Highlight: False
 Find: { Global | Local | Static | Dim | , | { ByVal | ByRef } } {var:1} As {type:1}
-Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: {var} ::= <<{type}>>{var}}
+Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: {var} ::= `{type}({var})}
 
 Criteria: 5
+Highlight: False
+Find: {number}
+Replace: `Double({number})
+
+Criteria: 6
+Highlight: False
+BackColor: RoyalBlue
+Find: {q}{text}{q}
+Replace: `String({Self})
+
+Criteria: 7
+Highlight: False
+BackColor: Pink
+Find: {func: InStr|Len|UBound|VarPtr|StrPtr|Dir|CurDir } ({args%})
+Replace: `Long({func}({args}))
+
+Criteria: 8
+Highlight: False
+BackColor: SlateBlue
+Find: {func: Mid|Left|Right|Remove|Extract|Remain } ({args%})
+Replace: `String({func}({args}))
+
+Criteria: 9
+Highlight: False
+BackColor: Purple
+SkipOver: True
+Find: {nl} { Type | Union }
+         {members+}
+      End {TypeOrUnion}
+Replace: [Skip over]
+
+Criteria: 10
+BackColor: Khaki
+SkipOver: True
+Find: {nl}{ % | $ | # | ! | ASM } {etc} {@Note: Skips equates, metastatements, ASM}
+Replace: [Skip over]
+
+Criteria: 11
 Comment: Highlights the inserted data type names
 Pass: 2
 
-Criteria: 6
+Criteria: 12
 BackColor: Red
-Find: <{arg:1}>
+Find: ##{type:1}
 Replace: {Self}
 
-Criteria: 7
+Criteria: 13
 Comment: This line is there to provide highlighting for clarity
-Find: <<{type}>>{var:1}
+Find: `{type:1}
 Replace: {Self}
 
 # End Search
