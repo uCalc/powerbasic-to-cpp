@@ -223,7 +223,7 @@ ErrApi
 ErrClear
 Error
 Esc
-Exe\.[a-z]+
+Exe
 Exit
 Exp
 Exp10
