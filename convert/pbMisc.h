@@ -82,3 +82,9 @@ MAXMIN(PB_MIN_INT, int,         LESS)
 MAXMIN(PB_MIN_STR, string,      LESS)
 
 #define PZONE left << setw(14)
+
+// This is for allowing rvalues where lvalues expected
+
+int int_;
+
+lvalue& (int value) { int_ = value; return int_; }
