@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/15/2014 6:21:43 PM
+# This file was saved with uCalc Transform 2.96 on 5/19/2014 6:26:41 PM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -70,7 +70,6 @@ Comment: Inserts data type names in front of variabls and functions
 Pass: 1
 
 Criteria: 3
-Selected: True
 Highlight: False
 Find: {nl}[Declare]{ Function | Sub } {name:1} [{etc}] ([{args%}]) [ As {ftype:1}]
 Replace: {@Define::  Pass: 1 ~~ Syntax: {name}({@Eval:                      _
@@ -126,17 +125,32 @@ Find: {nl}{ % | $ | # | ! | ASM } {etc} {@Note: Skips equates, metastatements, A
 Replace: [Skip over]
 
 Criteria: 11
-Comment: Highlights the inserted data type names
+Comment: Convert
 Pass: 2
 
 Criteria: 12
+Selected: True
+BackColor: Violet
+Find: ##LPCSTR(string({arg}))
+Replace: {arg}.c_str()
+
+Criteria: 13
+Comment: Highlights the inserted data type names
+Pass: 3
+
+Criteria: 14
 BackColor: Red
 Find: ##{type:1}
 Replace: {Self}
 
-Criteria: 13
+Criteria: 15
 Comment: This line is there to provide highlighting for clarity
 Find: `{type:1}
 Replace: {Self}
+
+Criteria: 16
+BackColor: SandyBrown
+Find: 
+Replace: 
 
 # End Search
