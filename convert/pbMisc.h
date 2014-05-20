@@ -83,8 +83,27 @@ MAXMIN(PB_MIN_STR, string,      LESS)
 
 #define PZONE left << setw(14)
 
-// This is for allowing rvalues where lvalues expected
+// This section is for allowing rvalues where lvalues expected (in ByRef args)
 
-int int_;
 
-lvalue& (int value) { int_ = value; return int_; }
+UCHAR _UCHAR;
+short _short;
+USHORT _USHORT;
+unsigned _unsigned;
+int _int;
+long _long;
+float _float;
+double _double;
+EXTENDED _EXTENDED;
+string _string;
+
+inline UCHAR& lvalue(const UCHAR& value) { _UCHAR = value; return _UCHAR; }
+inline short& lvalue(const short& value) { _short = value; return _short; }
+inline USHORT& lvalue(const USHORT& value) { _USHORT = value; return _USHORT; }
+inline unsigned& lvalue(const unsigned& value) { _unsigned = value; return _unsigned; }
+inline int& lvalue(const int& value) { _int = value; return _int; }
+inline long& lvalue(const long& value) { _long = value; return _long; }
+inline float& lvalue(const float& value) { _float = value; return _float; }
+inline double& lvalue(const double& value) { _double = value; return _double; }
+inline EXTENDED& lvalue(const EXTENDED& value) { _EXTENDED = value; return _EXTENDED; }
+inline string& lvalue(const string& value) { _string = value; return _string; }
