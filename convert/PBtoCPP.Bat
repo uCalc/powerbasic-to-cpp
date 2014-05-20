@@ -26,16 +26,17 @@ IF /I "%1" == "/D" (
 SET FILE=%~n1
 
 IF /I "%DEBUG%" == "True" (
-   REM This option is for debugging   
-   uCalcTransform  refactor.uc        %1            %FILE%.1.tmp /Q
-   uCalcTransform  implicit-dim.uc    %FILE%.1.tmp  %FILE%.2.tmp /Q
-   uCalcTransform  typespecifiers.uc  %FILE%.2.tmp  %FILE%.3.tmp /Q
-   uCalcTransform  strings.uc         %FILE%.3.tmp  %FILE%.4.tmp /Q
-   uCalcTransform  filehandler.uc     %FILE%.4.tmp  %FILE%.5.tmp /Q
-   uCalCTransform  math.uc            %FILE%.5.tmp  %FILE%.6.tmp /Q
-   uCalCTransform  print.uc           %FILE%.6.tmp  %FILE%.7.tmp /Q
-   uCalcTransform  pb-to-cpp.uc       %FILE%.7.tmp  %FILE%.8.tmp /Q
-   uCalcTransform  beautify.uc        %FILE%.8.tmp  %FILE%.cpp   /Q
+   REM This option is for debugging
+   uCalcTransform  precompile.uc      %1            %FILE%.1.tmp /Q
+   uCalcTransform  refactor.uc        %FILE%.1.tmp  %FILE%.2.tmp /Q
+   uCalcTransform  implicit-dim.uc    %FILE%.2.tmp  %FILE%.3.tmp /Q
+   uCalcTransform  typespecifiers.uc  %FILE%.3.tmp  %FILE%.4.tmp /Q
+   uCalcTransform  strings.uc         %FILE%.4.tmp  %FILE%.5.tmp /Q
+   uCalcTransform  filehandler.uc     %FILE%.5.tmp  %FILE%.6.tmp /Q
+   uCalCTransform  math.uc            %FILE%.6.tmp  %FILE%.7.tmp /Q
+   uCalCTransform  print.uc           %FILE%.7.tmp  %FILE%.8.tmp /Q
+   uCalcTransform  pb-to-cpp.uc       %FILE%.8.tmp  %FILE%.9.tmp /Q
+   uCalcTransform  beautify.uc        %FILE%.9.tmp  %FILE%.cpp   /Q
 ) ELSE (
-   uCalcTransform "refactor.uc|implicit-dim.uc|typespecifiers.uc|strings.uc|filehandler.uc|math.uc|print.uc|pb-to-cpp.uc|beautify.uc" %1 %FILE%.cpp %2 /q
+   uCalcTransform "precompile.uc|refactor.uc|implicit-dim.uc|typespecifiers.uc|strings.uc|filehandler.uc|math.uc|print.uc|pb-to-cpp.uc|beautify.uc" %1 %FILE%.cpp %2 /q
 )
