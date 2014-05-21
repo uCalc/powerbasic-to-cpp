@@ -15,6 +15,7 @@
 #include <cstdlib>
 #include <vector>
 #include <cstdarg>
+#include <cstring>
 #include <algorithm>
 #include <string>
 #include <sstream>
