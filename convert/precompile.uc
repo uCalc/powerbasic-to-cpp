@@ -1,5 +1,5 @@
 # precompile.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/16/2014 5:03:10 PM
+# This file was saved with uCalc Transform 2.96 on 5/21/2014 6:13:47 PM
 # Comment: Inserts include files, handles directives, expands macros etc
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,6 +52,18 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
+Find: {@Note:
+         This file is still under construction.
+         It does not work just yet.
+      }
+Replace: {@Define:
+            Syntax: % ::= {Nothing}   
+            Var: Equates As Table
+            Var: MetaIF = True
+         }
+
+Criteria: 2
 PassOnce: False
 Find: {nl}#include {q}{file}{q}
 Replace: ' =============== Include: {file} ===============
@@ -59,9 +71,23 @@ Replace: ' =============== Include: {file} ===============
          ' ============ End of Include: {file} ===========
          
 
-Criteria: 2
-Selected: True
-Find: {@Note: Other items to come later}
-Replace: 
+Criteria: 3
+BackColor: DarkKhaki
+Find: {nl}%{equate} = {value}
+Replace: {Self}{@Exec:
+            Dim {equate} = {value}
+            Insert(Equates, "{equate}")
+            ucDefine("Syntax: Def(%{equate}) ::= 1")
+         }
+
+Criteria: 4
+BackColor: Yellow
+Find: {nl}#If {expr}
+Replace: {Self}{@Exec: IIf({expr}, MetaIF=True, MetaIF=False)}
+
+Criteria: 5
+BackColor: Yellow
+Find: {nl}{line:".*"}
+Replace: {@Evaluate: IIf(MetaIF==False, "' ", "") }{Self}
 
 # End Search
