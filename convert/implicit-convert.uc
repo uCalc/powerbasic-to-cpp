@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/19/2014 6:26:41 PM
+# This file was saved with uCalc Transform 2.96 on 5/21/2014 5:14:40 PM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -14,7 +14,7 @@ FindMode: Replace
 # Search Criteria
 
 Criteria: 0
-Enabled: True
+Enabled: False
 Exclude: False
 Comment: Handles implicit data type conversions
 Selected: False
@@ -52,14 +52,20 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Enabled: True
 Highlight: False
 Find: 
-Replace: {@Define: 
+Replace: {@Eval:
+            Dim Size As Table = {
+               "Byte", 1, "Word", 2, "Integer", 2, "Long", 4, "Dword", 4,
+               "Single", 4, "Double", 8, "Extended", 10
+            }
+         }
+         {@Define: 
             Var: Args As String
             SyntaxArgL: {number} = {number:"([0-9]*\.)?[0-9]+(e[-+]?[0-9]+)?"}
          }
          {@Define::
-         
             Token: \x27.* ~~ Properties: ucWhitespace
             Token: _[^\n]*\n ~~ Properties: ucWhitespace
             LineContinue: " _"
@@ -70,6 +76,7 @@ Comment: Inserts data type names in front of variabls and functions
 Pass: 1
 
 Criteria: 3
+Enabled: True
 Highlight: False
 Find: {nl}[Declare]{ Function | Sub } {name:1} [{etc}] ([{args%}]) [ As {ftype:1}]
 Replace: {@Define::  Pass: 1 ~~ Syntax: {name}({@Eval:                      _
@@ -82,34 +89,40 @@ Replace: {@Define::  Pass: 1 ~~ Syntax: {name}({@Eval:                      _
          }{Self}
 
 Criteria: 4
+Enabled: True
 Highlight: False
 Find: { Global | Local | Static | Dim | , | { ByVal | ByRef } } {var:1} As {type:1}
 Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: {var} ::= `{type}({var})}
 
 Criteria: 5
+Enabled: True
 Highlight: False
 Find: {number}
 Replace: `Double({number})
 
 Criteria: 6
+Enabled: True
 Highlight: False
 BackColor: RoyalBlue
 Find: {q}{text}{q}
-Replace: `String({Self})
+Replace: `StringLit({Self})
 
 Criteria: 7
+Enabled: True
 Highlight: False
 BackColor: Pink
 Find: {func: InStr|Len|UBound|VarPtr|StrPtr|Dir|CurDir } ({args%})
 Replace: `Long({func}({args}))
 
 Criteria: 8
+Enabled: True
 Highlight: False
 BackColor: SlateBlue
 Find: {func: Mid|Left|Right|Remove|Extract|Remain } ({args%})
 Replace: `String({func}({args}))
 
 Criteria: 9
+Enabled: True
 Highlight: False
 BackColor: Purple
 SkipOver: True
@@ -119,6 +132,7 @@ Find: {nl} { Type | Union }
 Replace: [Skip over]
 
 Criteria: 10
+Enabled: True
 BackColor: Khaki
 SkipOver: True
 Find: {nl}{ % | $ | # | ! | ASM } {etc} {@Note: Skips equates, metastatements, ASM}
@@ -129,28 +143,60 @@ Comment: Convert
 Pass: 2
 
 Criteria: 12
-Selected: True
+Enabled: True
 BackColor: Violet
-Find: ##LPCSTR(string({arg}))
-Replace: {arg}.c_str()
+PassOnce: False
+Find: ##Asciiz(string({arg}))
+Replace: `Asciiz({arg}.c_str())
 
 Criteria: 13
+Enabled: True
+PassOnce: False
+Find: `StringLit({arg})+`StringLit({arg})
+Replace: `String((string){arg}+{arg})
+
+Criteria: 14
+Enabled: True
+BackColor: CornflowerBlue
+PassOnce: False
+Find: `WideString({arg}) + `String({arg})
+Replace: `WideString({arg}) + `WideString(string({arg}))
+
+Criteria: 15
+Enabled: True
+BackColor: SandyBrown
+PassOnce: False
+Find: Len(`String({arg}))
+Replace: `Long(({arg}).length())
+
+Criteria: 16
+Enabled: True
+BackColor: Gold
+PassOnce: False
+Find: Len(`LPCSTR({arg}))
+Replace: `Long(strlen({arg}))
+
+Criteria: 17
+Enabled: True
+Selected: True
+PassOnce: False
+Find: `{ Extended | Ext }
+Replace: `Double
+
+Criteria: 18
 Comment: Highlights the inserted data type names
 Pass: 3
 
-Criteria: 14
+Criteria: 19
+Enabled: False
 BackColor: Red
 Find: ##{type:1}
 Replace: {Self}
 
-Criteria: 15
+Criteria: 20
+Enabled: False
 Comment: This line is there to provide highlighting for clarity
 Find: `{type:1}
 Replace: {Self}
-
-Criteria: 16
-BackColor: SandyBrown
-Find: 
-Replace: 
 
 # End Search
