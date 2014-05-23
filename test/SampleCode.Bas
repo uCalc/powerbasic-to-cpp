@@ -482,7 +482,7 @@ Function DoMath() As Double
    n = Max(5.3, 11/2, 17, 4, Min(5, 3.5, -2, 8/7))
    i = Min&(3, -10, 7, -1, Max&(3, 1, 7, -5), 23, 11)
    i = Min&(1, 2, Max(5, 6, 7.5))
-   i = 10 \ 3 ' This example doesn't work yet
+   i = 10 \ 3
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
