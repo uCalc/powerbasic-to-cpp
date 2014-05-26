@@ -58,6 +58,7 @@ inline int PB_LOF(fstream& file) {
 
 inline long double PB_FIX(long double n) {long double fix; modf(n, &fix); return fix;}
 inline long double PB_FRAC(long double n) {long double ignore; return modf(n, &ignore);}
+inline int _round(long double number) { return (number > 0.0) ? (number + 0.5) : (number - 0.5); }
 
 #define ARGCOUNT(x) x  // ARGCOUNT simply makes the first arg of variadic function stand out
 #define GREATER >
