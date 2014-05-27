@@ -153,6 +153,10 @@ Sub MySub(ByVal x As Long, dArray() As Double)
 
    Dim t1 As OtherType, t2 As OtherType Ptr
 
+   i = Len(t1)       ' Len(t1)
+   i = Len(TestType) ' Len(TestType)
+   i = Len("Test")   ' Len("Test")
+
    i = t1.First
    i = t1.@Second
    i = t1.Third
@@ -278,6 +282,10 @@ End Sub
 Function PBMain()
    Dim x As Ext, pi As Ext, MyString$, FileInfo$, MyFile$(50), n As Long, dwTest As Dword, Num$
    Dim mArray(10) As Double
+
+   n = Len(TestType) ' Len(TestType)
+   n = Len(FileInfo$) ' Len(FileInfo$)
+   ' n = Len(MyFile$(n+1)) ' Len(MyFile$(n+1))  +++ must fix for arrays
 
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
