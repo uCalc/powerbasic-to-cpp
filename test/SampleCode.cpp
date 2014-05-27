@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/23/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/27/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -249,6 +249,10 @@ void MySub(int x, std::vector<double>& dArray)
    OtherType t1;
    OtherType *t2;
    
+   i = sizeof(t1); // Len(t1)
+   i = sizeof(TestType); // Len(TestType)
+   i = string("Test").length(); // Len("Test")
+   
    i = t1.First;
    i = *t1.Second;
    i = t1.Third;
@@ -445,7 +449,11 @@ int main()
    string Num;
    std::vector<double>mArray(10+1);
    
-   DoSomething(Len("Test")+5, "Hello " + "world!", sin(x+1)*pi, &x-4); // Comment
+   n = sizeof(TestType); // Len(TestType)
+   n = string(FileInfo).length(); // Len(FileInfo$)
+   // n = Len(MyFile$(n+1)) ' Len(MyFile$(n+1))  +++ must fix for arrays
+   
+   DoSomething(string("Test").length()+5, "Hello " + "world!", sin(x+1)*pi, &x-4); // Comment
    
    DoSomething(10, "abc", 5, 1);
    DoSomething(1, "x", 5, 0); // Etc...
