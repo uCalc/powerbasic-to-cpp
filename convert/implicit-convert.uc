@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/26/2014 5:41:37 PM
+# This file was saved with uCalc Transform 2.96 on 5/27/2014 6:24:47 PM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -68,12 +68,10 @@ Replace: {@Eval:
             Var: After As String
             Var: UDT As Table
             Var: Size
+            Var: Final
             SyntaxArgL: {number} = {number:"([0-9]*\.)?[0-9]+(e[-+]?[0-9]+)?"}
          }
-         {@Define::
-            Token: \x27.* ~~ Properties: ucWhitespace
-            Token: _.*\n ~~ Properties: ucWhitespace
-         }
+         {@Define:: Token: _.*\n ~~ Properties: ucWhitespace }
 
 Criteria: 2
 Comment: Inserts data type names in front of variabls and functions
@@ -81,7 +79,6 @@ Pass: 1
 
 Criteria: 3
 Enabled: True
-Selected: True
 Highlight: False
 Find: {nl}[Declare] { Function | Sub } {name~:1} [Alias {alias}] ([{args%}]) [As {ftype:1=void}]
 Replace: {@Exec:
@@ -162,69 +159,102 @@ Find: {nl}{ # | ! | ASM } {etc} {@Note: Skips metastatements, ASM}
 Replace: [Skip over]
 
 Criteria: 14
+Enabled: True
+SkipOver: True
+Find: ' {Comment:".*"}
+Replace: [Skip over]
+
+Criteria: 15
 Comment: Convert
 Pass: 2
 
-Criteria: 15
+Criteria: 16
 Enabled: True
 BackColor: Violet
 PassOnce: False
 Find: ##Asciiz(string({arg}))
 Replace: `Asciiz({arg}.c_str())
 
-Criteria: 16
+Criteria: 17
+Enabled: True
+Find: `StringLit({arg})
+Replace: `String({arg})
+
+Criteria: 18
 Enabled: True
 PassOnce: False
 Find: `StringLit({arg})+`StringLit({arg})
 Replace: `String(string({arg})+{arg})
 
-Criteria: 17
+Criteria: 19
 Enabled: True
 BackColor: CornflowerBlue
 PassOnce: False
 Find: `WString({arg}) + `String({arg})
 Replace: `WString({arg}) + `WString(string({arg}))
 
-Criteria: 18
+Criteria: 20
+Enabled: True
+Find: Len({other})
+Replace: sizeof({other})
+
+Criteria: 21
 Enabled: True
 BackColor: SandyBrown
 PassOnce: False
 Find: Len(`String({arg}))
-Replace: `Long(({arg}).length())
+Replace: string({arg}).length()
 
-Criteria: 19
+Criteria: 22
 Enabled: True
 BackColor: Gold
 PassOnce: False
 Find: Len(`LPCSTR({arg}))
 Replace: `Long(strlen({arg}))
 
-Criteria: 20
+Criteria: 23
 Enabled: True
 PassOnce: False
 Find: `{ Extended | Ext }
 Replace: `Double
 
-Criteria: 21
+Criteria: 24
+Enabled: True
+Selected: True
+SkipOver: True
+Find: ' {Comment:".*"}
+Replace: [Skip over]
+
+Criteria: 25
 Comment: Highlights the inserted data type names
 Pass: 3
 
-Criteria: 22
+Criteria: 26
+Enabled: True
+Find: {@Start}
+      {@Note:
+         The use of Final is due to a limitation where immediate expansion in
+         {arg%} expands with all passes causing the undesirable change in pass 3
+         before it is needed.
+      }
+Replace: {@Exec: Final = True}
+
+Criteria: 27
 Enabled: False
 BackColor: Red
 Find: ##{type:1}
 Replace: {Self}
 
-Criteria: 23
+Criteria: 28
 Enabled: False
 Comment: This line is there to provide highlighting for clarity
 Find: `{type:1}
 Replace: {Self}
 
-Criteria: 24
+Criteria: 29
 Enabled: True
 PassOnce: False
-Find: { ` | ## }{type:1}({arg})
+Find: { ` | ## }{type:1}({arg}) {@If: Final}
 Replace: {arg}
 
 # End Search
