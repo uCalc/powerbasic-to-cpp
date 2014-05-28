@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/27/2014 6:24:47 PM
+# This file was saved with uCalc Transform 2.96 on 5/28/2014 8:18:23 AM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -92,9 +92,10 @@ Replace: {@Exec:
 
 Criteria: 4
 Enabled: True
+Selected: True
 Highlight: False
-Find: { Global | Local | Static | Dim | , | { ByVal | ByRef } } {var:1}[()] As {type:1}
-Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: {var} ::= `{type}({var})}
+Find: { Global | Local | Static | Dim | , | { ByVal | ByRef } } {var:1}[([{size}])] As {type:1}
+Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: {var}[({i%})] ::= `{type}({var}{i:({i})})}
 
 Criteria: 5
 Enabled: True
@@ -220,7 +221,6 @@ Replace: `Double
 
 Criteria: 24
 Enabled: True
-Selected: True
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
