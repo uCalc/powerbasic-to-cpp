@@ -285,7 +285,7 @@ Function PBMain()
 
    n = Len(TestType) ' Len(TestType)
    n = Len(FileInfo$) ' Len(FileInfo$)
-   ' n = Len(MyFile$(n+1)) ' Len(MyFile$(n+1))  +++ must fix for arrays
+   n = Len(MyFile$(n+1)) ' Len(MyFile$(n+1))
 
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
