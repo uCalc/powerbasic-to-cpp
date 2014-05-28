@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/27/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/28/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -451,7 +451,7 @@ int main()
    
    n = sizeof(TestType); // Len(TestType)
    n = string(FileInfo).length(); // Len(FileInfo$)
-   // n = Len(MyFile$(n+1)) ' Len(MyFile$(n+1))  +++ must fix for arrays
+   n = string(MyFile[n+1]).length(); // Len(MyFile$(n+1))
    
    DoSomething(string("Test").length()+5, "Hello " + "world!", sin(x+1)*pi, &x-4); // Comment
    
