@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/28/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/29/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -41,6 +41,7 @@ void OptionalArgs(int a = 0, string b = "", double c = 0.0, int *d = NULL, strin
 float OptionalArgs2(int a, string b = "", double c = 0.0, int *d = NULL);
 float OptionalArgs3(int a, string b = "", double c = 0.0, int d = 0);
 void MultiDim();
+void TestByRef();
 // End of prototypes
 
 // File name: SampleCode.Bas
@@ -219,7 +220,7 @@ void MySub(int x, std::vector<double>& dArray)
       Other[x] = x+1;
    } else if (x == -1) { // Test for ElseIf
       while (x < 10) {
-         y = MyFunction(x, *Test);
+         y = MyFunction(x, lvalue(float(*Test)));
          Test = &MyValue;
          Number[z] = *Test + Other[5+x];
          dArray[x] = Number[x];
@@ -453,13 +454,13 @@ int main()
    n = string(FileInfo).length(); // Len(FileInfo$)
    n = string(MyFile[n+1]).length(); // Len(MyFile$(n+1))
    
-   DoSomething(string("Test").length()+5, "Hello " + "world!", sin(x+1)*pi, &x-4); // Comment
+   DoSomething(string("Test").length()+5, lvalue(string("Hello " + "world!")), lvalue(EXTENDED(sin(x+1)*pi)), &x-4); // Comment
    
-   DoSomething(10, "abc", 5, 1);
-   DoSomething(1, "x", 5, 0); // Etc...
+   DoSomething(10, lvalue(string("abc")), lvalue(EXTENDED(5)), 1);
+   DoSomething(1, lvalue(string("x")), lvalue(EXTENDED(5)), 0); // Etc...
    
    if (x > 1) {
-      DoSomething(1, "x", 5, 0); // Parenthesis already here
+      DoSomething(1, lvalue(string("x")), lvalue(EXTENDED(5)), 0); // Parenthesis already here
    }
    
    MyFunc(5);
@@ -683,7 +684,7 @@ string StringTest(string& MyString, string OtherString)
 extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
    int _ReturnValue = int();
    
-   StringTest("abc", "xyz");
+   StringTest(lvalue(string("abc")), "xyz");
    
    return _ReturnValue;
 }
@@ -691,9 +692,9 @@ extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
 extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
    string q; // Implicit
    
-   DoSomething(1, "xyz", 2, 3);
+   DoSomething(1, lvalue(string("xyz")), lvalue(EXTENDED(2)), 3);
     {
-      auto CASE_VAR = StringTest("abc", q);
+      auto CASE_VAR = StringTest(lvalue(string("abc")), q);
       if (CASE_VAR == "a" || CASE_VAR == "b" || CASE_VAR == "c") {
          cout << "Test" << endl;
       } else if (CASE_VAR == "x") {
@@ -879,4 +880,29 @@ void MultiDim()
    static string s4;
    //+++   Static s1, s2[10], s3, s4 As String
    // Do things
+}
+
+// PowerBASIC allows you to pass an expression as a function arg even if it's defined ByRef
+// whereas C++ expects the arg to be an lvalue (such as a variable of the exact parameter type).
+// TestByRef() below tests the conversion transform from implicit-convert.uc, which uses the
+// the lvalue() template defined in pbmisc.h.
+
+void TestByRef()
+{
+   short i; // Implicit
+   
+   // Args for TestFunc (defined earlier) are all passed by reference
+   // TestFunc(a As Long, b As Byte, c As Long, i As Integer, s As String, n As Single)
+   
+   int VarLong;
+   UCHAR VarByte;
+   short VarInt;
+   string VarString;
+   float VarSingle;
+   
+   i = TestFunc(VarLong, VarByte, VarLong, VarInt, VarString, VarSingle);
+   i = TestFunc(lvalue(int((VarLong))), lvalue(UCHAR((VarByte))), lvalue(int((VarLong))), lvalue(short((VarInt))), lvalue(string((VarString))), lvalue(float((VarSingle))));
+   i = TestFunc(lvalue(int(VarLong+0)), lvalue(UCHAR(VarByte+0)), lvalue(int(VarLong+0)), lvalue(short(VarInt+0)), lvalue(string(VarString+"")), lvalue(float(VarSingle+0)));
+   i = TestFunc(lvalue(int(1)), lvalue(UCHAR(2)), lvalue(int(3)), lvalue(short(4)), lvalue(string("Test")), lvalue(float(5)));
+   i = TestFunc(lvalue(int(__int64(1+50/7)-5)), lvalue(UCHAR(2+1)), lvalue(int(_round(3*50, i))), lvalue(short(4-8)), lvalue(string(PB_LEFT("Test", 2))), lvalue(float(8+3/2)));
 }
