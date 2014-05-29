@@ -1,5 +1,5 @@
 # interactive.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/20/2014 9:37:36 AM
+# This file was saved with uCalc Transform 2.96 on 5/28/2014 10:50:51 AM
 # Comment: Allows you to convert with a click of a button instead of a batch file
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -60,6 +60,7 @@ Replace: {@Evaluate:
             Text = Transform(Text, "refactor.uc")
             Text = Transform(Text, "implicit-dim.uc")
             Text = Transform(Text, "typespecifiers.uc")
+            Text = Transform(Text, "implicit-convert.uc")
             Text = Transform(Text, "strings.uc")
             Text = Transform(Text, "filehandler.uc")
             Text = Transform(Text, "math.uc")
