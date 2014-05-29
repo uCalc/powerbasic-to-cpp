@@ -574,3 +574,21 @@ Sub MultiDim()
 '+++   Static s1, s2(10), s3, s4 As String
    ' Do things
 End Sub
+
+' PowerBASIC allows you to pass an expression as a function arg even if it's defined ByRef
+' whereas C++ expects the arg to be an lvalue (such as a variable of the exact parameter type).
+' TestByRef() below tests the conversion transform from implicit-convert.uc, which uses the
+' the lvalue() template defined in pbmisc.h.
+
+Sub TestByRef()
+   ' Args for TestFunc (defined earlier) are all passed by reference
+   ' TestFunc(a As Long, b As Byte, c As Long, i As Integer, s As String, n As Single)
+
+   Dim VarLong As Long, VarByte As Byte, VarInt As Integer, VarString As String, VarSingle As Single
+
+   i = TestFunc(VarLong, VarByte, VarLong, VarInt, VarString, VarSingle)
+   i = TestFunc((VarLong), (VarByte), (VarLong), (VarInt), (VarString), (VarSingle))
+   i = TestFunc(VarLong+0, VarByte+0, VarLong+0, VarInt+0, VarString+"", VarSingle+0)
+   i = TestFunc(1, 2, 3, 4, "Test", 5)
+   i = TestFunc(Int(1+50/7)-5, 2+1, 3*50\i, 4-8, Left$("Test", 2), 8+3/2)
+End Sub
