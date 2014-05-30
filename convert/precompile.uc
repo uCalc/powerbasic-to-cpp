@@ -1,5 +1,5 @@
 # precompile.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/21/2014 6:13:47 PM
+# This file was saved with uCalc Transform 2.96 on 5/30/2014 8:36:41 AM
 # Comment: Inserts include files, handles directives, expands macros etc
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -52,7 +52,6 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Selected: True
 Find: {@Note:
          This file is still under construction.
          It does not work just yet.
@@ -72,10 +71,11 @@ Replace: ' =============== Include: {file} ===============
          
 
 Criteria: 3
+Selected: True
 BackColor: DarkKhaki
 Find: {nl}%{equate} = {value}
 Replace: {Self}{@Exec:
-            Dim {equate} = {value}
+            Dim {equate} = Val(Replace("&", "#", "{value}"))
             Insert(Equates, "{equate}")
             ucDefine("Syntax: Def(%{equate}) ::= 1")
          }
