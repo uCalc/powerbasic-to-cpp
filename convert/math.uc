@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/23/2014 6:15:56 PM
+# This file was saved with uCalc Transform 2.96 on 5/29/2014 4:43:18 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -73,9 +73,10 @@ Find: {x} ^ {y}  {@Note: precedence property set to 100}
 Replace: pow({x}, {y})
 
 Criteria: 5
+Selected: True
 Precedence: 60
 Find: {x} \ {y}  {@Note: precedence property set to 60}
-Replace: _round({x}, {y})
+Replace: _round({x} / {y})
 
 Criteria: 6
 Precedence: 1
@@ -222,7 +223,6 @@ Replace: PB_{@Evaluate:
          Type + Replace({args}, ",", ", "+Type, Skip("({nest})"))})
 
 Criteria: 35
-Selected: True
 Find: )()
 Replace: ){@Note:
             because of problem "between = {etc#%}" in pass 1
