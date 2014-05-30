@@ -1,5 +1,5 @@
 # refactor.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/28/2014 3:24:55 PM
+# This file was saved with uCalc Transform 2.96 on 5/29/2014 6:14:24 PM
 # Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -61,7 +61,6 @@ Comment: Defines comments as whitespace and adds missing quotes
 Pass: 1
 
 Criteria: 3
-Selected: True
 Find: {@Start}
 Replace: {@Define::
             Token: _.*\n  ~~ Properties: ucWhiteSpace
@@ -94,10 +93,11 @@ Pass: 3
 
 Criteria: 9
 Comment: Adds parenthesis around args in function/sub calls that do not have it
+Selected: True
 BackColor: Lime
 Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
 Replace: {@Evaluate:
-            Args = Remove({args}, "{ Optional|ByVal|ByRef|As {type:1} [Ptr] | {'[#!@$%&]+'} | () }")
+            Args = Remove({args}, "{ Optional|ByVal|ByRef|As {type:1} [Ptr] | {' *_.*\n *'} | {'[#!@$%&]+'} | () }")
             Args = SetSyntaxParams(Args, Args)
          }{@Define::
             {@Eval: "PassOnce ~~ Syntax: {name} "+Args+" ::= {name}("+Args+")"}
