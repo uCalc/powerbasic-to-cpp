@@ -287,6 +287,8 @@ Function PBMain()
    n = Len(FileInfo$) ' Len(FileInfo$)
    n = Len(MyFile$(n+1)) ' Len(MyFile$(n+1))
 
+   TestCertainOperators 1, 2.5, i, 4, VarPtr(MyValue!)-16
+
    DoSomething Len("Test")+5, "Hello " + "world!", Sin(x+1)*pi, VarPtr(x)-4 ' Comment
 
    DoSomething 10, "abc", 5, 1 : DoSomething 1, "x", 5, 0  ' Etc...
@@ -460,7 +462,7 @@ Function MyExport Alias "MyExport" (ByVal n As Long) Export As Long
 End Function
 
 Sub MyExportSub Alias "MyExportSub" (ByVal a, ByVal b) Export
-   DoSomething(1, "xyz", 2, 3)
+   DoSomething(1, "xyz", 2, a)
 
    Select Case StringTest("abc", q$)
    Case "a", "b", "c"
