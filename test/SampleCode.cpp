@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/29/14 using the Open Source 
+// with uCalc Transform 2.96 on 05/30/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -454,13 +454,15 @@ int main()
    n = string(FileInfo).length(); // Len(FileInfo$)
    n = string(MyFile[n+1]).length(); // Len(MyFile$(n+1))
    
-   DoSomething(string("Test").length()+5, lvalue(string("Hello " + "world!")), lvalue(EXTENDED(sin(x+1)*pi)), &x-4); // Comment
+   TestCertainOperators(1, 2.5, i, lvalue(double(4)), (float *)(&MyValue-16));
    
-   DoSomething(10, lvalue(string("abc")), lvalue(EXTENDED(5)), 1);
-   DoSomething(1, lvalue(string("x")), lvalue(EXTENDED(5)), 0); // Etc...
+   DoSomething(string("Test").length()+5, lvalue(string(string("Hello ")+"world!")), lvalue(EXTENDED(sin(x+1)*pi)), (unsigned *)(&x-4)); // Comment
+   
+   DoSomething(10, lvalue(string("abc")), lvalue(EXTENDED(5)), (unsigned *)(1));
+   DoSomething(1, lvalue(string("x")), lvalue(EXTENDED(5)), (unsigned *)(0)); // Etc...
    
    if (x > 1) {
-      DoSomething(1, lvalue(string("x")), lvalue(EXTENDED(5)), 0); // Parenthesis already here
+      DoSomething(1, lvalue(string("x")), lvalue(EXTENDED(5)), (unsigned *)(0)); // Parenthesis already here
    }
    
    MyFunc(5);
@@ -692,7 +694,7 @@ extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
 extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
    string q; // Implicit
    
-   DoSomething(1, lvalue(string("xyz")), lvalue(EXTENDED(2)), 3);
+   DoSomething(1, lvalue(string("xyz")), lvalue(EXTENDED(2)), (unsigned *)(a));
     {
       auto CASE_VAR = StringTest(lvalue(string("abc")), q);
       if (CASE_VAR == "a" || CASE_VAR == "b" || CASE_VAR == "c") {
@@ -739,7 +741,7 @@ double DoMath()
    n = PB_MAX(ARGCOUNT(5), (double)5.3, (double) 11/2, (double) 17, (double) 4, (double) PB_MIN(ARGCOUNT(4), (double)5, (double) 3.5, (double) -2, (double) 8/7));
    i = PB_MIN_INT(ARGCOUNT(7), (int)3, (int) -10, (int) 7, (int) -1, (int) PB_MAX_INT(ARGCOUNT(4), (int)3, (int) 1, (int) 7, (int) -5), (int) 23, (int) 11);
    i = PB_MIN_INT(ARGCOUNT(3), (int)1, (int) 2, (int) PB_MAX(ARGCOUNT(3), (double)5, (double) 6, (double) 7.5));
-   i = _round(10, 3);
+   i = _round(10 / 3);
    
    srand(1234);
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
@@ -904,5 +906,5 @@ void TestByRef()
    i = TestFunc(lvalue(int((VarLong))), lvalue(UCHAR((VarByte))), lvalue(int((VarLong))), lvalue(short((VarInt))), lvalue(string((VarString))), lvalue(float((VarSingle))));
    i = TestFunc(lvalue(int(VarLong+0)), lvalue(UCHAR(VarByte+0)), lvalue(int(VarLong+0)), lvalue(short(VarInt+0)), lvalue(string(VarString+"")), lvalue(float(VarSingle+0)));
    i = TestFunc(lvalue(int(1)), lvalue(UCHAR(2)), lvalue(int(3)), lvalue(short(4)), lvalue(string("Test")), lvalue(float(5)));
-   i = TestFunc(lvalue(int(__int64(1+50/7)-5)), lvalue(UCHAR(2+1)), lvalue(int(_round(3*50, i))), lvalue(short(4-8)), lvalue(string(PB_LEFT("Test", 2))), lvalue(float(8+3/2)));
+   i = TestFunc(lvalue(int(__int64(1+50/7)-5)), lvalue(UCHAR(2+1)), lvalue(int(_round(3*50 / i))), lvalue(short(4-8)), lvalue(string(PB_LEFT("Test", 2))), lvalue(float(8+3/2)));
 }
