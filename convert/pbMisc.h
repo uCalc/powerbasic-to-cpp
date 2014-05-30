@@ -1,6 +1,6 @@
 // Miscellaneous
 
-typedef long double EXTENDED;
+#define EXTENDED double
 
 // PB string equates
 
@@ -27,7 +27,7 @@ const string PB_QCQ  = "\",\"";
 PB_CV(PB_CVBYT, unsigned char)
 PB_CV(PB_CVD,   double)
 PB_CV(PB_CVDWD, unsigned int)
-PB_CV(PB_CVE,   long double)
+PB_CV(PB_CVE,   EXTENDED)
 PB_CV(PB_CVI,   short)
 PB_CV(PB_CVL,   int)
 PB_CV(PB_CVQ,   long long)
@@ -56,9 +56,9 @@ inline int PB_LOF(fstream& file) {
 #define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
 #define PB_EXP10(number) (10^(number))
 
-inline long double PB_FIX(long double n) {long double fix; modf(n, &fix); return fix;}
-inline long double PB_FRAC(long double n) {long double ignore; return modf(n, &ignore);}
-inline int _round(long double number) { return (number > 0.0) ? (number + 0.5) : (number - 0.5); }
+inline EXTENDED PB_FIX(EXTENDED n) {EXTENDED fix; modf(n, &fix); return fix;}
+inline EXTENDED PB_FRAC(EXTENDED n) {EXTENDED ignore; return modf(n, &ignore);}
+inline int _round(EXTENDED number) { return (number > 0.0) ? (number + 0.5) : (number - 0.5); }
 
 #define ARGCOUNT(x) x  // ARGCOUNT simply makes the first arg of variadic function stand out
 #define GREATER >
@@ -75,12 +75,12 @@ inline type func(int argCount, ...) {                                           
    return max;                                                                                     \
 }
 
-MAXMIN(PB_MAX,     long double, GREATER)
-MAXMIN(PB_MAX_INT, int,         GREATER)
-MAXMIN(PB_MAX_STR, string,      GREATER)
-MAXMIN(PB_MIN,     long double, LESS)
-MAXMIN(PB_MIN_INT, int,         LESS)
-MAXMIN(PB_MIN_STR, string,      LESS)
+MAXMIN(PB_MAX,     EXTENDED, GREATER)
+MAXMIN(PB_MAX_INT, int,      GREATER)
+MAXMIN(PB_MAX_STR, string,   GREATER)
+MAXMIN(PB_MIN,     EXTENDED, LESS)
+MAXMIN(PB_MIN_INT, int,      LESS)
+MAXMIN(PB_MIN_STR, string,   LESS)
 
 #define PZONE left << setw(14)
 
