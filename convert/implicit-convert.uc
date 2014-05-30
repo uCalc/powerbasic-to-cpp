@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/29/2014 4:02:47 PM
+# This file was saved with uCalc Transform 2.96 on 5/29/2014 5:56:28 PM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -80,12 +80,14 @@ Pass: 1
 
 Criteria: 3
 Enabled: True
+Selected: True
 Highlight: False
 Find: {nl}[Declare] { Function | Sub } {name~:1} [Alias {alias}] ([{args%}]) [As {ftype:1=void}]
 Replace: {@Exec:
-            Args = Remove("{args}", "{ Optional | ByVal | Ptr | () | {' *_.*\n *'} }")
-            Before = Replace(Args, "[ByRef] {arg:1} As {type:1}", "{{arg}%}")
+            Args = Remove("{args}", "{ Optional | ByVal | () | {' *_.*\n *'} }")
+            Before = Replace(Args, "[ByRef] {arg:1} As {type:1} [Ptr]", "{{arg}%}")
             After = Replace(Args, "ByRef {arg:1} As {type:1}", "ByRef({arg} As {type})")
+            After = Replace(After, "{arg:1} As {type:1} Ptr", "Ptr({arg} As {type})")
             After = Replace(After, "{arg:1} As {type:1}", "##{type}({{arg}})")
          
             Def  = "Pass: 1 ~~ Syntax: {name}("+Before+")"
@@ -192,15 +194,15 @@ Replace: `String({arg})
 Criteria: 19
 Enabled: True
 PassOnce: False
-Find: `StringLit({arg})+`StringLit({arg})
-Replace: `String(string({arg})+{arg})
+Find: `StringLit({arg1})+`StringLit({arg2})
+Replace: `String(string({arg1})+{arg2})
 
 Criteria: 20
 Enabled: True
 BackColor: CornflowerBlue
 PassOnce: False
-Find: `WString({arg}) + `String({arg})
-Replace: `WString({arg}) + `WString(string({arg}))
+Find: `WString({arg1}) + `String({arg2})
+Replace: `WString({arg1}) + `WString(string({arg2}))
 
 Criteria: 21
 Enabled: True
@@ -255,7 +257,6 @@ Replace: lvalue({RequiredType}({arg}))
 
 Criteria: 29
 Enabled: True
-Selected: True
 PassOnce: False
 Find: ByRef(##{RequiredType}(`{ActualType}({scalar:1}[()])))
       {@If: Final == True And Index(Variables, {scalar}) <> 0}
@@ -271,16 +272,22 @@ Replace: {array}({index})
 Criteria: 31
 Enabled: True
 PassOnce: False
+Find: Ptr(##{RequiredType}({arg}))
+Replace: ({RequiredType} *)({arg})
+
+Criteria: 32
+Enabled: True
+PassOnce: False
 Find: { ` | ## }{type:1}({arg}) {@If: Final}
 Replace: {arg}
 
-Criteria: 32
+Criteria: 33
 Enabled: False
 BackColor: Red
 Find: ##{type:1}
 Replace: {Self}
 
-Criteria: 33
+Criteria: 34
 Enabled: False
 Comment: This line is there to provide highlighting for clarity
 Find: `{type:1}
