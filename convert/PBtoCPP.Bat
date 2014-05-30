@@ -23,6 +23,11 @@ IF /I "%1" == "/D" (
    SHIFT
 )
 
+IF /I "%1" == "/F" (
+   SET FAST=True
+   SHIFT
+)
+
 SET FILE=%~n1
 
 IF /I "%DEBUG%" == "True" (
@@ -39,5 +44,10 @@ IF /I "%DEBUG%" == "True" (
    uCalcTransform  pb-to-cpp.uc        %FILE%.9.tmp  %FILE%.10.tmp /Q
    uCalcTransform  beautify.uc         %FILE%.10.tmp %FILE%.cpp    /Q
 ) ELSE (
+   IF /I "%FAST%" == "True" (
+      uCalcTransform interactive.uc %1 %FILE%.cpp %2 /q
+      EXIT /B
+   )
+
    uCalcTransform "precompile.uc|refactor.uc|implicit-dim.uc|typespecifiers.uc|implicit-convert.uc|strings.uc|filehandler.uc|math.uc|print.uc|pb-to-cpp.uc|beautify.uc" %1 %FILE%.cpp %2 /q
 )
