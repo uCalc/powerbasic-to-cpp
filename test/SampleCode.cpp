@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 05/30/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/02/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -627,7 +627,7 @@ string StringTest(string& MyString, string OtherString)
    string y;
    wstring z;
    
-   z = WideEquate + "Test";
+   z = WideEquate + L"Test";
    
    i = PB_INSTR(1, MyString, "abc");
    i = PB_INSTR(i+10, MyString, "xyz")*2;
@@ -728,7 +728,7 @@ double DoMath()
    float y; // Implicit
    
    int i;
-   if (x % 2 > short(sqrt(pow(x, 2) + pow(y, 2)))) {
+   if (int(x) % 2 > short(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
       q--;
