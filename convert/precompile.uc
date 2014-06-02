@@ -1,5 +1,5 @@
 # precompile.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/30/2014 8:36:41 AM
+# This file was saved with uCalc Transform 2.96 on 6/2/2014 6:25:42 PM
 # Comment: Inserts include files, handles directives, expands macros etc
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -60,6 +60,7 @@ Replace: {@Define:
             Syntax: % ::= {Nothing}   
             Var: Equates As Table
             Var: MetaIF = True
+            Var: NestedIF As Stack
          }
 
 Criteria: 2
@@ -71,7 +72,6 @@ Replace: ' =============== Include: {file} ===============
          
 
 Criteria: 3
-Selected: True
 BackColor: DarkKhaki
 Find: {nl}%{equate} = {value}
 Replace: {Self}{@Exec:
@@ -83,9 +83,17 @@ Replace: {Self}{@Exec:
 Criteria: 4
 BackColor: Yellow
 Find: {nl}#If {expr}
-Replace: {Self}{@Exec: IIf({expr}, MetaIF=True, MetaIF=False)}
+Replace: {Self}{@Exec:
+            IIf({expr}, MetaIF=True, MetaIF=False)
+            Push(NestedIF, MetaIF)
+         }
 
 Criteria: 5
+Selected: True
+Find: {nl}#EndIf
+Replace: {Self}{@Execute: MetaIF = PopNum(NestedIF)}
+
+Criteria: 6
 BackColor: Yellow
 Find: {nl}{line:".*"}
 Replace: {@Evaluate: IIf(MetaIF==False, "' ", "") }{Self}
