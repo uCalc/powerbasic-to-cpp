@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/02/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/03/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -44,7 +44,15 @@ void MultiDim();
 void TestByRef();
 // End of prototypes
 
-// File name: SampleCode.Bas
+// These equates may need to be adjusted manually
+// depending on the compiler version used
+// <WinAPI> PB_REVISION = &H501
+// <WinAPI> PB_REVLETTER = &H20
+// <WinAPI> PB_EXE = -1
+// <WinAPI> PB_CC32 = -1
+// <WinAPI> PB_DLL32 = 0
+// <WinAPI> PB_WIN32 = 0
+const int USEMACROS = -1; // File name: SampleCode.Bas
 // To convert this file to C++ make sure you have uCalc Transform on your PC
 // and *.uc from github.com/uCalc/powerbasic-to-cpp/tree/master/convert
 // Do the following at the Command Prompt:
@@ -71,7 +79,7 @@ std::vector<float> gArray2;
 #if defined Other
 // Something
 #elif !defined abcde
-// Something else
+//' Something else
 #else
 // Etc
 #endif
