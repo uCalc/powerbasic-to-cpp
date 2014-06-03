@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/15/2014 11:07:43 AM
+# This file was saved with uCalc Transform 2.96 on 6/3/2014 6:06:02 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -400,7 +400,6 @@ Find: Exit Sub
 Replace: return
 
 Criteria: 62
-Selected: True
 Find: Exit Function
 Replace: return _ReturnValue
 
@@ -678,5 +677,12 @@ Replace: {Nothing}
 Criteria: 119
 Find: std::vector<{type}> {name:1} "["{size}"]"
 Replace: std::vector<{type}>{name}({size})
+
+Criteria: 120
+Selected: True
+Find: #IncludeStart {file}.inc
+         {code+}
+      #IncludeEnd {etc}
+Replace: // #Include "{file}.inc"
 
 # End Search
