@@ -1,5 +1,5 @@
 # precompile.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/3/2014 6:17:36 PM
+# This file was saved with uCalc Transform 2.96 on 6/4/2014 5:07:40 PM
 # Comment: Inserts include files, handles directives, expands macros etc
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -14,7 +14,7 @@ FindMode: Replace
 # Search Criteria
 
 Criteria: 0
-Enabled: False
+Enabled: True
 Exclude: False
 Comment: Inserts include files, handles directives, expands macros etc
 Selected: False
@@ -52,7 +52,6 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Enabled: True
 PassOnce: False
 Find: {@Note:
          This file is still under construction.
@@ -74,7 +73,6 @@ Comment:
 Pass: 1
 
 Criteria: 3
-Enabled: True
 Selected: True
 PassOnce: False
 Find: {@Start}
@@ -87,16 +85,15 @@ Replace: ' These equates may need to be adjusted manually
          %PB_DLL32 = 0
          %PB_WIN32 = 0
          %USEMACROS = -1
+         
 
 Criteria: 4
-Enabled: True
 BackColor: Purple
 Find: { [{nl}]{comment:"'.*"} | {"_[^\n]*\n"} }
       {@If: IsInclude}
 Replace: {Nothing}
 
 Criteria: 5
-Enabled: False
 PassOnce: False
 Find: {nl}#Include {q}{file}{q}
 Replace: #IncludeStart {file}
@@ -105,7 +102,6 @@ Replace: #IncludeStart {file}
          {@Exec: IsInclude = True}
 
 Criteria: 6
-Enabled: True
 Find: {nl}#IncludeEnd
 Replace: {Self}{@Exec: IsInclude = False}
 
@@ -114,7 +110,6 @@ Comment:
 Pass: 2
 
 Criteria: 8
-Enabled: True
 BackColor: DarkKhaki
 Find: {nl}%{equate} = {value} [{"[?%&]+"}] [']
       
@@ -124,13 +119,11 @@ Replace: {Self}{@Exec:
          }
 
 Criteria: 9
-Enabled: True
 BackColor: Yellow
 Find: {nl}{line:".*"} {@If: MetaIF == False}
 Replace: {nl}'{line}
 
 Criteria: 10
-Enabled: True
 BackColor: Yellow
 Find: {nl}{" *#If"} {expr}
 Replace: {Self}{@Exec:
@@ -139,13 +132,11 @@ Replace: {Self}{@Exec:
          }
 
 Criteria: 11
-Enabled: True
 BackColor: Brown
 Find: {nl}{" *#Else"}
 Replace: {Self}{@Execute: MetaIF = -(MetaIF+1)}
 
 Criteria: 12
-Enabled: True
 BackColor: RoyalBlue
 Find: {nl}{" *#ElseIf"} {expr}
 Replace: {Self}{@Exec:
@@ -153,8 +144,11 @@ Replace: {Self}{@Exec:
          }
 
 Criteria: 13
-Enabled: True
 Find: {nl}{" *#EndIf"}
 Replace: {Self}{@Execute: MetaIF = PopNum(NestedIF)}
+
+Criteria: 14
+Find: 
+Replace: 
 
 # End Search
