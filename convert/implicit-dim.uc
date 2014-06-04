@@ -1,5 +1,5 @@
 # implicit-dim.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/16/2014 12:01:23 PM
+# This file was saved with uCalc Transform 2.96 on 6/4/2014 5:06:03 PM
 # Comment: Declares variables (with Dim) that were not explicitely declared before
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -91,7 +91,7 @@ Pass: 1
 
 Criteria: 3
 Selected: True
-Find: {nl}{routine: Sub | Function } {etc}([{args}]) [[{exp: Export}] As {type:1}]
+Find: {nl}{routine: Sub | Function } {etc}([{args}]) [[{exp: Export}] [As {type:1}]]
 Replace: {@Eval:
             Prototype = {Q}{routine} {etc}({args:Dim {args}}){exp}{type: As {type}}{Q}
             Prototypes += "{nl}Declare " + Prototype
