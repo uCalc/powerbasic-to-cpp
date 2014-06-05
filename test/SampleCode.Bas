@@ -447,6 +447,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    If Mid$(MyText$, 3, 5) = y$ Then Mid$(MyText$, 20) = "Test" + Str$(i*15) + "  " + Str$(10/7, 4)
    Mid$(x$, 25, Val(y$)+1) = y$ : Mid$(MyString$, 25, 5) = Mid$(y$, Val(x$), 7)
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
+   i = Val("123 Literal String") + Val("12" + "34") + Val("12" + y$)
 
    Poke$ VarPtr(i), "ABCD" : MyText$ = Peek$(VarPtr(i), 2)
    If i = 1 Then Exit Function
