@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/04/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/05/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -675,6 +675,7 @@ string StringTest(string& MyString, string OtherString)
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), 7), 25, 5);
    PB_MID_REPLACE(x, y, 25, FULL_STRING);
    PB_MID_REPLACE(MyString, PB_MID(y, stold(x), FULL_STRING), 25, FULL_STRING);
+   i = stold("123 Literal String")  + stold(string("12")+"34")  + stold("12" + y);
    
    PB_POKE_STR((unsigned)&i, "ABCD");
    MyText = PB_PEEK_STR((unsigned)&i, 2);
