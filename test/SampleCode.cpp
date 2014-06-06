@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/05/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/06/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -558,6 +558,8 @@ int main()
    PB_NAME("Temp.Txt", "Text.Tmp");
    PB_NAME("Something.Txt", "Other.Txt");
    
+   swap(MyString, FileInfo);
+   
    // The following should change casing to match that of original def, since C++ is case sensitive
    // For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
    
@@ -773,6 +775,8 @@ double DoMath()
    
    MyVar = -1 + 0 + 1.0F + 1.2F + 1.5 + 2.0 + 2.5 + 3  + 3  + 4  + 4L + 4L + 5U;
    i = 0x1A + 0x1B  + 0x1CL;
+   
+   swap(x, y);
    
    return _ReturnValue;
 }
