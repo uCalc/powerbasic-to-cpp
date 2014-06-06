@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/3/2014 6:06:02 PM
+# This file was saved with uCalc Transform 2.96 on 6/6/2014 3:54:22 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -562,66 +562,71 @@ Find: ::
 Replace: [Skip over]
 
 Criteria: 94
+Selected: True
+Find: Swap {a}, {b}
+Replace: swap({a}, {b})
+
+Criteria: 95
 Comment: Adds semi-colons to statements, etc
 Pass: 5
 
-Criteria: 95
+Criteria: 96
 Find: {@Start}
 Replace: {@Define:: Token: [\x7b\x7d\;]}
 
-Criteria: 96
+Criteria: 97
 Find: {nl} {code} [{comment:" *//.*"}] {delim-: {nl}}
 Replace: {nl}{code};{comment}
 
-Criteria: 97
+Criteria: 98
 SkipOver: True
 Find: {nl} [{code}] { ; | "{" | "}" } [// {".*"}] {delim-: {nl}}
 Replace: [Skip over]
 
-Criteria: 98
+Criteria: 99
 SkipOver: True
 Find: {nl} { # | // } [{".*"}]
 Replace: [Skip over]
 
-Criteria: 99
+Criteria: 100
 Comment: Nested UDTs - 1st pass (gather members)
 Pass: 6
 
-Criteria: 100
+Criteria: 101
 Find: {nl} struct {name} "{" {members+} "}";
 Replace: {Self}{@Eval: Dim {name} As String = {Q}{members}{Q}}
 
-Criteria: 101
+Criteria: 102
 Find: {nl} union {name} "{" {members+} "}";
 Replace: {Self}{@Eval: Dim {name} As String = {Q}union{{members}};{Q}}
 
-Criteria: 102
+Criteria: 103
 Comment: Nested UDTs - 2nd pass (insert members)
 Pass: 7
 
-Criteria: 103
+Criteria: 104
 Find: {nl} { struct | union }
 Replace: {Self}{@Eval: UDT = True}
 
-Criteria: 104
+Criteria: 105
 PassOnce: False
 Find: {nl}{nested:1}; {@If: UDT}
 Replace: {@Eval: {nested}}
 
-Criteria: 105
+Criteria: 106
 SkipOver: True
 Find: {nl}{type:1} {member};
 Replace: [Skip over]
 
-Criteria: 106
+Criteria: 107
 Find: {nl} "}";
 Replace: {Self}{@Eval: UDT = False}
 
-Criteria: 107
+Criteria: 108
 Comment: Adds default values in function prototypes for optional parameters
 Pass: 8
 
-Criteria: 108
+Criteria: 109
 PassOnce: False
 Find: Optional {type:1}[{ptr: *}]{arg:1} [{more: , [Optional] {etc}}]
 Replace: {type} {ptr}{arg} = {@Eval:
@@ -631,55 +636,54 @@ Replace: {type} {ptr}{arg} = {@Eval:
             Chr(34, 34))))
          }{more: , Optional {etc}}
 
-Criteria: 109
+Criteria: 110
 Find: Optional {@If: IsPrototype==0}
 Replace: {Nothing}
 
-Criteria: 110
+Criteria: 111
 SkipOver: True
 Find: // {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 111
+Criteria: 112
 Find: {nl}// End of prototypes
 Replace: {Self}{@Exec: IsPrototype = 0}
 
-Criteria: 112
+Criteria: 113
 Comment: Misc
 Pass: 9
 
-Criteria: 113
+Criteria: 114
 SkipOver: True
 Find: { // {comment:".*"} | /* {commentB~} */ }
 Replace: [Skip over]
 
-Criteria: 114
+Criteria: 115
 Find: {" \xFF\xFF\n"}
 Replace: {nl}
 
-Criteria: 115
+Criteria: 116
 Find: {" \xFF"}{comment:"[^\xFF]+"}{"\xFF\n"}
 Replace:  /* {comment} */{nl}
 
-Criteria: 116
+Criteria: 117
 Find: @
 Replace: *
 
-Criteria: 117
+Criteria: 118
 Highlight: True
 Find: @{pointer:1}.
 Replace: {pointer}->
 
-Criteria: 118
+Criteria: 119
 Find: `{@Comment: removes temp char for type member access}
 Replace: {Nothing}
 
-Criteria: 119
+Criteria: 120
 Find: std::vector<{type}> {name:1} "["{size}"]"
 Replace: std::vector<{type}>{name}({size})
 
-Criteria: 120
-Selected: True
+Criteria: 121
 Find: #IncludeStart {file}.inc
          {code+}
       #IncludeEnd {etc}
