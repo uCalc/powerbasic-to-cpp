@@ -367,6 +367,8 @@ Function PBMain()
 
    Name "Temp.Txt" As "Text.Tmp" : Name "Something.Txt" As "Other.Txt"
 
+   Swap MyString$, FileInfo$
+
    ' The following should change casing to match that of original def, since C++ is case sensitive
    ' For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
 
@@ -511,6 +513,8 @@ Function DoMath() As Double
 
    MyVar## = -1 + 0 + 1! + 1.2! + 1.5# + 2## + 2.5## + 3& + 3.1& + 3.7& + 4&& + 4.3&& + 5???
    i = &h1A + &h1B& + &h1C&&
+
+   Swap x, y
 End Function
 
 ' Console routines
