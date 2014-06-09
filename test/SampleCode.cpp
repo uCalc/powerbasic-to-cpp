@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/06/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/09/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -69,11 +69,11 @@ const int EquateWithComment = 123; // This is a comment
 const string StrEquate = "Just a test: ";
 const wstring WideEquate = L"This is a wide string equate";
 
-int ProgStatus;
-float MyValue;
-string Label;
-EXTENDED ExtVal;
-__int64 qNum;
+int ProgStatus = int();
+float MyValue = float();
+string Label = string();
+EXTENDED ExtVal = EXTENDED();
+__int64 qNum = __int64();
 std::vector<int> gArray;
 std::vector<float> gArray2;
 
@@ -173,11 +173,11 @@ int MyFunction(int a, float& b)
 {
    int _ReturnValue = int();
    
-   int x;
-   int y;
+   int x = int();
+   int y = int();
    std::vector<int>Test(a+25+1);
-   int yVar;
-   int MyValue;
+   int yVar = int();
+   int MyValue = int();
    // Dim q As Long
    // The commented line above is not translated
    
@@ -210,13 +210,13 @@ int MyFunction(int a, float& b)
 
 void MySub(int x, std::vector<double>& dArray)
 {
-   short i; // Implicit
+   short i = short(); // Implicit
    
-   int y;
+   int y = int();
    float *Test;
    std::vector<float>Number(10+1);
    std::vector<int>Other(x+1);
-   int z;
+   int z = int();
    
    z = (dArray.size()-1);
    z = (Number.size()-1);
@@ -256,7 +256,7 @@ void MySub(int x, std::vector<double>& dArray)
       }
    }
    
-   OtherType t1;
+   OtherType t1 = OtherType();
    OtherType *t2;
    
    i = sizeof(t1); // Len(t1)
@@ -280,8 +280,8 @@ void MySub(int x, std::vector<double>& dArray)
    i = t2->Third->d->x;
    i = *t1.Second + t1.Third->b + t2->First + *t2->Second + t2->Third->a + *t2->Third->b + t2->Third->d->x;
    
-   NestedTypeA NstA;
-   NestedTypeB NstB;
+   NestedTypeA NstA = NestedTypeA();
+   NestedTypeB NstB = NestedTypeB();
    
    NstA.Item1 = 123;
    NstA.x = 10;
@@ -300,15 +300,15 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
                          double& OtherVar, /* Everything after _ is a comment */
                          float *FinalArg)
 {
-   int abcd; // Implicit
-   __int64 q; // Implicit
-   float xyz; // Implicit
+   int abcd = int(); // Implicit
+   __int64 q = __int64(); // Implicit
+   float xyz = float(); // Implicit
    // Embedded comments after _ are preserved in their original location
    
    std::vector<int>MyArray(10+1);
-   pointType MyPoint;
+   pointType MyPoint = pointType();
    pointType *pp;
-   int n;
+   int n = int();
    
    for (x=1; x<=10; x += 1) { // Just a test {comment}.
       n = y == z; // This works differently in PB than in C++
@@ -371,7 +371,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
 int TestFunc(int& a, UCHAR& b, int& c, short& i, string& s, float& n)
 {
    int _ReturnValue = int();
-   double PriceB; // Implicit
+   double PriceB = double(); // Implicit
    
    cout << PZONE << MyValue << PZONE << Label << PriceB << endl;
    cout << endl;
@@ -391,10 +391,10 @@ string Report(string& LastName, int x, double& NewPrice, float& n, short i, floa
 {
    string _ReturnValue = string();
    
-   string FirstName;
-   UCHAR Age;
-   double Total;
-   static int Index;
+   string FirstName = string();
+   UCHAR Age = UCHAR();
+   double Total = double();
+   static int Index = int();
    
    cout << PZONE << LastName << PZONE << x << PZONE << NewPrice << PZONE << n << PZONE << i << PZONE << nValue << qValue << endl;
    _ReturnValue = FirstName + LastName;
@@ -445,18 +445,18 @@ void DoSomething(int Arg1, string& txt, EXTENDED& Number, unsigned *xyz)
 int main()
 {
    int _ReturnValue = int();
-   short BinFile; // Implicit
-   short i; // Implicit
-   short InFile; // Implicit
+   short BinFile = short(); // Implicit
+   short i = short(); // Implicit
+   short InFile = short(); // Implicit
    
-   EXTENDED x;
-   EXTENDED pi;
-   string MyString;
-   string FileInfo;
+   EXTENDED x = EXTENDED();
+   EXTENDED pi = EXTENDED();
+   string MyString = string();
+   string FileInfo = string();
    std::vector<string>MyFile(50+1);
-   int n;
-   unsigned dwTest;
-   string Num;
+   int n = int();
+   unsigned dwTest = unsigned();
+   string Num = string();
    std::vector<double>mArray(10+1);
    
    n = sizeof(TestType); // Len(TestType)
@@ -563,9 +563,9 @@ int main()
    // The following should change casing to match that of original def, since C++ is case sensitive
    // For instance if a function is defined as Hello() then occurrences of HELLO() change to Hello()
    
-   MyUnion UnionTest;
-   pointType OtherItem;
-   int MixedCasing;
+   MyUnion UnionTest = MyUnion();
+   pointType OtherItem = pointType();
+   int MixedCasing = int();
    i = MyEquate + MyFunc(123) + MyMacroNum + ProgStatus + ImplicitVar(MixedCasing);
    MultiDim();
    MyExportSub(10, 20);
@@ -579,16 +579,16 @@ int main()
 
 void Rename1()
 {
-   int Throw; // Implicit
-   int unsigned_Renamed; // Implicit
+   int Throw = int(); // Implicit
+   int unsigned_Renamed = int(); // Implicit
    
    // Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
    // Note: Items are renamed only if they are lowercase; otherwise there's no conflict
-   int auto_Renamed;
-   int Break;
-   double float_Renamed;
-   UCHAR char_Renamed;
-   int This;
+   int auto_Renamed = int();
+   int Break = int();
+   double float_Renamed = double();
+   UCHAR char_Renamed = UCHAR();
+   int This = int();
    
    Break = FALSE;
    for (auto_Renamed=1; auto_Renamed<=10; auto_Renamed += 1) {
@@ -603,16 +603,16 @@ void Rename1()
 
 void Rename2()
 {
-   int throw_Renamed; // Implicit
-   int Unsigned; // Implicit
+   int throw_Renamed = int(); // Implicit
+   int Unsigned = int(); // Implicit
    
    // Variables etc in your PB code that may conflict with C++ keywords like char, float, etc are renamed
    // Note: Items are renamed only if they are lowercase; otherwise there's no conflict
-   int auto_Renamed;
-   int break_Renamed;
-   double Float;
-   UCHAR Char;
-   int This;
+   int auto_Renamed = int();
+   int break_Renamed = int();
+   double Float = double();
+   UCHAR Char = UCHAR();
+   int This = int();
    
    break_Renamed = FALSE;
    for (auto_Renamed=1; auto_Renamed<=10; auto_Renamed += 1) {
@@ -630,13 +630,13 @@ string StringTest(string& MyString, string OtherString)
 {
    string _ReturnValue = string();
    
-   string MyText;
-   int i;
-   wstring MyWideStr;
-   string Txt;
-   string x;
-   string y;
-   wstring z;
+   string MyText = string();
+   int i = int();
+   wstring MyWideStr = wstring();
+   string Txt = string();
+   string x = string();
+   string y = string();
+   wstring z = wstring();
    
    z = WideEquate + L"Test";
    
@@ -704,7 +704,7 @@ extern "C" __declspec(dllexport) int __stdcall MyExport(int n) {
 }
 
 extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
-   string q; // Implicit
+   string q = string(); // Implicit
    
    DoSomething(1, lvalue(string("xyz")), lvalue(EXTENDED(2)), (unsigned *)(a));
     {
@@ -733,13 +733,13 @@ extern "C" __declspec(dllexport) void __stdcall MyExportSub(int a, UCHAR b) {
 double DoMath()
 {
    double _ReturnValue = double();
-   EXTENDED MyVar; // Implicit
-   float n; // Implicit
-   __int64 q; // Implicit
-   float x; // Implicit
-   float y; // Implicit
+   EXTENDED MyVar = EXTENDED(); // Implicit
+   float n = float(); // Implicit
+   __int64 q = __int64(); // Implicit
+   float x = float(); // Implicit
+   float y = float(); // Implicit
    
-   int i;
+   int i = int();
    if (int(x) % 2 > short(sqrt(pow(x, 2) + pow(y, 2)))) {
       q++;
    } else {
@@ -795,12 +795,12 @@ int PBConsoleTest()
 // Test for the PRINT function
 void PrintTest()
 {
-   int a; // Implicit
-   UCHAR b; // Implicit
-   int c; // Implicit
-   int d; // Implicit
-   int e; // Implicit
-   int f; // Implicit
+   int a = int(); // Implicit
+   UCHAR b = UCHAR(); // Implicit
+   int c = int(); // Implicit
+   int d = int(); // Implicit
+   int e = int(); // Implicit
+   int f = int(); // Implicit
    
    cout << endl;
    cout << a << endl;
@@ -827,19 +827,19 @@ void PrintTest()
 short ImplicitVar(int x)
 {
    short _ReturnValue = short();
-   __int64 b1; // Implicit
-   int b2; // Implicit
-   short b3; // Implicit
-   UCHAR b4; // Implicit
-   USHORT b5; // Implicit
-   unsigned b6; // Implicit
-   float b7; // Implicit
-   double B8; // Implicit
-   EXTENDED B9; // Implicit
-   short i; // Implicit
-   int LastNum; // Implicit
-   float OtherValue; // Implicit
-   string text; // Implicit
+   __int64 b1 = __int64(); // Implicit
+   int b2 = int(); // Implicit
+   short b3 = short(); // Implicit
+   UCHAR b4 = UCHAR(); // Implicit
+   USHORT b5 = USHORT(); // Implicit
+   unsigned b6 = unsigned(); // Implicit
+   float b7 = float(); // Implicit
+   double B8 = double(); // Implicit
+   EXTENDED B9 = EXTENDED(); // Implicit
+   short i = short(); // Implicit
+   int LastNum = int(); // Implicit
+   float OtherValue = float(); // Implicit
+   string text = string(); // Implicit
    
    for (x=1; x<=10; x += 1) {
       i = x * 10;
@@ -880,9 +880,9 @@ float OptionalArgs3(int a, string b, double c, int d)
 }
 
 std::vector<unsigned> g1;
-unsigned g2;
-unsigned g3;
-unsigned g4;
+unsigned g2 = unsigned();
+unsigned g3 = unsigned();
+unsigned g4 = unsigned();
 
 void MultiDim()
 {
@@ -890,10 +890,10 @@ void MultiDim()
    int *b;
    int *c;
    int *d;
-   static string s1;
+   static string s1 = string();
    static std::vector<string> s2;
-   static string s3;
-   static string s4;
+   static string s3 = string();
+   static string s4 = string();
    //+++   Static s1, s2[10], s3, s4 As String
    // Do things
 }
@@ -905,16 +905,16 @@ void MultiDim()
 
 void TestByRef()
 {
-   short i; // Implicit
+   short i = short(); // Implicit
    
    // Args for TestFunc (defined earlier) are all passed by reference
    // TestFunc(a As Long, b As Byte, c As Long, i As Integer, s As String, n As Single)
    
-   int VarLong;
-   UCHAR VarByte;
-   short VarInt;
-   string VarString;
-   float VarSingle;
+   int VarLong = int();
+   UCHAR VarByte = UCHAR();
+   short VarInt = short();
+   string VarString = string();
+   float VarSingle = float();
    
    i = TestFunc(VarLong, VarByte, VarLong, VarInt, VarString, VarSingle);
    i = TestFunc(lvalue(int((VarLong))), lvalue(UCHAR((VarByte))), lvalue(int((VarLong))), lvalue(short((VarInt))), lvalue(string((VarString))), lvalue(float((VarSingle))));
