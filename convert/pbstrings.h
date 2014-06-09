@@ -53,7 +53,7 @@ inline string PB_REMOVE_ANY(const string& Str, const string& Match) {
    string Ret=Str; for(int x=0; x<Match.length(); x++) Ret.erase(remove(Ret.begin(), Ret.end(), Match[x]), Ret.end()); return Ret;
 }
 
-inline string PB_REPEAT(const string& Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr; } // +++ must optimize this
+inline string PB_REPEAT(const string& Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr; }
 
 inline int PB_ASC(const string& Str, int pos) { return (int)Str.at(pos-1); }
 
