@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/9/2014 6:01:05 PM
+# This file was saved with uCalc Transform 2.96 on 6/10/2014 7:16:26 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -322,7 +322,6 @@ Find: End { Type | Union }
 Replace: };
 
 Criteria: 48
-Selected: True
 Highlight: True
 BackColor: Orange
 PassOnce: False
@@ -339,10 +338,11 @@ Replace: {nl}{@Eval:
          } {bitfield} : {size};
 
 Criteria: 50
+Selected: True
 Highlight: True
 PassOnce: False
 Find: Dim {array}([{size}]) As {type}
-Replace: std::vector<{type}> {array}{size: ({size}+1)};{@Define::Pass: 6 ~~ Syntax: {array}({sz}) ::= {array}[{sz}]}{@Define::Pass: 6 ~~ Syntax: {array}() ::= {array}}
+Replace: std::vector<{type}> {array}{size: ({size}+1, {type}())};{@Define::Pass: 6 ~~ Syntax: {array}({sz}) ::= {array}[{sz}]}{@Define::Pass: 6 ~~ Syntax: {array}() ::= {array}}
 
 Criteria: 51
 Find: Erase {array:1}[()]
