@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/09/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/10/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -175,7 +175,7 @@ int MyFunction(int a, float& b)
    
    int x = int();
    int y = int();
-   std::vector<int>Test(a+25+1);
+   std::vector<int>Test(a+25+1, int());
    int yVar = int();
    int MyValue = int();
    // Dim q As Long
@@ -214,8 +214,8 @@ void MySub(int x, std::vector<double>& dArray)
    
    int y = int();
    float *Test;
-   std::vector<float>Number(10+1);
-   std::vector<int>Other(x+1);
+   std::vector<float>Number(10+1, float());
+   std::vector<int>Other(x+1, int());
    int z = int();
    
    z = (dArray.size()-1);
@@ -305,7 +305,7 @@ void TestCertainOperators(int x, /* ' This line is broken up using a _ (undersco
    float xyz = float(); // Implicit
    // Embedded comments after _ are preserved in their original location
    
-   std::vector<int>MyArray(10+1);
+   std::vector<int>MyArray(10+1, int());
    pointType MyPoint = pointType();
    pointType *pp;
    int n = int();
@@ -453,11 +453,11 @@ int main()
    EXTENDED pi = EXTENDED();
    string MyString = string();
    string FileInfo = string();
-   std::vector<string>MyFile(50+1);
+   std::vector<string>MyFile(50+1, string());
    int n = int();
    unsigned dwTest = unsigned();
    string Num = string();
-   std::vector<double>mArray(10+1);
+   std::vector<double>mArray(10+1, double());
    
    n = sizeof(TestType); // Len(TestType)
    n = string(FileInfo).length(); // Len(FileInfo$)
