@@ -33,8 +33,7 @@ PB_CV(PB_CVL,   int)
 PB_CV(PB_CVQ,   long long)
 PB_CV(PB_CVS,   float)
 PB_CV(PB_CVWRD, unsigned short)
-// PB_CV(PB_CVCUR, ...) +++ no C++ type for currency
-// PB_CV(PB_CVCUX, ...)
+
 
 inline string PB_PEEK_STR(int address, int count) { return string((char *)address, count); }
 inline void PB_POKE_STR(int address, const string& data) { memmove((void *)address, data.c_str(), data.length()); }
