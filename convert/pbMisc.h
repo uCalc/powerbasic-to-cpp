@@ -55,6 +55,7 @@ inline int PB_LOF(fstream& file) {
 #define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
 #define PB_EXP10(number) (10^(number))
 
+inline bool PB_EQV(bool x, bool y) { return (x && y || !x && !y) ? true : false }
 inline EXTENDED PB_FIX(EXTENDED n) {EXTENDED fix; modf(n, &fix); return fix;}
 inline EXTENDED PB_FRAC(EXTENDED n) {EXTENDED ignore; return modf(n, &ignore);}
 inline int _round(EXTENDED number) { return (number > 0.0) ? (number + 0.5) : (number - 0.5); }
