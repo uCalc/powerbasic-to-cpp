@@ -496,7 +496,8 @@ Function DoMath() As Double
    i = Min&(3, -10, 7, -1, Max&(3, 1, 7, -5), 23, 11)
    i = Min&(1, 2, Max(5, 6, 7.5))
    i = 10 \ 3
-'   i = 123 eqv 345    +++ doesn't work yet
+   i = 123 eqv 345
+   If x > 1 Eqv y > 2 Then i = 10
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
