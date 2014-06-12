@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/11/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/12/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -500,7 +500,7 @@ int main()
    dwTest = PB_CVDWD(MyString, 3);
    
    BinFile = 1;
-   InFile  = 2;
+   InFile = 2;
    
    // File handling test
    fstream file_BinFile (string("MyBin.Txt").c_str(), ios::binary | ios::in | ios::out);
@@ -754,7 +754,10 @@ double DoMath()
    i = PB_MIN_INT(ARGCOUNT(7), (int)3, (int) -10, (int) 7, (int) -1, (int) PB_MAX_INT(ARGCOUNT(4), (int)3, (int) 1, (int) 7, (int) -5), (int) 23, (int) 11);
    i = PB_MIN_INT(ARGCOUNT(3), (int)1, (int) 2, (int) PB_MAX(ARGCOUNT(3), (double)5, (double) 6, (double) 7.5));
    i = _round(10 / 3);
-   //   i = 123 eqv 345    +++ doesn't work yet
+   i = PB_EQV(123, 345);
+   if (PB_EQV(x > 1, y > 2)) {
+      i = 10;
+   }
    
    srand(1234);
    y = (rand() / RAND_MAX) + (rand() / RAND_MAX) + (rand() % (2014) + (1995));
