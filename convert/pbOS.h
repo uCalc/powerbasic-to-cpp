@@ -1,6 +1,5 @@
 // This file is for handling operating system dependent code that might not be directly
 // portable using the same method.
-// +++ These might eventually (maybe) be replaced with Boost C++ Libraries
 
 // The actual transforms that convert to this code are found in *.uc
 
