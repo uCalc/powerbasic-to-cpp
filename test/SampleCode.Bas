@@ -498,6 +498,7 @@ Function DoMath() As Double
    i = 10 \ 3
    i = 123 eqv 345
    If x > 1 Eqv y > 2 Then i = 10
+   i = 123 Xor 456
 
    Randomize 1234
    y = Rnd + Rnd() + Rnd(1995, 2014)
