@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/12/2014 8:59:48 AM
+# This file was saved with uCalc Transform 2.96 on 6/16/2014 6:24:19 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -88,146 +88,151 @@ Find: {x%} Eqv {y%}
 Replace: PB_EQV({x}, {y})
 
 Criteria: 8
+Selected: True
+Precedence: 19
+Find: {x%} Imp {y%}
+Replace: PB_IMP({x}, {y})
+
+Criteria: 9
 Precedence: 1
 Find: To {etc%}
 Replace: To {etc}
 
-Criteria: 9
+Criteria: 10
 Find: If {cond%} Then
 Replace: If {cond} Then
 
-Criteria: 10
-Selected: True
+Criteria: 11
 Find: {nl} {var:1} = {etc%}
 Replace: {nl} {var} = {etc}
 
-Criteria: 11
+Criteria: 12
 Comment: Bitwise AND and OR
 Pass: 2
 
-Criteria: 12
+Criteria: 13
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 13
+Criteria: 14
 Comment: Bitwise AND and OR
 BackColor: YellowGreen
 Find: ({expr})
 Replace: ({@Evaluate: Replace(Replace({expr}, "And", "&"), "Or", "|")})
 
-Criteria: 14
+Criteria: 15
 Comment: Everything else
 Pass: 3
 
-Criteria: 15
+Criteria: 16
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 16
+Criteria: 17
 Find: Mod
 Replace: %
 
-Criteria: 17
+Criteria: 18
 BackColor: Yellow
 Find: Atn
 Replace: atan
 
-Criteria: 18
+Criteria: 19
 BackColor: Lime
 Find: Sqr
 Replace: sqrt
 
-Criteria: 19
+Criteria: 20
 BackColor: Pink
 Find: Cint
 Replace: Integer
 
-Criteria: 20
+Criteria: 21
 Find: Int(
 Replace: __int64(
 
-Criteria: 21
+Criteria: 22
 BackColor: Red
 Find: Incr {var:1}
 Replace: {var}++
 
-Criteria: 22
+Criteria: 23
 BackColor: RoyalBlue
 Find: Decr {var:1}
 Replace: {var}--
 
-Criteria: 23
+Criteria: 24
 Comment: Logical (short-circuit) AND
 Find: And
 Replace: &&
 
-Criteria: 24
+Criteria: 25
 Comment: Logical (short-circuit) OR
 BackColor: Purple
 Find: Or
 Replace: ||
 
-Criteria: 25
+Criteria: 26
 BackColor: Khaki
 Find: Xor
 Replace: ^
 
-Criteria: 26
+Criteria: 27
 BackColor: Green
 Find: Not
 Replace: ~
 
-Criteria: 27
+Criteria: 28
 SkipOver: True
 Find: #{metastatement:1} Not
 Replace: [Skip over]
 
-Criteria: 28
+Criteria: 29
 BackColor: Silver
 Find: IsTrue {x%}  [{stop-: And | Or | Then | : }]
 Replace: (({x}) != 0)
 
-Criteria: 29
+Criteria: 30
 BackColor: SandyBrown
 Find: IsFalse {x%} [{stop-: And | Or | Then | : }]
 Replace: !({x})
 
-Criteria: 30
+Criteria: 31
 BackColor: Violet
 Find: <>
 Replace: !=
 
-Criteria: 31
+Criteria: 32
 Find: Randomize {number%}
 Replace: srand({number})
 
-Criteria: 32
+Criteria: 33
 Find: Rnd[()]
 Replace: (rand() / RAND_MAX)
 
-Criteria: 33
+Criteria: 34
 Find: Rnd({a%}, {b%})
 Replace: (rand() % ({b}) + ({a}))
 
-Criteria: 34
+Criteria: 35
 Find: Shift Right {ivar}, {countexpr%}
 Replace: {ivar} = ({ivar} >> {countexpr})
 
-Criteria: 35
+Criteria: 36
 Find: Shift Left {ivar}, {countexpr%}
 Replace: {ivar} = ({ivar} << {countexpr})
 
-Criteria: 36
+Criteria: 37
 Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
 Replace: {@Evaluate: LCase("{func}", "{'.*'}")}
 
-Criteria: 37
+Criteria: 38
 Find: {func: Exp10 | Fix | Frac | Sgn}
 Replace: PB_{@Evaluate: UCase("{func}", "{'.*'}")}
 
-Criteria: 38
+Criteria: 39
 PassOnce: False
 Find: {func: Min | Max}[{ {int: &} | {str: $} | {dbl: } }]
       ({args})
@@ -240,7 +245,7 @@ Replace: PB_{@Evaluate:
          Tally({args}, ",", Skip("({nest})"))+1}), {@Evaluate:
          Type + Replace({args}, ",", ", "+Type, Skip("({nest})"))})
 
-Criteria: 39
+Criteria: 40
 Find: )()
 Replace: ){@Note:
             because of problem "between = {etc#%}" in pass 1
