@@ -498,6 +498,7 @@ Function DoMath() As Double
    i = 10 \ 3
    i = 123 eqv 345
    If x > 1 Eqv y > 2 Then i = 10
+   If 123 Xor 456 Then i = 1
    i = 123 Xor 456
    i = 123 Imp 456
 
