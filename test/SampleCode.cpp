@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/16/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/17/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -758,7 +758,10 @@ double DoMath()
    if (PB_EQV(x > 1, y > 2)) {
       i = 10;
    }
-   i = 123 ^ 456;
+   if (PB_XOR(123, 456)) {
+      i = 1;
+   }
+   i = PB_XOR(123, 456);
    i = PB_IMP(123, 456);
    
    srand(1234);
