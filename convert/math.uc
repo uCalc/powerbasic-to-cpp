@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/16/2014 6:24:19 PM
+# This file was saved with uCalc Transform 2.96 on 6/17/2014 7:44:29 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -88,98 +88,98 @@ Find: {x%} Eqv {y%}
 Replace: PB_EQV({x}, {y})
 
 Criteria: 8
-Selected: True
-Precedence: 19
+Precedence: 18
 Find: {x%} Imp {y%}
 Replace: PB_IMP({x}, {y})
 
 Criteria: 9
+Precedence: 20
+Find: {x%} Xor {y%}
+Replace: PB_XOR({x}, {y})
+
+Criteria: 10
 Precedence: 1
 Find: To {etc%}
 Replace: To {etc}
 
-Criteria: 10
+Criteria: 11
 Find: If {cond%} Then
 Replace: If {cond} Then
 
-Criteria: 11
+Criteria: 12
 Find: {nl} {var:1} = {etc%}
 Replace: {nl} {var} = {etc}
 
-Criteria: 12
+Criteria: 13
 Comment: Bitwise AND and OR
 Pass: 2
 
-Criteria: 13
+Criteria: 14
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 14
+Criteria: 15
 Comment: Bitwise AND and OR
 BackColor: YellowGreen
 Find: ({expr})
 Replace: ({@Evaluate: Replace(Replace({expr}, "And", "&"), "Or", "|")})
 
-Criteria: 15
+Criteria: 16
 Comment: Everything else
 Pass: 3
 
-Criteria: 16
+Criteria: 17
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
-Criteria: 17
+Criteria: 18
 Find: Mod
 Replace: %
 
-Criteria: 18
+Criteria: 19
 BackColor: Yellow
 Find: Atn
 Replace: atan
 
-Criteria: 19
+Criteria: 20
 BackColor: Lime
 Find: Sqr
 Replace: sqrt
 
-Criteria: 20
+Criteria: 21
 BackColor: Pink
 Find: Cint
 Replace: Integer
 
-Criteria: 21
+Criteria: 22
 Find: Int(
 Replace: __int64(
 
-Criteria: 22
+Criteria: 23
 BackColor: Red
 Find: Incr {var:1}
 Replace: {var}++
 
-Criteria: 23
+Criteria: 24
 BackColor: RoyalBlue
 Find: Decr {var:1}
 Replace: {var}--
 
-Criteria: 24
+Criteria: 25
 Comment: Logical (short-circuit) AND
 Find: And
 Replace: &&
 
-Criteria: 25
+Criteria: 26
 Comment: Logical (short-circuit) OR
 BackColor: Purple
 Find: Or
 Replace: ||
 
-Criteria: 26
-BackColor: Khaki
-Find: Xor
-Replace: ^
-
 Criteria: 27
+Selected: True
 BackColor: Green
 Find: Not
 Replace: ~
