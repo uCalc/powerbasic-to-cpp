@@ -108,7 +108,7 @@ Replace: If {cond} Then
 
 Criteria: 12
 Find: {nl} {var:1} = {etc%}
-Replace: {nl} {var} = {etc}
+Replace: {nl} {var} = {etc} {@Note: Must fix >=}
 
 Criteria: 13
 Comment: Bitwise AND and OR
