@@ -1,5 +1,5 @@
 # pb-to-cpp.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/10/2014 7:16:26 PM
+# This file was saved with uCalc Transform 2.96 on 6/19/2014 7:46:46 PM
 # Comment: Converts PB source code to C++; modified by Daniel Corbier
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -125,8 +125,9 @@ Find: =
 Replace: ==
 
 Criteria: 12
+Selected: True
 SkipOver: True
-Find: { + | - | * | / | % | & | ^ | ! | _ReturnValue }=
+Find: { + | - | * | / | % | & | ^ | ! | > | < | _ReturnValue }=
 Replace: [Skip over]
 
 Criteria: 13
@@ -338,7 +339,6 @@ Replace: {nl}{@Eval:
          } {bitfield} : {size};
 
 Criteria: 50
-Selected: True
 Highlight: True
 PassOnce: False
 Find: Dim {array}([{size}]) As {type}
