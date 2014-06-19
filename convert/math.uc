@@ -1,5 +1,5 @@
 # math.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/17/2014 7:44:29 PM
+# This file was saved with uCalc Transform 2.96 on 6/19/2014 7:45:05 PM
 # Comment: Converts math-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -108,7 +108,7 @@ Replace: If {cond} Then
 
 Criteria: 12
 Find: {nl} {var:1} = {etc%}
-Replace: {nl} {var} = {etc} {@Note: Must fix >=}
+Replace: {nl} {var} = {etc}
 
 Criteria: 13
 Comment: Bitwise AND and OR
@@ -179,60 +179,70 @@ Find: Or
 Replace: ||
 
 Criteria: 27
-Selected: True
 BackColor: Green
 Find: Not
 Replace: ~
 
 Criteria: 28
+Comment: Alternative PB notation
+Find: =>
+Replace: >=
+
+Criteria: 29
+Comment: Alternative PB notation
+Selected: True
+Find: =<
+Replace: <=
+
+Criteria: 30
 SkipOver: True
 Find: #{metastatement:1} Not
 Replace: [Skip over]
 
-Criteria: 29
+Criteria: 31
 BackColor: Silver
 Find: IsTrue {x%}  [{stop-: And | Or | Then | : }]
 Replace: (({x}) != 0)
 
-Criteria: 30
+Criteria: 32
 BackColor: SandyBrown
 Find: IsFalse {x%} [{stop-: And | Or | Then | : }]
 Replace: !({x})
 
-Criteria: 31
+Criteria: 33
 BackColor: Violet
 Find: <>
 Replace: !=
 
-Criteria: 32
+Criteria: 34
 Find: Randomize {number%}
 Replace: srand({number})
 
-Criteria: 33
+Criteria: 35
 Find: Rnd[()]
 Replace: (rand() / RAND_MAX)
 
-Criteria: 34
+Criteria: 36
 Find: Rnd({a%}, {b%})
 Replace: (rand() % ({b}) + ({a}))
 
-Criteria: 35
+Criteria: 37
 Find: Shift Right {ivar}, {countexpr%}
 Replace: {ivar} = ({ivar} >> {countexpr})
 
-Criteria: 36
+Criteria: 38
 Find: Shift Left {ivar}, {countexpr%}
 Replace: {ivar} = ({ivar} << {countexpr})
 
-Criteria: 37
+Criteria: 39
 Find: {func: Abs|Sin|Cos|Tan|Exp|Exp2|Log|Log2|Log10|Ceil}
 Replace: {@Evaluate: LCase("{func}", "{'.*'}")}
 
-Criteria: 38
+Criteria: 40
 Find: {func: Exp10 | Fix | Frac | Sgn}
 Replace: PB_{@Evaluate: UCase("{func}", "{'.*'}")}
 
-Criteria: 39
+Criteria: 41
 PassOnce: False
 Find: {func: Min | Max}[{ {int: &} | {str: $} | {dbl: } }]
       ({args})
@@ -245,7 +255,7 @@ Replace: PB_{@Evaluate:
          Tally({args}, ",", Skip("({nest})"))+1}), {@Evaluate:
          Type + Replace({args}, ",", ", "+Type, Skip("({nest})"))})
 
-Criteria: 40
+Criteria: 42
 Find: )()
 Replace: ){@Note:
             because of problem "between = {etc#%}" in pass 1
