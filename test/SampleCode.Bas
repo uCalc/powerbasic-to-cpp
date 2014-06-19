@@ -499,7 +499,7 @@ Function DoMath() As Double
    i = 123 eqv 345
    If x > 1 Eqv y > 2 Then i = 10
    If 123 Xor 456 Then i = 1
-   If i >= n Or i => y Then i = 1 ' >= And => are synonymous for "greater or equal" +++ Need to fix
+   If i >= n Or i => y Or n =< 1 Or i <= 1 Then i = 1 ' >= & => as well as <= & =< are synonymous in PB
    i = 123 Xor 456
    i = 123 Imp 456
 
