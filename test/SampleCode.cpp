@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.96 on 06/18/14 using the Open Source 
+// with uCalc Transform 2.96 on 06/19/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -761,8 +761,8 @@ double DoMath()
    if (PB_XOR(123, 456)) {
       i = 1;
    }
-   if (i >== n || i ==> y) {
-      i = 1; // >= And => are synonymous for "greater or equal" +++ Need to fix
+   if (i >= n || i >= y || n <= 1 || i <= 1) {
+      i = 1; // >= & => as well as <= & =< are synonymous in PB
    }
    i = PB_XOR(123, 456);
    i = PB_IMP(123, 456);
