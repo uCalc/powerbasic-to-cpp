@@ -451,6 +451,8 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
    i = Val("123 Literal String") + Val("12" + "34") + Val("12" + y$)
 
+   RegExpr "t..t" In "This and that" To i
+
    Poke$ VarPtr(i), "ABCD" : MyText$ = Peek$(VarPtr(i), 2)
    If i = 1 Then Exit Function
 
