@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/6/2014 5:07:06 PM
+# This file was saved with uCalc Transform 2.96 on 6/20/2014 5:29:31 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -195,19 +195,23 @@ Find: Peek$({args})
 Replace: PB_PEEK_STR((DWord){args})
 
 Criteria: 32
-Selected: True
 Find: Poke$ {address}, {stringexpr}
 Replace: PB_POKE_STR((DWord){address}, {stringexpr})
 
 Criteria: 33
+Selected: True
+Find: RegExpr {mask} In {main} To {iPos}
+Replace: PB_REGEXPR({mask}, {main}, {iPos})
+
+Criteria: 34
 Comment: Doubles backslash to avoid escape
 Pass: 2
 
-Criteria: 34
+Criteria: 35
 Find: {q}{text$}{q}
 Replace: {q}{@Evaluate: Replace({text}, "\", "\\")}{q}
 
-Criteria: 35
+Criteria: 36
 Find: 
 Replace: 
 
