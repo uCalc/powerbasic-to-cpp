@@ -453,6 +453,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
 
    RegExpr "t..t" In "This and that" To i
    RegExpr "t..t" In "This and that" At 5 To i
+   RegExpr "t..t" In "This and that" At 5 To i, LengthVal
 
    Poke$ VarPtr(i), "ABCD" : MyText$ = Peek$(VarPtr(i), 2)
    If i = 1 Then Exit Function
