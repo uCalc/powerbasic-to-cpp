@@ -2,6 +2,9 @@
 // https://github.com/uCalc/powerbasic-to-cpp/tree/master/convert/pbstrings.h
 // Contributor(s): Daniel Corbier
 
+#define PB_DISCARD lvalue(int(0))
+#define PB_DISCARD_STR lvalue(string(""))
+
 #define FULL_STRING string::npos
 
 #define PB_LEFT(MainStr, n) ( string(MainStr).substr(0, (n)) )
