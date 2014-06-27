@@ -461,6 +461,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    If x$ = $Cr Or x$ = $Lf Or x$ = $Nul Then MyText$ = "Line 1" + $CrLf + "Line 2" + $Qcq + "quote"+$Dq +$Tab
    MyText$ = Hex$(123) + "   " + Oct$(1+2+3)
    MyText$ = Retain$("This is a test", "is")
+   MyText$ = Retain$("This is a test", Any "is")
    ' +++ C++ doesn't seem to have a built-in string stream flag for Binary
 End Function
 
