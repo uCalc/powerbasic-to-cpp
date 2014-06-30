@@ -462,6 +462,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    MyText$ = Hex$(123) + "   " + Oct$(1+2+3)
    MyText$ = Retain$("This is a test", "is")
    MyText$ = Retain$("This is a test", Any "is")
+   MyText$ = StrReverse$("This is a test")
    ' +++ C++ doesn't seem to have a built-in string stream flag for Binary
 End Function
 
