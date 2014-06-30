@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.98 on 06/27/14 using the Open Source 
+// with uCalc Transform 2.98 on 06/30/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -696,6 +696,7 @@ string StringTest(string& MyString, string OtherString)
    MyText = PB_HEX(123) + "   " + PB_OCT(1+2+3);
    MyText = PB_RETAIN("This is a test", "is");
    MyText = PB_RETAIN_ANY("This is a test", "is");
+   MyText = PB_STRREVERSE("This is a test");
    // +++ C++ doesn't seem to have a built-in string stream flag for Binary
    
    return _ReturnValue;
