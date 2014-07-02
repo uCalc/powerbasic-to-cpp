@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.98 on 7/1/2014 6:28:28 PM
+# This file was saved with uCalc Transform 2.98 on 7/2/2014 5:24:57 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -214,8 +214,8 @@ Replace: PB_STRREVERSE({main})
 
 Criteria: 37
 Selected: True
-Find: Verify({main}, {match})
-Replace: PB_VERIFY({main}, {match})
+Find: Verify([{start=1}, ] {main}, {match})
+Replace: PB_VERIFY({start}, {main}, {match})
 
 Criteria: 38
 Comment: Doubles backslash to avoid escape
