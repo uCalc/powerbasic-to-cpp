@@ -451,6 +451,7 @@ Function StringTest(MyString$, ByVal OtherString As String) As String
    Mid$(x$, 25) = y$ : Mid$(MyString$, 25) = Mid$(y$, Val(x$))
    i = Val("123 Literal String") + Val("12" + "34") + Val("12" + y$)
    i = Verify("This is a test", "abcde")
+   i = Verify(5, "This is a test", "abcde")
 
    RegExpr "t..t" In "This and that" To i
    RegExpr "t..t" In "This and that" At 5 To i
