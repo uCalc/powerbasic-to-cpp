@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.98 on 07/02/14 using the Open Source 
+// with uCalc Transform 2.98 on 07/03/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -685,6 +685,8 @@ string StringTest(string& MyString, string OtherString)
    PB_REGEXPR("t..t", "This & that", 1, i, PB_DISCARD);
    PB_REGEXPR("t..t", "This & that", 5, i, PB_DISCARD);
    PB_REGEXPR("t..t", "This & that", 5, i, LengthVal);
+   
+   PB_REGREPL("..", "This is a Test", "new", i, MyText);
    
    PB_POKE_STR((unsigned)&i, "ABCD");
    MyText = PB_PEEK_STR((unsigned)&i, 2);
