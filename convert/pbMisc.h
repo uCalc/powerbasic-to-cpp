@@ -55,6 +55,8 @@ inline int PB_LOF(fstream& file) {
 #define PB_SGN(number) ((number > 0) ? 1 : ((number < 0) ? -1 : 0))
 #define PB_EXP10(number) (10^(number))
 
+inline bool PB_IMP(bool x, bool y) { return (x == true && y == false) ? false : true; }
+//inline bool PB_IMP(int  x, int  y) { return (x == true && y == false) ? false : true; }
 inline bool PB_XOR(bool x, bool y) { return (x != y || x != y) ? true : false; }
 inline int  PB_XOR(int  x, int  y) { return x ^ y | x ^ y; }
 inline bool PB_EQV(bool x, bool y) { return (x && y || !x && !y) ? true : false; }
