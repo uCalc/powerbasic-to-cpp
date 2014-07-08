@@ -1,12 +1,10 @@
 # refactor.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/29/2014 6:14:24 PM
+# This file was saved with uCalc Transform 2.98 on 7/8/2014 5:08:53 PM
 # Comment: This rewrites code in more proper PB form
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
 ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
-
-FindMode: Replace
 
 # Definitions
 
@@ -92,8 +90,15 @@ Comment: Misc
 Pass: 3
 
 Criteria: 9
-Comment: Adds parenthesis around args in function/sub calls that do not have it
 Selected: True
+Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ()
+Replace: {@Define::
+            {@Eval: "PassOnce ~~ Syntax: {name} ::= {name}()"}
+            {@Eval: "SkipOver ~~ Syntax: {name} ()"}
+         }{Self}
+
+Criteria: 10
+Comment: Adds parenthesis around args in function/sub calls that do not have it
 BackColor: Lime
 Find: [Declare]{ Function|Sub } {name} [Lib {lib}] [Alias {alias}] ({args})
 Replace: {@Evaluate:
@@ -104,19 +109,19 @@ Replace: {@Evaluate:
             {@Eval: "SkipOver ~~ Syntax: {name} ({etc})"}
          }{Self}
 
-Criteria: 10
+Criteria: 11
 Comment: Adds () As Long to PBMain if missing
 Find: Function PBMain [()] [As Long]
 Replace: Function PBMain() As Long
 
-Criteria: 11
+Criteria: 12
 PassOnce: False
 Find: {dim: Local|Global|Static}
       [{etc},] {item:1}[{array1: ()}], {last:1}[{array2: ()}] As {type}
 Replace: {dim} {etc: {etc},} {item}{array1} As {type}
          {dim} {last}{array2} As {type}
 
-Criteria: 12
+Criteria: 13
 Find: Call {function} [To {var:1}]
 Replace: {var: {var} = }{function}
 
