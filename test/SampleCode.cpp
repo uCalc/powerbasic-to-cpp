@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.98 on 07/07/14 using the Open Source 
+// with uCalc Transform 2.98 on 07/08/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -572,7 +572,7 @@ int main()
    PrintTest;
    i = MyFunc(123);
    Bye();
-   Bye;
+   Bye();
    
    return _ReturnValue;
 }
