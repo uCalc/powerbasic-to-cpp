@@ -58,6 +58,8 @@ inline string PB_REMOVE_ANY(const string& Str, const string& Match) {
 
 inline string PB_REPEAT(const string& Str, long count) { string NewStr; for(int x=1; x <= count; x++) NewStr += Str; return NewStr; }
 
+inline string PB_REVERSE(string Str) { reverse(Str.begin(), Str.end()); return Str; }
+
 inline int PB_ASC(const string& Str, int pos) { return (int)Str.at(pos-1); }
 
 inline string PB_STR(long double number, int prec=16) { stringstream Str; Str.precision(prec); Str << number; return Str.str(); }
