@@ -1,12 +1,10 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 5/29/2014 5:56:28 PM
+# This file was saved with uCalc Transform 2.98 on 7/10/2014 7:19:42 PM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
 ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
-
-FindMode: Replace
 
 # Definitions
 
@@ -80,7 +78,6 @@ Pass: 1
 
 Criteria: 3
 Enabled: True
-Selected: True
 Highlight: False
 Find: {nl}[Declare] { Function | Sub } {name~:1} [Alias {alias}] ([{args%}]) [As {ftype:1=void}]
 Replace: {@Exec:
@@ -201,8 +198,8 @@ Criteria: 20
 Enabled: True
 BackColor: CornflowerBlue
 PassOnce: False
-Find: `WString({arg1}) + `String({arg2})
-Replace: `WString({arg1}) + `WString(string({arg2}))
+Find: `WString({arg1}) + `StringLit({arg2})
+Replace: `WString({arg1}) + `WString(L{arg2})
 
 Criteria: 21
 Enabled: True
@@ -280,17 +277,5 @@ Enabled: True
 PassOnce: False
 Find: { ` | ## }{type:1}({arg}) {@If: Final}
 Replace: {arg}
-
-Criteria: 33
-Enabled: False
-BackColor: Red
-Find: ##{type:1}
-Replace: {Self}
-
-Criteria: 34
-Enabled: False
-Comment: This line is there to provide highlighting for clarity
-Find: `{type:1}
-Replace: {Self}
 
 # End Search
