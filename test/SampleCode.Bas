@@ -153,6 +153,8 @@ Sub MySub(ByVal x As Long, dArray() As Double)
 
    Dim t1 As OtherType, t2 As OtherType Ptr
 
+   t2 = VarPtr(t1)
+
    i = Len(t1)       ' Len(t1)
    i = Len(TestType) ' Len(TestType)
    i = Len("Test")   ' Len("Test")
