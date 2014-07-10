@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.98 on 07/08/14 using the Open Source 
+// with uCalc Transform 2.98 on 07/10/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -258,6 +258,8 @@ void MySub(int x, std::vector<double>& dArray)
    
    OtherType t1 = OtherType();
    OtherType *t2;
+   
+   t2 = &t1;
    
    i = sizeof(t1); // Len(t1)
    i = sizeof(TestType); // Len(TestType)
