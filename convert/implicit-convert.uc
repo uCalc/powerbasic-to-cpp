@@ -1,5 +1,5 @@
 # implicit-convert.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.98 on 7/10/2014 7:19:42 PM
+# This file was saved with uCalc Transform 2.98 on 7/11/2014 8:18:09 AM
 # Comment: Handles implicit data type conversions
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -12,7 +12,7 @@ ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, Fi
 # Search Criteria
 
 Criteria: 0
-Enabled: False
+Enabled: True
 Exclude: False
 Comment: Handles implicit data type conversions
 Selected: False
@@ -50,7 +50,6 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
-Enabled: True
 Highlight: False
 Find: 
 Replace: {@Eval:
@@ -77,7 +76,6 @@ Comment: Inserts data type names in front of variabls and functions
 Pass: 1
 
 Criteria: 3
-Enabled: True
 Highlight: False
 Find: {nl}[Declare] { Function | Sub } {name~:1} [Alias {alias}] ([{args%}]) [As {ftype:1=void}]
 Replace: {@Exec:
@@ -92,7 +90,6 @@ Replace: {@Exec:
          }{@Define:: {@Eval: Def}}{Self}
 
 Criteria: 4
-Enabled: True
 Highlight: False
 Find: { Global | Local | Static | Dim | , | { ByVal | ByRef } } {var:1}[([{size}])] As {type:1}
 Replace: {Self}{@Execute: Insert(Variables, {var})
@@ -100,32 +97,27 @@ Replace: {Self}{@Execute: Insert(Variables, {var})
          }{@Define:: Pass: 1 ~~ Syntax: {var}([{i%}]) ::= `{type}({var}({i}))}
 
 Criteria: 5
-Enabled: True
 Highlight: False
 Find: {number}
 Replace: {@Eval: IIf(Int({number})=={number}, "`Long({number})", "`Extended({number})")}
 
 Criteria: 6
-Enabled: True
 Highlight: False
 BackColor: RoyalBlue
 Find: {q}{text}{q}
 Replace: `StringLit({Self})
 
 Criteria: 7
-Enabled: True
 Highlight: False
 BackColor: Pink
 Find: {func: Asc|InStr|Len|UBound|VarPtr|StrPtr|Ceil|Int } ({args%})
 Replace: `Long({func}({args}))
 
 Criteria: 8
-Enabled: True
 Find: {func: Sin|Cos|Tan|Atn|Exp|Exp2|Exp10|Log|Log2|Log10|Abs } ({args%})
 Replace: `Extended({func}({args}))
 
 Criteria: 9
-Enabled: True
 Highlight: False
 BackColor: SlateBlue
 Find: {func:
@@ -135,22 +127,18 @@ Find: {func:
 Replace: `String({func}$({args}))
 
 Criteria: 10
-Enabled: True
 Find: {nl}${equate:1}
 Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: ${equate} ::= `String(${equate})}
 
 Criteria: 11
-Enabled: True
 Find: {nl}$${equate:1}
 Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: $${equate} ::= `WString($${equate})}
 
 Criteria: 12
-Enabled: True
 Find: {nl}%{equate:1}
 Replace: {Self}{@Define:: Pass: 1 ~~ Syntax: %{equate} ::= `Long(%{equate})}
 
 Criteria: 13
-Enabled: True
 Highlight: False
 BackColor: Purple
 SkipOver: True
@@ -160,14 +148,12 @@ Find: {nl} { Type | Union }
 Replace: [Skip over]
 
 Criteria: 14
-Enabled: True
 BackColor: Khaki
 SkipOver: True
 Find: {nl}{ # | ! | ASM } {etc} {@Note: Skips metastatements, ASM}
 Replace: [Skip over]
 
 Criteria: 15
-Enabled: True
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
@@ -177,67 +163,58 @@ Comment: Convert
 Pass: 2
 
 Criteria: 17
-Enabled: True
 BackColor: Violet
 PassOnce: False
 Find: ##Asciiz(string({arg}))
 Replace: `Asciiz({arg}.c_str())
 
 Criteria: 18
-Enabled: True
 Find: `StringLit({arg})
 Replace: `String({arg})
 
 Criteria: 19
-Enabled: True
 PassOnce: False
 Find: `StringLit({arg1})+`StringLit({arg2})
 Replace: `String(string({arg1})+{arg2})
 
 Criteria: 20
-Enabled: True
 BackColor: CornflowerBlue
 PassOnce: False
 Find: `WString({arg1}) + `StringLit({arg2})
 Replace: `WString({arg1}) + `WString(L{arg2})
 
 Criteria: 21
-Enabled: True
 Find: Len({other})
 Replace: sizeof({other})
 
 Criteria: 22
-Enabled: True
 BackColor: SandyBrown
 PassOnce: False
 Find: Len(`String({arg}))
 Replace: string({arg}).length()
 
 Criteria: 23
-Enabled: True
 BackColor: Gold
 PassOnce: False
 Find: Len(`LPCSTR({arg}))
 Replace: `Long(strlen({arg}))
 
 Criteria: 24
-Enabled: True
 PassOnce: False
 Find: `{ Extended | Ext }
 Replace: `Double
 
 Criteria: 25
-Enabled: True
 SkipOver: True
 Find: ' {Comment:".*"}
 Replace: [Skip over]
 
 Criteria: 26
-Comment: Highlights the inserted data type names
+Comment: Handles ByRef and removes temp characters
 Pass: 3
 
 Criteria: 27
-Enabled: True
+Selected: True
 Find: {@Start}
       {@Note:
          The use of Final is due to a limitation where immediate expansion in
@@ -247,33 +224,28 @@ Find: {@Start}
 Replace: {@Exec: Final = True}
 
 Criteria: 28
-Enabled: True
 PassOnce: False
 Find: ByRef(##{RequiredType}({arg}))  {@If: Final}
 Replace: lvalue({RequiredType}({arg}))
 
 Criteria: 29
-Enabled: True
 PassOnce: False
 Find: ByRef(##{RequiredType}(`{ActualType}({scalar:1}[()])))
       {@If: Final == True And Index(Variables, {scalar}) <> 0}
 Replace: {scalar}
 
 Criteria: 30
-Enabled: True
 PassOnce: False
 Find: ByRef(##{RequiredType}(`{ActualType}({array:1}({index}))))
       {@If: Final == True And Index(Variables, {array}) <> 0}
 Replace: {array}({index})
 
 Criteria: 31
-Enabled: True
 PassOnce: False
 Find: Ptr(##{RequiredType}({arg}))
 Replace: ({RequiredType} *)({arg})
 
 Criteria: 32
-Enabled: True
 PassOnce: False
 Find: { ` | ## }{type:1}({arg}) {@If: Final}
 Replace: {arg}
