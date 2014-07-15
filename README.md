@@ -13,8 +13,10 @@ To convert your source code with this tool, do the following:
    3. Place the file(s) you want to convert in the same directory as the files from this page
    4. Run uCalc Transform, then click on the `C:\> Batch` button
    5. Go to the directory containing your file(s), and type: PBtoCPP.Bat MyFile.Bas
-
+   
 (where MyFile.Bas is the file you want to convert)
+
+To load transforms for editing, enter LoadAll.Bat at the command prompt.
 
 ### Using uCalc Transform
 ![uCalc Transform](http://www.ucalc.com/images/pbtocpp.png "uCalc Transform Example")
