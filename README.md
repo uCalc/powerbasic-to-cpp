@@ -16,6 +16,7 @@ To convert your source code with this tool, do the following:
    
 (where MyFile.Bas is the file you want to convert)
 
+PBtoCPP.Bat /D to debug (produces intermediate files)
 PBtoCPP.Bat /F for faster transform
 
 To load transforms for editing, enter LoadAll.Bat at the command prompt.
