@@ -12,6 +12,7 @@
 // TODO: reference additional headers your program requires here
 //#include <cmath>
 #include <mathimf.h> // Use this for Intel C++, or <cmath> otherwise
+#include <bitset>
 #include <cstdlib>
 #include <vector>
 #include <cstdarg>
