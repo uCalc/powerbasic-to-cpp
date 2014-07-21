@@ -1,5 +1,5 @@
 # strings.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.98 on 7/4/2014 5:16:57 PM
+# This file was saved with uCalc Transform 2.98 on 7/21/2014 7:25:20 PM
 # Comment: Converts string-related code from PowerBASIC to C++
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
@@ -201,7 +201,6 @@ Find: RegExpr {mask} In {main} [At {start=1}] To {iPos} [, {iLen=PB_DISCARD}]
 Replace: PB_REGEXPR({mask}, {main}, {start}, {iPos}, {iLen})
 
 Criteria: 34
-Selected: True
 Find: RegRepl {mask} In {main} With {repl} [At {start=1}] To {ipos}, {newmain}
 Replace: PB_REGREPL({start}, {mask}, {main}, {repl}, {ipos}, {newmain})
 
@@ -222,10 +221,15 @@ Find: Verify([{start=1}, ] {main}, {match})
 Replace: PB_VERIFY({start}, {main}, {match})
 
 Criteria: 39
+Selected: True
+Find: Tab$({StrToTab}, {TabStop})
+Replace: PB_TAB({StrToTab}, {TabStop})
+
+Criteria: 40
 Comment: Doubles backslash to avoid escape
 Pass: 2
 
-Criteria: 40
+Criteria: 41
 Find: {q}{text$}{q}
 Replace: {q}{@Evaluate: Replace({text}, "\", "\\")}{q}
 
