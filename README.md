@@ -19,6 +19,8 @@ To convert your source code with this tool, do the following:
 PBtoCPP.Bat /D to debug (produces intermediate files)
 PBtoCPP.Bat /F for faster transform
 
+This requires version 2.98 or above.
+
 To load transforms for editing, enter LoadAll.Bat at the command prompt.
 
 ### Using uCalc Transform
