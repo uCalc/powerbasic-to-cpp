@@ -1,5 +1,5 @@
 // This file (SampleCode.cpp) was converted from SampleCode.Bas
-// with uCalc Transform 2.98 on 07/10/14 using the Open Source 
+// with uCalc Transform 2.98 on 07/23/14 using the Open Source 
 // PowerBASIC to C++ converter found at https://github.com/uCalc/powerbasic-to-cpp
 
 // Standard lib headers used by PB to C++ are in sdtafx.h & pre-compiled
@@ -46,12 +46,12 @@ void TestByRef();
 
 // These equates may need to be adjusted manually
 // depending on the compiler version used
-// <WinAPI> PB_REVISION = &H501
-// <WinAPI> PB_REVLETTER = &H20
-// <WinAPI> PB_EXE = -1
-// <WinAPI> PB_CC32 = -1
+//%PB_REVISION = &H501
+//%PB_REVLETTER = &H20
+//%PB_EXE = -1
+//%PB_CC32 = -1
 // <WinAPI> PB_DLL32 = 0
-// <WinAPI> PB_WIN32 = 0
+//%PB_WIN32 = 0
 const int USEMACROS = -1;
 // File name: SampleCode.Bas
 // To convert this file to C++ make sure you have uCalc Transform on your PC
