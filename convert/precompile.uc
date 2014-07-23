@@ -1,12 +1,10 @@
 # precompile.uc - uCalc Transformation file
-# This file was saved with uCalc Transform 2.96 on 6/4/2014 5:07:40 PM
+# This file was saved with uCalc Transform 2.98 on 7/23/2014 3:56:58 PM
 # Comment: Inserts include files, handles directives, expands macros etc
 
 ExternalKeywords: Exclude, Comment, Selected, ParentChild, FindMode, InputFile, OutputFile, BatchAction, SEND
 ExternalKeywords: Highlight, ForeColor, BackColor, FontName, FontSize, FontStyle
 ExternalKeywords: FilterEndText, FilterSeparator, FilterSort, FilterSortFunc, FilterStartText, FilterUnique, FilterTally
-
-FindMode: Replace
 
 # Definitions
 
@@ -52,6 +50,7 @@ Precedence: 0
 RightToLeft: False
 
 Criteria: 1
+Selected: True
 PassOnce: False
 Find: {@Note:
          This file is still under construction.
@@ -73,17 +72,16 @@ Comment:
 Pass: 1
 
 Criteria: 3
-Selected: True
 PassOnce: False
 Find: {@Start}
 Replace: ' These equates may need to be adjusted manually
          ' depending on the compiler version used
-         %PB_REVISION = &H501
-         %PB_REVLETTER = &H20
-         %PB_EXE = -1
-         %PB_CC32 = -1
+         '%PB_REVISION = &H501
+         '%PB_REVLETTER = &H20
+         '%PB_EXE = -1
+         '%PB_CC32 = -1
          %PB_DLL32 = 0
-         %PB_WIN32 = 0
+         '%PB_WIN32 = 0
          %USEMACROS = -1
          
 
